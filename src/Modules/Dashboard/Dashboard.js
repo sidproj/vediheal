@@ -8,7 +8,7 @@ import Footer from "../../Components/Footer/Footer";
 function Dashboard() {
   return (
     <div className="container">
-      <img src={require("../../assets/banner.png")} width="100%" />
+      <img src={require("../../assets/banner.png")} width="100%" alt="img" />
       <div className="titleContainer">
         Modern problems with <span className="redText">Vedic</span> solutions
       </div>
@@ -23,9 +23,13 @@ function Dashboard() {
       <Feedback />
       <div className="connect">Connect with us</div>
       <div className="connectIcon">
-        <img src={require("../../assets/insta.png")} height="20px" />
-        <img src={require("../../assets/fb.png")} height="20px" />
-        <img src={require("../../assets/youtube.png")} height="20px" />
+        <img src={require("../../assets/insta.png")} height="20px" alt="img" />
+        <img src={require("../../assets/fb.png")} height="20px" alt="img" />
+        <img
+          src={require("../../assets/youtube.png")}
+          height="20px"
+          alt="img"
+        />
       </div>
       <Footer />
     </div>

@@ -51,7 +51,7 @@ function Service() {
           return (
             <div className="card">
               <div>
-                <img src={card.image} height="100px" />
+                <img src={card.image} height="100px" alt="img" />
               </div>
               <div className="cardText">
                 <div dangerouslySetInnerHTML={{ __html: card.label }}></div>

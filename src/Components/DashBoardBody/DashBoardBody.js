@@ -43,7 +43,7 @@ function DashBoardBody() {
         {_.map(benefits, (benefit) => {
           return (
             <div className="benefitContainer">
-              <img src={benefit.image} height="60px" />
+              <img src={benefit.image} height="60px" alt="img" />
               <div className="benefitLabel">{benefit.label}</div>
               <div className="benefitSubtext">{benefit.subtext}</div>
             </div>
