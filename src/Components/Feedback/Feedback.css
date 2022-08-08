@@ -1,0 +1,17 @@
+.feedbackContainer{
+    display: flex;
+    padding: 20px;
+    overflow-x: auto;
+    column-gap: 20px;
+}
+
+.feedback{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    padding: 10px;
+}
+
+.comment{
+    font-size: 0.6rem;
+}

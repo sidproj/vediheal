@@ -1,0 +1,36 @@
+.serviceContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    row-gap: 20px;
+}
+
+.serviceTitle{
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.serviceCards{
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.card{
+    display: flex;
+    background-color: #f8cfc1;
+    border-radius: 8px;
+}
+
+.cardText{
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    padding: 4px;
+}
+
+.cardSubtext {
+    font-size: 0.6rem;
+}

@@ -1,0 +1,39 @@
+.bodyContainer{
+    background-color: #ff4d4d;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bodyTitle {
+    font-weight: 600;
+}
+
+.bodySubtext {
+    color: white;
+    font-size: 0.8rem;
+    padding: 20px;
+    text-align: center;
+}
+
+.benefitContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 20px;
+    row-gap: 10px;
+}
+
+.benefitLabel{
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.benefitSubtext {
+    font-size: 0.8rem;
+}
