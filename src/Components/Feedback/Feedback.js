@@ -30,9 +30,9 @@ function Feedback() {
   return (
     <div>
       <div className="feedbackContainer">
-        {_.map(feedbackDetails, (feedback) => {
+        {_.map(feedbackDetails, (feedback, index) => {
           return (
-            <div className="feedback">
+            <div className="feedback" key={index}>
               <Rating />
               <div className="redText">{feedback.name}</div>
               <div className="comment">{feedback.comment}</div>

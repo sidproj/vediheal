@@ -40,9 +40,9 @@ function DashBoardBody() {
         Pain, Sleep disturbances, health crisis and many more.
       </div>
       <div>
-        {_.map(benefits, (benefit) => {
+        {_.map(benefits, (benefit, index) => {
           return (
-            <div className="benefitContainer">
+            <div className="benefitContainer" key={index}>
               <img src={benefit.image} height="60px" alt="img" />
               <div className="benefitLabel">{benefit.label}</div>
               <div className="benefitSubtext">{benefit.subtext}</div>
