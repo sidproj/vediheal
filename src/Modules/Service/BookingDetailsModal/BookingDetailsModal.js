@@ -1,4 +1,3 @@
-import _ from "lodash";
 import React from "react";
 import "./BookingDetailsModal.css";
 
@@ -9,13 +8,17 @@ function BookingDetailsModal({ resetBooking, details }) {
       <div className="Headercontainer">
         <div className="header">
           <div className="backButton" onClick={() => resetBooking()}>
-            <img src={require("../../../assets/back.png")} height="24px" />
+            <img
+              src={require("../../../assets/back.png")}
+              height="24px"
+              alt="header"
+            />
           </div>
           <div>Book Your Reiki</div>
         </div>
         <div className="headerBody">
           <div>
-            <img src={image} height="80px" />
+            <img src={image} height="80px" alt="header" />
           </div>
           <div className="rightContainer">
             <div className="rightContainerHeader">{label}</div>
@@ -26,6 +29,7 @@ function BookingDetailsModal({ resetBooking, details }) {
                     <img
                       src={require("../../../assets/tick.png")}
                       height="18px"
+                      alt="header"
                     />
                     {benefit}
                   </div>
