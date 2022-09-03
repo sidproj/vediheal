@@ -50,7 +50,7 @@ function BookingDetailsModal({ resetBooking, details }) {
       <div className="sessions">
         {sessionPlan.map((plan, i) => {
           return (
-            <div className="sessionCard" key={i}>
+            <div className="sessionCard smallfont" key={i}>
               <div>{plan.label}</div>
               <div className="priceContainer">
                 ₹{plan.price}/
