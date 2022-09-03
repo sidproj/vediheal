@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
+import CheckoutModal from "../CheckoutModal/CheckoutModal";
 import "./BookingDetailsModal.css";
 
 function BookingDetailsModal({ resetBooking, details }) {
   const { image, label, benefits, sessionPlan, body, expectation } = details;
+  const [showBookingModal, setShowBookingModal] = useState(false);
+  const onProceedClick = () => {
+    setShowBookingModal(true);
+  };
+  const closeCheckoutModal = () => {
+    setShowBookingModal(false);
+  };
   return (
     <div className="modalContainer">
       <div className="Headercontainer">
@@ -44,19 +52,26 @@ function BookingDetailsModal({ resetBooking, details }) {
           return (
             <div className="sessionCard" key={i}>
               <div>{plan.label}</div>
-              <div>
+              <div className="priceContainer">
                 ₹{plan.price}/
                 {plan.sessionCount > 1
                   ? plan.sessionCount + " Sessions"
                   : "Session"}
+                <input type="radio" className="radioButton" name={"radio"} />
               </div>
             </div>
           );
         })}
       </div>
+      <div className="bookingButton" onClick={() => onProceedClick()}>
+        PROCEED
+      </div>
       <div className="reikiBody">{body}</div>
       <div className="expect">What to expect</div>
       <div className="reikiBody">{expectation}</div>
+      {showBookingModal && (
+        <CheckoutModal onClose={() => closeCheckoutModal()} details={details} />
+      )}
     </div>
   );
 }

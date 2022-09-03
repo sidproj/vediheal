@@ -1,0 +1,99 @@
+.checkoutModalContainer{
+    position: fixed;
+    margin: 0;
+    top:0;
+    height:100vh;
+    width: 100vw;
+    z-index: 101;
+    background-color: #fce4de;
+    color: black;
+    overflow-y: auto;
+}
+
+.checkoutHeader{
+    height:30px;
+    display: flex;
+    padding:10px;
+}
+
+.checkoutTitleContainer{
+    background-color: #f8cfc1;
+    border-radius: 70px;
+    margin: 0 10px 0 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.checkoutBodyContainer{
+    margin: 10px;
+    background-color: #f6f1eb;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    row-gap: 10px;
+
+}
+
+.bodyCard{
+    background-color: #f8cfc1;
+    border-radius: 8px;
+    display: flex;
+    column-gap: 20px;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+}
+
+.checkoutBody{
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.price{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.smallfont{
+    font-size: 0.8rem;
+}
+
+.inputText{
+    background-color: transparent;
+    padding: 4px;
+    line-height: 2rem;
+    border: 0px;
+    border-bottom: 1px solid black;
+    width: 100%;
+}
+
+.applyCoupon{
+    position: absolute;
+    margin-right: 0;
+    transform: rotate(180deg);
+
+}
+
+.coupon{
+    display: flex;
+    column-gap: 5px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.bookingButton{
+    background-color: #ff4d4d;
+    border-radius: 70px;
+    width: max-content;
+    margin: 20px auto;
+    padding: 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    justify-content: center;
+    align-items: center;
+    /* font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
+}
