@@ -1,5 +1,5 @@
 import _ from "lodash";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BookingDetailsModal from "./BookingDetailsModal/BookingDetailsModal";
 import "./Service.css";
 
@@ -197,6 +197,17 @@ const servicedCards = [
 ];
 
 function Service() {
+
+  useEffect(()=>{
+    async function getData(){
+      const reikis = await fetch("http://localhost:5000/reiki");
+      const body = await reikis.json();
+      setReikiData(body);
+    }
+    getData();
+  },[]);
+
+  const [reikiData,setReikiData] = useState();
   const [showModal, setShowModal] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const showBookingDetails = ({ card }) => {

@@ -11,6 +11,7 @@ export default function Routing() {
       <BrowserRouter>
         <switch>
           <Route path="/" exact component={Dashboard} />
+          <Route path='/login' exact component=""/>
           <Route path="/service" component={Service} />
         </switch>
       </BrowserRouter>
