@@ -33,6 +33,8 @@ const benefits = [
 ];
 function DashBoardBody() {
   return (
+    <>
+    
     <div className="bodyContainer">
       <div className="bodyTitle">WHY REKI OVER THERAPY?</div>
       <div className="bodySubtext">
@@ -51,6 +53,7 @@ function DashBoardBody() {
         })}
       </div>
     </div>
+   </> 
   );
 }
 
