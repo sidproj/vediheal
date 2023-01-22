@@ -2,15 +2,16 @@ import React from "react";
 import "./Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import SidebarRight from '../Sidebar/SidebarRight.js'
+
 
 function Header() {
   return (
     <div className="headerContainer">
-      <img src={require("../../assets/logo.png")} height="45px" alt="img" />
+      <a href="/"><img src={require("../../assets/logo.png")} height="45px" alt="img" /></a>
 
-      <div className="menuContainer">
-        <FontAwesomeIcon icon={faBars} height="20px" />
-      </div>
+      <SidebarRight isLoggedIn = {true}/> 
     </div>
   );
 }

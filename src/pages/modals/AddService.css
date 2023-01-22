@@ -1,0 +1,8 @@
+.servicelist{
+	display: flex;
+	flex-direction: column;
+
+}
+.btn-col{
+    background-color: #fce4de !important;
+}

@@ -1,18 +1,18 @@
-import _ from "lodash";
-import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import BookingDetailsModal from "./BookingDetailsModal/BookingDetailsModal";
-import "./Service.css";
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
 
-const servicedCards = [
+function Booking() {
+
+  const details = [
   {
     id: 1,
     label: `Anti-<span class="redText">Depression</span> Reiki`,
     subtext:
       "Reiki is a scientific and research-proven technique to get rid of anxiety and depression through our body’s natural healing ability.",
-    image: require("../../assets/5.png"),
+    image: require("../assets/5.png"),
     bookingDetails: {
-      image: require("../../assets/5.png"),
+      image: require("../assets/5.png"),
       label: "Anti-depression Reiki",
       benefits: [
         "Boosts Mood",
@@ -48,9 +48,9 @@ const servicedCards = [
     label: `Pain <span class="redText">Relief </span> Reiki`,
     subtext:
       "Reiki is a scientific and research-proven technique that helps decrease pain perception by healing the emotional aspect of pain.",
-    image: require("../../assets/6.png"),
+    image: require("../assets/6.png"),
     bookingDetails: {
-      image: require("../../assets/6.png"),
+      image: require("../assets/6.png"),
       label: "Pain relief",
       benefits: [
         "Boosts Mood",
@@ -86,9 +86,9 @@ const servicedCards = [
     label: `Reiki for <span class="redText">Addiction</span> and <span class="redText">detoxification.</span>`,
     subtext:
       " Reiki helps a person to shift their energy in a positive direction and no longer want to use or abuse any illicit substances.",
-    image: require("../../assets/7.png"),
+    image: require("../assets/7.png"),
     bookingDetails: {
-      image: require("../../assets/6.png"),
+      image: require("../assets/6.png"),
       label: "Reiki for addiction and detoxification",
       benefits: [
         "Boosts Mood",
@@ -124,9 +124,9 @@ const servicedCards = [
     label: `Sleep <span class="redText">Disturbance</span> Reiki`,
     subtext:
       "Reiki is a scientific and research-proven technique that helps in solving the problems like Insomnia or Narcolepsy.",
-    image: require("../../assets/8.png"),
+    image: require("../assets/8.png"),
     bookingDetails: {
-      image: require("../../assets/8.png"),
+      image: require("../assets/8.png"),
       label: "Sleep disturbance reiki",
       benefits: [
         "Boosts Mood",
@@ -162,9 +162,9 @@ const servicedCards = [
     label: `Health <span class="redText">Crisis </span> Reiki`,
     subtext:
       "Support the well-being of people receiving traditional medical treatments such as chemotherapy, radiation, surgery, and kidney dialysis.",
-    image: require("../../assets/9.png"),
+    image: require("../assets/9.png"),
     bookingDetails: {
-      image: require("../../assets/9.png"),
+      image: require("../assets/9.png"),
       label: "Health Crisis Reiki",
       benefits: [
         "Boosts Mood",
@@ -197,69 +197,91 @@ const servicedCards = [
   },
 ];
 
-function Service() {
+const { image, label, body, expectation } = details;
+const benefits = details[0].bookingDetails.benefits;
+const sessionPlan = details[0].bookingDetails.sessionPlan;
 
-  const history = useHistory();
-    function handleClick() {
-    history.push("/services");
-  }
-
-  useEffect(()=>{
-    async function getData(){
-      const reikis = await fetch("http://localhost:5000/reiki");
-      const body = await reikis.json();
-      setReikiData(body);
-    }
-    getData();
-  },[]);
-
-  const [reikiData,setReikiData] = useState();
-  const [showModal, setShowModal] = useState(false);
-  const [selectedCard, setSelectedCard] = useState({});
-  const showBookingDetails = ({ card }) => {
-    setSelectedCard(card.bookingDetails);
-    setShowModal(true);
-  };
-  const resetBookingDetails = () => {
-    setSelectedCard({});
-    setShowModal(false);
-  };
   return (
-    <div className="serviceContainer">
-      <div className="serviceTitle">
-        Our <span className="redText">Services</span>
-      </div>
-      <div className="serviceCards">
-        {_.map(servicedCards, (card, index) => {
-          return (
-            <div
-              className="card"
-              onClick={() => showBookingDetails({ card })}
-              key={index}
-            >
-              <div>
-                <img src={card.image} height="100px" alt="img" />
-              </div>
-              <div className="cardText">
-                <div dangerouslySetInnerHTML={{ __html: card.label }}></div>
-                <div className="cardSubtext">{card.subtext}</div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-      {showModal && (
-        <BookingDetailsModal
-          resetBooking={resetBookingDetails}
-          details={selectedCard}
-        />
-      )}
-      <div className="serviceTitle"><a onClick={handleClick}>
-        Show All <span className="redText">Services</span>
-        </a>
-      </div>
-    </div>
+    <Card className="mt-8 mx-2">
+      <Card.Header style = {{ backgroundColor : '#fce4de' }}>Book Your Reiki</Card.Header>
+      <Card.Body>
+        <Card className="">
+              <Form className="mt-2 mx-2">
+                  <fieldset>
+              
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="SelectInstructor">Select Instructor</Form.Label>
+                      <Form.Select id="instructor">
+                        <option>Instructor 1</option>
+                        <option>Instructor 1</option>
+                        <option>Instructor 1</option>
+                      </Form.Select>
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="SelectReiki">Select Reiki</Form.Label>
+                      <Form.Select id="reiki">
+                        <option>Reiki 1</option>
+                        <option>Reiki 1</option>
+                        <option>Reiki 1</option>
+                      </Form.Select>
+                    </Form.Group>
+                    
+                    <Card>
+                        <div>
+
+                        
+                               <div>
+            <img                src={image} height="80px" alt="header" />
+          </div>
+                              <div >{label}</div>
+
+                              <div>
+                                {benefits.map((benefit, index) => {
+                                  return(
+                                  <div>
+                                    <div className="benefit" key={index}>
+                                      <img
+                                        src={require("../assets/tick.png")}
+                                        height="18px"
+                                        alt="header"
+                                      />
+                                      {benefit}
+                                    </div>
+                                  </div>
+                                  );
+                                })}
+                              </div>
+                    </div>
+                    </Card>
+                    <Form.Group className="mb-3">
+                                   <div className="sessions">
+                                  {sessionPlan.map((plan, i) => {
+                                    return (
+                                      <div className="sessionCard smallfont" key={i}>
+                                        <div>{plan.label}</div>
+                                        <div className="priceContainer">
+                                          ₹{plan.price}/
+                                          {plan.sessionCount > 1
+                                            ? plan.sessionCount + " Sessions"
+                                            : "Session"}
+                                          <input type="radio" className="radioButton" name={"radio"} />
+                                        </div>
+                                      </div>
+                                    );
+                                  })}
+                  </div>
+                    </Form.Group>
+                  
+                    <button type="submit" className="btn btn-col btn-lg mb-2">Book Session Now</button>
+                  </fieldset>
+    </Form>
+        </Card>
+      </Card.Body>
+    </Card>
   );
 }
 
-export default Service;
+export default Booking;
+
+
+
