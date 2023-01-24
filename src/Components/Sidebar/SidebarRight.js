@@ -2,13 +2,11 @@ import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
-import ReactDOM from 'react-dom';
 import "./Sidebar.css"
 import { useHistory } from "react-router-dom";
 
 import React, { useState } from 'react';
 import { Sidebar } from 'primereact/sidebar';
-import { Button } from 'primereact/button';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 const bar = <FontAwesomeIcon icon={faBars} />;
@@ -56,31 +54,7 @@ const SidebarRight = ({isLoggedIn, isInstructor}) => {
 
 
     
-
-        if(isLoggedIn){
-            return (
-                    <div>
-                    <div className="card">                
-                        <Sidebar visible={visibleRight} style={{width:'15em'}} position="right" onHide={() => setVisibleRight(false)}>
-                            <a onClick={() => {home(); toggleSidebar();}} className="sideLinks"><h3>Home</h3></a>
-                            <hr className="hr1" />
-                            <a onClick={() => {userProfile(); toggleSidebar();}} className="sideLinks"><h3>Profile</h3></a>
-                            <hr className="hr1" />
-                            <a onClick={() => {services(); toggleSidebar();}} className="sideLinks" ><h3>Services</h3></a>
-                            <hr className="hr1" />
-                            <a onClick={() => {instructors(); toggleSidebar();}} className="sideLinks"><h3>Instructors</h3></a>
-                            <hr className="hr1" />
-                            <a onClick={() => {booking(); toggleSidebar();}} className="sideLinks"><h3>Book an Appointment</h3></a>
-                            <hr className="hr1" />
-                            <a onClick={userProfile} className="sideLinks"><h3>Logout</h3></a>                       
-                        </Sidebar>                
-                        <button   onClick={() => setVisibleRight(true)} className="btn" ><i>{bar}</i></button>
-                    </div>
-                </div>
-                )
-                }
-
-        else if(isInstructor){
+        if(isInstructor){
             return (
                     <div>
                     <div className="card">                
@@ -90,8 +64,8 @@ const SidebarRight = ({isLoggedIn, isInstructor}) => {
                             <a onClick={() => {instructorProfile(); toggleSidebar();}} className="sideLinks"><h3>Profile</h3></a>
                             <hr className="hr1" />
                             <a onClick={() => {services(); toggleSidebar();}} className="sideLinks" ><h3>Services</h3></a>
-                            <hr className="hr1" />     
-                            <a onClick={() => {login(); toggleSidebar();}} className="sideLinks"><h3>Logout</h3></a>                       
+                            <hr className="hr1" />
+                            {isLoggedIn ?  (<a onClick={userProfile} className="sideLinks"><h3>Logout</h3></a>):(<a onClick={login} className="sideLinks"><h3>LogIn</h3></a>)}
                         </Sidebar>                
                         <button   onClick={() => setVisibleRight(true)} className="btn" ><i>{bar}</i></button>
                     </div>
@@ -100,26 +74,27 @@ const SidebarRight = ({isLoggedIn, isInstructor}) => {
         }        
 
         else{
-            return (
-                    <div>
-                    <div className="card">                
-                        <Sidebar visible={visibleRight} style={{width:'15em'}} position="right" onHide={() => setVisibleRight(false)}>
-                            <a onClick={() => {home(); toggleSidebar();}} className="sideLinks"><h3>Home</h3></a>
-                            <hr className="hr1" />
-                            <a onClick={() => {services(); toggleSidebar();}} className="sideLinks" ><h3>Services</h3></a>
-                            <hr className="hr1" />
-                            <a onClick={() => {instructors(); toggleSidebar();}} className="sideLinks"><h3>Instructors</h3></a>
-                            <hr className="hr1" />
-                            <a onClick={() => {booking(); toggleSidebar();}} className="sideLinks"><h3>Book an Appointment</h3></a>
-                            <hr className="hr1" />
-                            <a onClick={() => {login(); toggleSidebar();}} className="sideLinks"><h3>Login</h3></a>                       
-                        </Sidebar>                
-                        <button   onClick={() => setVisibleRight(true)} className="btn" ><i>{bar}</i></button>
-                    </div>
-                </div>
-                )
-             
-            }
+          return (
+            <div>
+            <div className="card">                
+                <Sidebar visible={visibleRight} style={{width:'15em'}} position="right" onHide={() => setVisibleRight(false)}>
+                    <a onClick={() => {home(); toggleSidebar();}} className="sideLinks"><h3>Home</h3></a>
+                    <hr className="hr1" />
+                    {isLoggedIn ?  (<a onClick={() => {userProfile(); toggleSidebar();}} className="sideLinks"><h3>Profile</h3></a>):<></>}
+                    <hr className="hr1" />
+                    <a onClick={() => {services(); toggleSidebar();}} className="sideLinks" ><h3>Services</h3></a>
+                    <hr className="hr1" />
+                    <a onClick={() => {instructors(); toggleSidebar();}} className="sideLinks"><h3>Instructors</h3></a>
+                    <hr className="hr1" />
+                    <a onClick={() => {booking(); toggleSidebar();}} className="sideLinks"><h3>Book an Appointment</h3></a>
+                    <hr className="hr1" />
+                    {isLoggedIn ?  (<a onClick={userProfile} className="sideLinks"><h3>Logout</h3></a>):(<a onClick={login} className="sideLinks"><h3>LogIn</h3></a>)}
+                </Sidebar>                
+                <button   onClick={() => setVisibleRight(true)} className="btn" ><i>{bar}</i></button>
+            </div>
+        </div>
+        )
+        }
 
 }
                 

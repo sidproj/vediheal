@@ -11,7 +11,7 @@ function Header() {
     <div className="headerContainer">
       <a href="/"><img src={require("../../assets/logo.png")} height="45px" alt="img" /></a>
 
-      <SidebarRight isLoggedIn = {true}/> 
+      <SidebarRight isInstructor={true} isLoggedIn={true}/> 
     </div>
   );
 }
