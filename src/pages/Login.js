@@ -4,6 +4,30 @@ import { useHistory } from "react-router-dom";
 import ForgetPasswordEmailModal from "./modals/ForgetPasswordEmailModal"
 export default function Login() {
 
+  const handelLogin = async ()=>{
+    const data = {
+      "email":document.getElementById("email").value,
+      "password":document.getElementById("password").value
+    }
+    let url;
+    if(document.getElementById("isInstructor").checked){
+      url="http://localhost:5000/login/instructor";
+    }else{
+      url="http://localhost:5000/login/user";
+    }
+
+    const options = {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+        }
+    }
+    const res = await fetch(url,options);
+    const body = await res.json();
+    console.log(body);
+  }
+
   const history = useHistory();
     function handleClick() {
     history.push("/signup");
@@ -28,7 +52,7 @@ export default function Login() {
                         <Form.Label className="text-center">
                           Email address
                         </Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" />
+                        <Form.Control type="email" required id="email" placeholder="Enter email" />
                       </Form.Group>
 
                       <Form.Group
@@ -36,14 +60,15 @@ export default function Login() {
                         controlId="formBasicPassword"
                       >
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" />
+                        <Form.Control type="password" required id="password" placeholder="Password" />
                       </Form.Group>
                       <Form.Group
                         className="mb-3"
                         controlId="formBasicCheckbox"
                       >
+                        <div>Login Failed</div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                            <input class="form-check-input" type="checkbox" value="" id="isInstructor" />
                             <label class="form-check-label" for="flexCheckDefault">
                               Are you an Instructor?
                             </label>
@@ -58,9 +83,9 @@ export default function Login() {
                         </p>
                       </Form.Group>
                       <div className="d-grid">
-                        <button className="btn btn-col" type="submit">
+                        <div className="btn btn-col" onClick={handelLogin}>
                           Login
-                        </button>
+                        </div>
                       </div>
                     </Form>
                     <div className="mt-3">

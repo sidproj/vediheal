@@ -24,15 +24,15 @@ const AddService = (props) => {
       "reiki":newReikies
     }
     const url = "http://localhost:5000/reiki/addReiki";
-        const options = {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json",
-            }
+    const options = {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
         }
-        const res = await fetch(url,options);
-        const body = await res.json();
+    }
+    const res = await fetch(url,options);
+    const body = await res.json();
   }
   
   useEffect(()=>{

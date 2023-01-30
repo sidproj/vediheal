@@ -1,7 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Card from 'react-bootstrap/Card';
-import { Modal, Button } from 'react-bootstrap'
 function InstructorAppointmentDetails() {
+
+  const getData = async ()=>{
+    const data={
+      "jwt":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzY1Zjg2YmU2NzM1NjJlNDI5MjczNiIsImlhdCI6MTY3NDUyODcyM30.jG4pUrC2M6iRsAtBb6QpqYXGusf9RnNOjQgBEmH4xzo",
+    }
+    const url = "http://localhost:5000/apointment/instructor";
+    const options = {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+        }
+    }
+    const res = await fetch(url,options);
+    const body = await res.json();
+    console.log(body);
+  }
+
+  useEffect(()=>{
+    getData();
+  },[]);
+  
+
   return (
     <div className='mx-6 mt-8'>
 

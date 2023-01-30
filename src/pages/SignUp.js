@@ -1,10 +1,39 @@
-import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
+  import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import './Login.css'
 import ForgetPasswordEmailModal from "./modals/ForgetPasswordEmailModal"
 import { useHistory } from "react-router-dom";
 export default function SignUp() {
 
-const history = useHistory();
+  const handelSignUp = async ()=>{
+    const data={
+      "first_name":document.getElementById("fname").value,
+      "last_name":document.getElementById("lname").value,
+      "email":document.getElementById("email").value,
+      "phone_no":document.getElementById("phone").value,
+      "password":document.getElementById("password").value,
+      "confirm_password":document.getElementById("conf_password").value
+    }
+
+    let url;
+    if(document.getElementById("isInstructor").checked){
+      url="http://localhost:5000/register/instructor";
+    }else{
+      url="http://localhost:5000/register/user";
+    }
+
+    const options = {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+        }
+    }
+    const res = await fetch(url,options);
+    const body = await res.json();
+    console.log(body);
+  }
+
+  const history = useHistory();
     function handleClick() {
     history.push("/login");
   }
@@ -26,25 +55,25 @@ const history = useHistory();
                         <Form.Label className="text-center">
                           First Name
                         </Form.Label>
-                        <Form.Control type="text" placeholder="Enter First Name" />
+                        <Form.Control type="text" id="fname" placeholder="Enter First Name" />
                       </Form.Group>
                        <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label className="text-center">
                           Last Name
                         </Form.Label>
-                        <Form.Control type="text" placeholder="Enter Last Name" />
+                        <Form.Control type="text" id="lname" placeholder="Enter Last Name" />
                       </Form.Group>
                        <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label className="text-center">
                           Phone Number
                         </Form.Label>
-                        <Form.Control type="tel" placeholder="Enter Phone Number" />
+                        <Form.Control type="tel" id="phone" placeholder="Enter Phone Number" />
                       </Form.Group>
                       <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label className="text-center">
                           Email address
                         </Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" />
+                        <Form.Control type="email" id="email" placeholder="Enter email" />
                       </Form.Group>
 
                       <Form.Group
@@ -52,13 +81,32 @@ const history = useHistory();
                         controlId="formBasicPassword"
                       >
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" />
+                        <Form.Control type="password" id="password" placeholder="Password" />
                       </Form.Group>
       
+                      <Form.Group
+                        className="mb-3"
+                        controlId="formBasicPassword"
+                      >
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" id="conf_password" placeholder="Confirm Password" />
+                      </Form.Group>
+
+                      <Form.Group
+                        className="mb-3"
+                        controlId="formBasicCheckbox">
+                        <div class="form-check">
+                          <input class="form-check-input" id="isInstructor" type="checkbox" defaultValue="" />
+                          <label class="form-check-label" for="flexCheckDefault">
+                            Are you an Instructor?
+                          </label>
+                        </div>
+                      </Form.Group>
+
                       <div className="d-grid">
-                        <button className="btn btn-col" type="submit">
+                        <div className="btn btn-col" onClick={handelSignUp}>
                           SignUp
-                        </button>
+                        </div>
                       </div>
                     </Form>
                     <div className="mt-3">

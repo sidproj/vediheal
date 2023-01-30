@@ -9,6 +9,7 @@ function ChangePasswordModal() {
     return invokeModal(!isShow)
   }
 
+  // type this code in user profile page and in instructor profile page
   const handelChangePassword = async()=>{
     const data = {
       

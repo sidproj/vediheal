@@ -12,7 +12,7 @@ import Services from './pages/Services';
 import Instructor from './pages/Instructor'
 import Booking from './pages/Booking'
 import InstructorAppointmentDetails from "./pages/InstructorAppointmentDetails"
-export default function Routing() {
+export default function Routing(props) {
   return (
     <div>
       
