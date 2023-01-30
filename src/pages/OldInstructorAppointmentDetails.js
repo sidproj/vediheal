@@ -3,12 +3,14 @@ import Card from 'react-bootstrap/Card';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import { Modal, Button } from 'react-bootstrap'
 
+import EditModal from "./modals/EditModal";
 
 
 
 function InstructorAppointmentDetails() {
 
 
+  
 
       const rowData = [
           { 
@@ -34,8 +36,6 @@ function InstructorAppointmentDetails() {
           },
         ]
 
-      
-
   return (
 
     <> 
@@ -59,7 +59,7 @@ function InstructorAppointmentDetails() {
       </MDBTableHead>
       <MDBTableBody>
         {rowData.map((item, index) =>(
-          <tr>
+          <tr onClick={() => handleRowClick(rowData)}>
           <th scope='row'>{item.startTime}</th>
           <td>{item.endTime}</td>
           <td>{item.clientName}</td>
@@ -69,6 +69,7 @@ function InstructorAppointmentDetails() {
         </tr>
 
         ))}
+        <EditModal />
       </MDBTableBody>
     </MDBTable>
         </Card.Body>

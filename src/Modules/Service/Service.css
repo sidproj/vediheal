@@ -20,7 +20,7 @@
 
 .card{
     display: flex;
-    background-color: #f8cfc1;
+    background-color: #fce4de !important;
     border-radius: 8px;
     cursor: pointer;
 }
@@ -30,8 +30,11 @@
     flex-direction: column;
     row-gap: 8px;
     padding: 4px;
+    text-align: left;
 }
 
 .cardSubtext {
-    font-size: 0.6rem;
+    font-size: 0.8rem;
+    font-weight: bold;
 }
+

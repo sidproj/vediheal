@@ -4,7 +4,12 @@
     box-shadow: none;
 }
 
- .hr1 {
+.card-bg {
+    background-color: #ff4d4d !important;
+
+}
+
+  .hr1 {
         border: 0;
         height: 3px;
         background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(9, 84, 132), rgba(0, 0, 0, 0));
@@ -30,7 +35,7 @@
 
 .sideLinks{
     text-decoration: none;
-    color : #495057;
+    color : white;
 
 }
 
