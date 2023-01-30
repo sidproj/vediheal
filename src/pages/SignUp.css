@@ -7,7 +7,7 @@
 }
 
 .form {
-    background-color: #F6F1EB !important;
+    background-color: #F6F1EB;
 }
 
 
@@ -36,8 +36,4 @@
 .gbutton {
     background: #dd4b39 !important;
     width: 40%;
-}
-
-.forgot-password {
-    text-decoration: none;
 }

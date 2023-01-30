@@ -12,6 +12,8 @@ import Services from './pages/Services';
 import Instructor from './pages/Instructor'
 import Booking from './pages/Booking'
 import InstructorAppointmentDetails from "./pages/InstructorAppointmentDetails"
+import InstructorPastAppointmentDetails from "./pages/InstructorPastAppointmentDetails"
+import UserAppointmentDetails from "./pages/UserAppointmentDetails"
 export default function Routing() {
   return (
     <div>
@@ -30,6 +32,8 @@ export default function Routing() {
           <Route path="/instructor" exact component={Instructor} />
           <Route path="/booking" exact component={Booking} />
           <Route path="/instructorappointmentdetails" exact component={InstructorAppointmentDetails} />
+          <Route path="/instructorpastappointmentdetails" exact component={InstructorPastAppointmentDetails} />
+          <Route path="/userappointmentdetails" exact component={UserAppointmentDetails} />
         </switch>
       </BrowserRouter>
     </div>

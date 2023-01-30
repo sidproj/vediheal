@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CheckoutModal from "../CheckoutModal/CheckoutModal";
 import "./BookingDetailsModal.css";
+import MDBInput from 'mdb-react-ui-kit';
 
 function BookingDetailsModal({ resetBooking, details }) {
   const { image, label, benefits, sessionPlan, body, expectation } = details;

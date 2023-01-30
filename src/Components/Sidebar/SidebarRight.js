@@ -43,11 +43,23 @@ const SidebarRight = ({isLoggedIn, isInstructor}) => {
     history.push("/booking");
   }
 
+  function instructorappointmentdetails() {
+    history.push("/instructorappointmentdetails");
+  }
+
+  function instructorpastappointmentdetails() {
+    history.push("/instructorpastappointmentdetails");
+  }
+
+  function appointment() {
+    history.push("/userappointmentdetails");
+  }
+
   
    
     const [visibleRight, setVisibleRight] = useState(false);
 
-    function toggleSidebar() {
+    function toggleSidebar() { 
         setVisibleRight(false);
     }
 
@@ -57,18 +69,22 @@ const SidebarRight = ({isLoggedIn, isInstructor}) => {
         if(isInstructor){
             return (
                     <div>
+
                     <div className="card">                
-                        <Sidebar visible={visibleRight} style={{width:'15em'}} position="right" onHide={() => setVisibleRight(false)}>
-                            <a onClick={() => {home(); toggleSidebar();}} className="sideLinks"><h3>Home</h3></a>
-                            <hr className="hr1" />
-                            <a onClick={() => {instructorProfile(); toggleSidebar();}} className="sideLinks"><h3>Profile</h3></a>
-                            <hr className="hr1" />
-                            <a onClick={() => {services(); toggleSidebar();}} className="sideLinks" ><h3>Services</h3></a>
-                            <hr className="hr1" />
-                            {isLoggedIn ?  (<a onClick={userProfile} className="sideLinks"><h3>Logout</h3></a>):(<a onClick={login} className="sideLinks"><h3>LogIn</h3></a>)}
+                        <Sidebar className="card-bg" visible={visibleRight} style={{width:'15em'}} position="right" onHide={() => setVisibleRight(false)}>
+  
+                          
+                            <a onClick={() => {instructorProfile(); toggleSidebar();}} className="sideLinks"><h3>Profile</h3></a><br />
+                         
+                            <a onClick={() => {instructorappointmentdetails(); toggleSidebar();}} className="sideLinks" ><h3>Appointment</h3></a><br />
+                            
+                            <a onClick={() => {instructorpastappointmentdetails(); toggleSidebar();}} className="sideLinks" ><h3>Past Appointment</h3></a><br />
+
+                            <a onClick={userProfile} className="sideLinks"><h3>Logout</h3></a>
                         </Sidebar>                
-                        <button   onClick={() => setVisibleRight(true)} className="btn" ><i>{bar}</i></button>
+                        
                     </div>
+                    <button onClick={() => setVisibleRight(true)} className="btn rounded-circle" ><i>{bar}</i></button>
                 </div>
                 )
         }        
@@ -77,21 +93,24 @@ const SidebarRight = ({isLoggedIn, isInstructor}) => {
           return (
             <div>
             <div className="card">                
-                <Sidebar visible={visibleRight} style={{width:'15em'}} position="right" onHide={() => setVisibleRight(false)}>
-                    <a onClick={() => {home(); toggleSidebar();}} className="sideLinks"><h3>Home</h3></a>
-                    <hr className="hr1" />
-                    {isLoggedIn ?  (<a onClick={() => {userProfile(); toggleSidebar();}} className="sideLinks"><h3>Profile</h3></a>):<></>}
-                    <hr className="hr1" />
-                    <a onClick={() => {services(); toggleSidebar();}} className="sideLinks" ><h3>Services</h3></a>
-                    <hr className="hr1" />
-                    <a onClick={() => {instructors(); toggleSidebar();}} className="sideLinks"><h3>Instructors</h3></a>
-                    <hr className="hr1" />
+                <Sidebar className="card-bg" visible={visibleRight} style={{width:'15em'}} position="right" onHide={() => setVisibleRight(false)}>
+                    <a onClick={() => {home(); toggleSidebar();}} className="sideLinks"><h3>Home</h3></a><br />
+                    
+                    {isLoggedIn ?  (<a onClick={() => {userProfile(); toggleSidebar();}} className="sideLinks"><h3>Profile</h3><br /></a>):<></>}
+                    
+                    <a onClick={() => {services(); toggleSidebar();}} className="sideLinks" ><h3>Services</h3></a><br />
+                   
+                    
+                    {isLoggedIn && (<><a onClick={() => {appointment(); toggleSidebar();}} className="sideLinks"><h3>Appointment</h3></a><br /></>)}
+                    
                     <a onClick={() => {booking(); toggleSidebar();}} className="sideLinks"><h3>Book an Appointment</h3></a>
-                    <hr className="hr1" />
-                    {isLoggedIn ?  (<a onClick={userProfile} className="sideLinks"><h3>Logout</h3></a>):(<a onClick={login} className="sideLinks"><h3>LogIn</h3></a>)}
+                    <br />
+
+                    {isLoggedIn ?  (<a onClick={() => {userProfile(); toggleSidebar();}} className="sideLinks"><h3>Logout</h3></a>):(<a onClick={() => {login(); toggleSidebar();}} className="sideLinks"><h3>Login</h3></a>)}
                 </Sidebar>                
-                <button   onClick={() => setVisibleRight(true)} className="btn" ><i>{bar}</i></button>
+                
             </div>
+            <button   onClick={() => setVisibleRight(true)} className="btn rounded-circle" ><i>{bar}</i></button>
         </div>
         )
         }

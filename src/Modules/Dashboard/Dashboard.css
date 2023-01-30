@@ -5,6 +5,11 @@
     row-gap: 20px;
     align-items: center;
     top: 50px;
+    
+}
+
+.bg {
+    background-color: #fce4de !important;
 }
 
 .titleContainer{
@@ -43,4 +48,5 @@
     justify-content: space-around;
     width: 50%;
     padding-bottom: 20px;
+
 }
