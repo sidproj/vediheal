@@ -7,6 +7,7 @@ import Footer from "../../Components/Footer/Footer";
 
 function Dashboard() {
   return (
+    <div className="bg">
     <div className="container">
       <img src={require("../../assets/banner.png")} width="100%" alt="img" />
       <div className="titleContainer">
@@ -17,7 +18,7 @@ function Dashboard() {
         options to create an experience that can help us in treating modern
         problems with ancient vedic solutions.
       </div>
-      <div className="buttonClass">Know more</div>
+      <div className="rounded-pill btn">Know more</div>
       <DashBoardBody />
       <Service />
       <Feedback />
@@ -33,6 +34,9 @@ function Dashboard() {
       </div>
       <Footer />
     </div>
+    </div>
+    
+    
   );
 }
 

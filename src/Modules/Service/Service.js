@@ -229,6 +229,9 @@ function Service() {
       <div className="serviceTitle">
         Our <span className="redText">Services</span>
       </div>
+      <div className="serviceTitle">
+        <button type="button" className="btn rounded-pill" onClick={handleClick}>View All</button>
+      </div>
       <div className="serviceCards">
         {_.map(servicedCards, (card, index) => {
           return (
@@ -237,13 +240,27 @@ function Service() {
               onClick={() => showBookingDetails({ card })}
               key={index}
             >
-              <div>
-                <img src={card.image} height="100px" alt="img" />
-              </div>
-              <div className="cardText">
-                <div dangerouslySetInnerHTML={{ __html: card.label }}></div>
-                <div className="cardSubtext">{card.subtext}</div>
-              </div>
+             <table>
+              <tr>
+                  <td rowspan="2" >
+                    <img src={card.image} height="100px" alt="img" />
+                  </td>
+                  <th >
+                   <div className="cardText" >
+                      <div dangerouslySetInnerHTML={{ __html: card.label }}></div>
+                    </div>
+                  </th>
+
+
+              </tr>
+              <tr>
+                  <td rowspan="2">
+                    <div className="cardText">
+                      <div className="cardSubtext">{card.subtext}</div>
+                    </div>
+                  </td>
+              </tr>
+            </table>
             </div>
           );
         })}
@@ -254,10 +271,7 @@ function Service() {
           details={selectedCard}
         />
       )}
-      <div className="serviceTitle"><a onClick={handleClick}>
-        Show All <span className="redText">Services</span>
-        </a>
-      </div>
+    
     </div>
   );
 }

@@ -1,11 +1,51 @@
 import {useEffect,useState} from "react";
 import "./UserProfile.css";
+import { Modal, Button } from 'react-bootstrap'
 import OrdersModal from "./modals/OrdersModal"
 import ChangePasswordModal from "./modals/ChangePasswordModal"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const UserProfile = ()=>{
 
+    const [isShow, invokeModal] = useState(false);
+    const [error, setError] = useState();
+    const initModal = () => {
+        return invokeModal(!isShow)
+    }
+
+    const handelChangePassword = async()=>{
+    const data = {
+      
+      "jwt":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU1ZGZkZDJkN2RkYTk1NTlkNDIyMiIsImlhdCI6MTY3NDUyNjcwM30.BV4ytObY6gt0XUc2IYMOeeOc-NH63TrMVi3lQm9ngyE",
+      "old_password":document.getElementById("oldPassword").value,
+      "password":document.getElementById("newPassword").value,
+      "confirm_password":document.getElementById("confirmPassword").value
+    }
+
+    console.log(data);
+    const url = "http://localhost:5000/profile/edit/user/password";
+    const options = {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+        }
+    }
+    const res = await fetch(url,options);
+    const body = await res.json();
+    console.log(body);
+    if(!body.status == "Error") invokeModal(false);
+    else setError(body.error);
+  }
+
+  //compelete showing errors
+  const handelError = ()=>{
+    if(error){
+      return(
+        <span>{error.message}</span>
+      );
+    }
+  }
     const [user,setUser] = useState();
 
     const getData = async ()=>{
@@ -54,6 +94,37 @@ const UserProfile = ()=>{
     }
 
     return (
+
+        <>
+
+      <Modal show={isShow}>
+        <Modal.Header closeButton onClick={initModal}>
+          <Modal.Title>Change Your Password</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form>
+            <div class="form-group">
+              
+              <input type="password" class="form-control" id="oldPassword" placeholder="Enter Current Password" />
+              <br />
+              <input type="password" class="form-control" id="newPassword" placeholder="Enter New Password" />
+              <br />
+              <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm New Password" />
+             
+            </div>
+            <div>
+              <center><span>{handelError}</span></center>
+            </div>
+          </form>    
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="danger" onClick={initModal}>
+            Close
+          </Button>
+          <button type="submit" class="btn btn-danger" onClick={handelChangePassword} >Submit</button>
+         </Modal.Footer>
+      </Modal>
+
         <div>
 
         
@@ -103,24 +174,17 @@ const UserProfile = ()=>{
                         </div>
                         <div class="row gx-3 mb-3">
                             
-                            <div class="col-md-6">
-                                <div></div>
-                            </div>
-                            <div class="col-md-6">                                
-                                    <ChangePasswordModal />
-                            </div>
-                            
-                        </div>
-                        <div class="row gx-3 mb-3">
-                            
                             <div class="col-md-6 mb-3">
-                                <button class="btn btn-col" type="button" onClick={handelDataChange}>Save changes</button>
+                                <button class="btn " type="button" onClick={handelDataChange}>Save changes</button>
                             </div>
                             <div class="col-md-6">                                
-                                    <OrdersModal />
+                                    <button onClick={initModal} class="btn" type="button">
+                                        Change Password
+                                    </button>
                             </div>
                             
                         </div>
+                        
                
                         
                     </form>
@@ -128,7 +192,7 @@ const UserProfile = ()=>{
             </div>
         </div>
     </div>
-</div></div>
+</div></div></>
 
         );
 

@@ -45,7 +45,7 @@ const AddService = (props) => {
   }
   return(
  <>
-    <button onClick={initModal} class="btn btn-col" type="button">
+    <button onClick={initModal} class="btn " type="button">
         Edit Service
       </button>
       <Modal show={isShow}>

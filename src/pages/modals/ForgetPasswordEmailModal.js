@@ -9,8 +9,8 @@ function ForgetPasswordEmailModal() {
   }
   return (
     <>
-      <a className="text-primary" onClick={initModal}>
-                            Forgot password?
+      <a style={{textDecoration : "none", color : "black"}} onClick={initModal}>
+                            Forgot your password?
                           </a>
       <Modal show={isShow}>
         <Modal.Header closeButton onClick={initModal}>

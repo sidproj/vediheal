@@ -1,34 +1,16 @@
-import React, { useEffect } from 'react'
-import Card from 'react-bootstrap/Card';
-
-  
 import React, {useState} from 'react'
 import Card from 'react-bootstrap/Card';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap'
+
+import EditModal from "./modals/EditModal";
+
+
 
 function InstructorAppointmentDetails() {
 
-  const getData = async ()=>{
-    const data={
-      "jwt":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzY1Zjg2YmU2NzM1NjJlNDI5MjczNiIsImlhdCI6MTY3NDUyODcyM30.jG4pUrC2M6iRsAtBb6QpqYXGusf9RnNOjQgBEmH4xzo",
-    }
-    const url = "http://localhost:5000/apointment/instructor";
-    const options = {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type": "application/json",
-        }
-    }
-    const res = await fetch(url,options);
-    const body = await res.json();
-    console.log(body);
-  }
 
-  useEffect(()=>{
-    getData();
-  },[]);
+  
 
       const rowData = [
           { 
@@ -54,8 +36,6 @@ function InstructorAppointmentDetails() {
           },
         ]
 
-      
-
   return (
 
     <> 
@@ -79,7 +59,7 @@ function InstructorAppointmentDetails() {
       </MDBTableHead>
       <MDBTableBody>
         {rowData.map((item, index) =>(
-          <tr>
+          <tr onClick={() => handleRowClick(rowData)}>
           <th scope='row'>{item.startTime}</th>
           <td>{item.endTime}</td>
           <td>{item.clientName}</td>
@@ -89,6 +69,7 @@ function InstructorAppointmentDetails() {
         </tr>
 
         ))}
+        <EditModal />
       </MDBTableBody>
     </MDBTable>
         </Card.Body>

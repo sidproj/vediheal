@@ -1,3 +1,7 @@
+.btn-col{
+    background-color: #fce4de !important;
+}
+
 .modalContainer{
     position: fixed;
     margin: 0;

@@ -1,23 +1,16 @@
 import React from 'react'
-import { Modal, Button } from 'react-bootstrap'
+import Card from 'react-bootstrap/Card';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
-import '../UserProfile.css'
-function AppointmentModal() {
-  const [isShow, invokeModal] = React.useState(false)
-  const initModal = () => {
-    return invokeModal(!isShow)
-  }
+import { Modal, Button } from 'react-bootstrap'
+function InstructorPastAppointmentDetails() {
   return (
-    <>
-      <button onClick={initModal} class="btn btn-col" type="button">
-        Appointment
-      </button>
-      <Modal show={isShow}>
-        <Modal.Header closeButton onClick={initModal}>
-          <Modal.Title>Your Orders</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <MDBTable>
+    <div className='mx-6 mt-8' >
+
+      <Card>
+          <Card.Title style={{ textAlign : 'center', marginTop : '15' }} >Previous Appointments</Card.Title>
+        <Card.Body>
+
+     <MDBTable responsive={true}>
       <MDBTableHead light>
         <tr>
           <th scope='col'>Start Time</th>
@@ -25,7 +18,6 @@ function AppointmentModal() {
           <th scope='col'>Client Name</th>
           <th scope='col'>Servise</th>
           <th scope='col'>Price</th>
-          <th scope='col'></th>
 
         </tr>
       </MDBTableHead>
@@ -36,6 +28,7 @@ function AppointmentModal() {
           <td>Otto</td>
           <td>@mdo</td>
           <td>@mdo</td>
+
         </tr>
         <tr>
           <th scope='row'>2</th>
@@ -53,14 +46,10 @@ function AppointmentModal() {
         </tr>
       </MDBTableBody>
     </MDBTable>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="danger" onClick={initModal}>
-            Close
-          </Button>
-         </Modal.Footer>
-      </Modal>
-    </>
+        </Card.Body>
+        
+      </Card>
+    </div>
   )
 }
-export default AppointmentModal;
+export default InstructorPastAppointmentDetails;
