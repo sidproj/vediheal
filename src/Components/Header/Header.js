@@ -6,12 +6,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import SidebarRight from '../Sidebar/SidebarRight.js'
 
 
-function Header() {
+function Header(props) {
   return (
     <div className="headerContainer">
       <a href="/"><img src={require("../../assets/logo.png")} height="45px" alt="img" /></a>
 
-      <SidebarRight isInstructor={false} isLoggedIn={false}/> 
+      <SidebarRight 
+        setUserJWT={props.setUserJWT}
+        setInstructorJWT={props.setInstructorJWT}
+        userJWT={props.userJWT}
+        instructorJWT={props.instructorJWT}
+        isInstructor={true} 
+        isLoggedIn={true}/> 
     </div>
   );
 }

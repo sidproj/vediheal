@@ -196,7 +196,8 @@ const servicedCards = [
 ];
 
 
-function Booking({ resetBooking, details }) {
+function Booking(props) {
+  const { resetBooking, details } = props;
   const { image, label, benefits, sessionPlan, body, expectation } = details;
   const [showBookingModal, setShowBookingModal] = useState(false);
   const onProceedClick = () => {

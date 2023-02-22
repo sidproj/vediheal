@@ -37,3 +37,14 @@
     background: #dd4b39 !important;
     width: 40%;
 }
+
+.transparent-input {
+    background-color: rgba(0, 0, 0, 0);
+   
+ }
+ 
+  input.transparent-input{
+        background-color:rgba(0,0,0,0) !important;
+        
+     }
+ 

@@ -1,13 +1,20 @@
-import {React, useEffect,useState} from "react";
-import { useHistory } from "react-router-dom";
-import "./UserProfile.css";
+import {React,useLayoutEffect, useEffect,useState} from "react";
 import { Modal, Button } from 'react-bootstrap'
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import ChangePasswordModal from "./modals/ChangePasswordModal"
 import AddService from "./modals/AddService"
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useHistory } from "react-router-dom";
+import "./InstructorProfile.css"
 
-const InstructorProfile = ()=>{
+const InstructorProfile = (props)=>{
+
+    const history = useHistory();
+    useLayoutEffect(()=>{
+        if(!props.instructorJWT){
+            history.push("/login");
+        }
+    },[]);
 
     const [isShow, invokeModal] = useState(false);
     const [error, setError] = useState();
@@ -15,10 +22,9 @@ const InstructorProfile = ()=>{
         return invokeModal(!isShow)
     }
 
-    const handelChangePassword = async()=>{
+const handelChangePassword = async()=>{
     const data = {
-      
-      "jwt":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU1ZGZkZDJkN2RkYTk1NTlkNDIyMiIsImlhdCI6MTY3NDUyNjcwM30.BV4ytObY6gt0XUc2IYMOeeOc-NH63TrMVi3lQm9ngyE",
+      "jwt":props.instructorJWT,
       "old_password":document.getElementById("oldPassword").value,
       "password":document.getElementById("newPassword").value,
       "confirm_password":document.getElementById("confirmPassword").value
@@ -55,9 +61,7 @@ const InstructorProfile = ()=>{
 
     const getInstructorData = async ()=>{
         const data = {
-            // change this later
-            jwt:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzY1Zjg2YmU2NzM1NjJlNDI5MjczNiIsImlhdCI6MTY3NDQyMTY5OH0.KZppnURCDKsfzat3b10h-Pi4UJW5zOT98AeGtyzyOhY",
-
+            jwt:props.instructorJWT,
         }
         const url = "http://localhost:5000/profile/instructor";
         const options = {
@@ -69,6 +73,7 @@ const InstructorProfile = ()=>{
         }
         const res = await fetch(url,options);
         const body = await res.json();
+        console.log(body);
         setInstructor(body.instructor);
         setInstructorReikies(body.instructor.reikies);
     }
@@ -91,11 +96,12 @@ const InstructorProfile = ()=>{
 
     const handelDataChange= async()=>{
         const data = {
-            "jwt":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzY1Zjg2YmU2NzM1NjJlNDI5MjczNiIsImlhdCI6MTY3NDUyODcyM30.jG4pUrC2M6iRsAtBb6QpqYXGusf9RnNOjQgBEmH4xzo",
+            "jwt":props.instructorJWT,
             "first_name":document.getElementById("inputFirstName").value,
             "last_name":document.getElementById("inputLastName").value,
             "email":document.getElementById("inputEmailAddress").value,
-            "phone_no":document.getElementById("inputPhone").value
+            "phone_no":document.getElementById("inputPhone").value,
+            "description":document.getElementById("description").value
         }
         const url = "http://localhost:5000/profile/edit/instructor";
         const options = {
@@ -148,42 +154,49 @@ const InstructorProfile = ()=>{
       </Modal>
     
 
-        <div className="cardbg">
+       
 
         
         <div className="container-xl px-4 mt-8">
             
-    <div className="row cardbg" >
+    <div className="row" >
        
-        <div className="col-xl-8 mx-auto cardbg">
-            <div className="card mb-4 cardbg">
-                <div className="card-header">Account Details</div>
-                <div className="card-body">
-                    <form>
-                      
+        <div className="col-xl-8 mx-auto">
+            <div className="cardNew mb-4 form">
+                
+                <div className="card-body form">
+                    <form >
+                    <div className="text-center large mb-4 header">Account Details</div>
                         <div className="row gx-3 mb-3">
                          
                             <div className="col-md-6">
                                 <label className="small mb-1" for="inputFirstName">First name</label>
-                                <input className="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" defaultValue={instructor?.first_name} />
+                                <input className="form-control transparent-input" id="inputFirstName" type="text" placeholder="Enter your first name" defaultValue={instructor?.first_name} />
                             </div>
                             
                             <div className="col-md-6">
                                 <label className="small mb-1" for="inputLastName">Last name</label>
-                                <input className="form-control" id="inputLastName" type="text" placeholder="Enter your last name" defaultValue={instructor?.last_name} />
+                                <input className="form-control transparent-input " id="inputLastName" type="text" placeholder="Enter your last name" defaultValue={instructor?.last_name} />
                             </div>
-                        </div>
-                        
-                        <div className="mb-3">
-                            <label className="small mb-1" for="inputEmailAddress">Email address</label>
-                            <input className="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" defaultValue={instructor?.email} />
                         </div>
                         
                         <div className="row gx-3 mb-3">
                             
                             <div className="col-md-6">
+                                <label className="small mb-1" for="inputEmailAddress">Email address</label>
+                                <input className="form-control transparent-input " id="inputEmailAddress" type="email" placeholder="Enter your email address" defaultValue={instructor?.email} />
+                            </div>
+
+                            <div className="col-md-6">
                                 <label className="small mb-1" for="inputPhone">Phone number</label>
-                                <input className="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" defaultValue={instructor?.phone_no} />
+                                <input className="form-control transparent-input " id="inputPhone" type="tel" placeholder="Enter your phone number" defaultValue={instructor?.phone_no} />
+                            </div>
+                        </div>
+                        <div className="row gx-3 mb-3">
+                            
+                            <div className="col-md-6">
+                                <label className="small mb-1" for="inputPhone">Description</label>
+                                <textarea className="form-control transparent-input " id="description" type="tel" placeholder="Enter your description" defaultValue={instructor?.description} />
                             </div>
                       
                         </div>
@@ -219,7 +232,7 @@ const InstructorProfile = ()=>{
             </div>
         </div>
     </div>
-</div></div>
+</div>
 </>
         );
 

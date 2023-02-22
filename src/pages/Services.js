@@ -8,6 +8,9 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import BookingDetailsModal from "../Modules/Service/BookingDetailsModal/BookingDetailsModal";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import "./Services.css";
 
 
@@ -204,7 +207,7 @@ const servicedCards = [
   },
 ];
 
-function Services() {
+function Services(props) {
 
   
   // const [reikies,setReikies] = useState([]);
@@ -249,6 +252,14 @@ function Services() {
   // }
 
   const history = useHistory();
+    // useEffect(()=>{
+    //   console.log("hiiya");
+    //   console.log(props);
+    //     if(!props.userJWT){
+    //         history.push("/login");
+    //     }
+    // },[]);
+
     function handleClick() {
     history.push("/services");
   }
@@ -275,29 +286,7 @@ function Services() {
   };
 
   return (
-    // <div className="mx-6 mt-8">
-    // <Row xs={1} md={2} className="g-4">
-    //   {reikies.map((reiki) => (
-    //     <Col md={4}>
-    //       <Card>
-    //         {
-    //           (reiki.image!="")?<Card.Img variant="top" src={reiki.image} height="100px" width="40px"/>:<></>
-    //         }
-    //         <Card.Body>
-    //           <Card.Title>{reiki.name}</Card.Title>
-    //           <Card.Text>
-    //             {reiki.description}
-    //           </Card.Text>
-    //           <button onClick={()=>handleClick(reiki._id)} class="btn btn-col" type="button">
-    //               Book Appointment for This Service
-    //           </button>
-    //         </Card.Body>
-    //       </Card>
-    //     </Col>
-    //   ))}
-    // </Row>
-    
-    // </div>
+   
 
     <div className="serviceContainer mt-6">
 
@@ -305,31 +294,23 @@ function Services() {
         {_.map(servicedCards, (card, index) => {
           return (
             <div
-              className="card"
+              className="reikiCard"
               onClick={() => showBookingDetails({ card })}
               key={index}
             >
-             <table>
-              <tr>
-                  <td rowspan="2" >
-                    <img src={card.image} height="100px" alt="img" />
-                  </td>
-                  <th >
-                   <div className="cardText" >
-                      <div dangerouslySetInnerHTML={{ __html: card.label }}></div>
-                    </div>
-                  </th>
+            
 
+            <div className="divRow">
+              <div><img className="cardImage" src={card.image} alt="img" /></div>
+              <div className="diCol">
+                <div className="cardText">
+                  <div dangerouslySetInnerHTML={{ __html: card.label }}></div>
+                </div>
+                <div className="cardSubtext">{card.subtext.substring(0,70)}...</div>
+                <div className="cardBtn"><FontAwesomeIcon className="iconClass" onClick={() => showBookingDetails({ card })}  icon={faArrowRight} /></div>
+              </div> 
+            </div>
 
-              </tr>
-              <tr>
-                  <td rowspan="2">
-                    <div className="cardText">
-                      <div className="cardSubtext">{card.subtext}</div>
-                    </div>
-                  </td>
-              </tr>
-            </table>
             </div>
           );
         })}
@@ -338,6 +319,7 @@ function Services() {
         <BookingDetailsModal
           resetBooking={resetBookingDetails}
           details={selectedCard}
+          {...props}
         />
       )}
     

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from "react";
 import "./Login.css"
 import { useHistory } from "react-router-dom";
 import ForgetPasswordEmailModal from "./modals/ForgetPasswordEmailModal"
@@ -15,7 +15,12 @@ import {
 }
 from 'mdb-react-ui-kit';
 
-function Login() {
+function Login(props) {
+
+  // useEffect(()=>{
+  //   console.log(props);
+  //   props.setUserJWT("hello world");
+  // },[]);
 
   const handelLogin = async ()=>{
     const data = {
@@ -23,10 +28,13 @@ function Login() {
       "password":document.getElementById("password").value
     }
     let url;
-    if(document.getElementById("isInstructor").checked){
+    let con;
+    if(document.getElementById("instructorCheck").checked){
       url="http://localhost:5000/login/instructor";
+      con=true;
     }else{
       url="http://localhost:5000/login/user";
+      con=false;
     }
 
     const options = {
@@ -38,37 +46,44 @@ function Login() {
     }
     const res = await fetch(url,options);
     const body = await res.json();
+    if(body.message && body.message=="Login successful!"){
+      if(con){
+        props.setInstructorJWT(body.jwt);
+        history.push("/instructorupcomingappointmentdetails");
+      }
+      else {
+        props.setUserJWT(body.jwt);
+        history.push("/");
+      }
+    }
     console.log(body);
   }
 
   const history = useHistory();
-    function handleClick() {
+  function handleClick() {
     history.push("/signup");
   }
 
 
 
   return (
-    <MDBContainer fluid className="form">
+    <body className="">
+    <MDBContainer fluid>
 
-      <MDBRow className='d-flex justify-content-center align-items-center h-100'>
+      <MDBRow className='d-flex justify-content-center align-items-center h-100  btn-col'>
         <MDBCol col='12'>
 
           <MDBCard className='bg-white my-5 mx-auto' style={{borderRadius: '1rem', maxWidth: '500px'}}>
-            <MDBCardBody className='p-5 w-100 d-flex flex-column'>
+            <MDBCardBody className='p-5 w-100 d-flex flex-column form'>
 
               <h2 className="fw-bold mb-2 text-center">Log in</h2>
               <p className="fw-bold text-center mb-3">Don't have an account?<span className="link"><a onClick={handleClick}> Sign up</a></span></p>
+
+              <MDBInput className="transparent-input" wrapperClass='mb-4 w-100' placeholder='Email address*' id='email' type='email' size="lg"/>
+              <MDBInput className="transparent-input" wrapperClass='mb-4 w-100' placeholder='Password*' id='password' type='password' size="lg"/>
               
 
-              
-
-              
-              <MDBInput wrapperClass='mb-4 w-100' placeholder='Email address*' id='email' type='email' size="lg"/>
-              <MDBInput wrapperClass='mb-4 w-100' placeholder='Password*' id='password' type='password' size="lg"/>
-              
-
-              <p className="fw-bold text-left mb-3 forgot-password"><ForgetPasswordEmailModal /></p>
+              <p className="fw-bold text-left forgot-password"><ForgetPasswordEmailModal /></p>
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="privacyCheck" />
                 <label class="form-check-label" for="flexCheckDisabled">I agree with VediHeal's <span className="link"><a>Terms and Conditions</a></span> and <span className="link"><a>Privacy Policy</a></span></label>
@@ -78,15 +93,10 @@ function Login() {
                 <label class="form-check-label">Are You an Instructor?</label>
               </div>
               <br />
-              <MDBBtn size='lg'>
-                Login
+              <MDBBtn className="login-btn" onClick={handelLogin}>
+                <span className="loginbutton">Login</span>
               </MDBBtn>
               <br />
-              
-
-
-              
-
             </MDBCardBody>
 
           </MDBCard>
@@ -95,6 +105,8 @@ function Login() {
       </MDBRow>
 
     </MDBContainer>
+    </body>
+  
   );
 }
 

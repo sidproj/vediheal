@@ -7,6 +7,13 @@ import './Instructor.css'
 
 function Instructor(props) {
 
+
+  const history = useHistory();
+    useEffect(()=>{
+        if(!props.instructorJWT){
+            history.push("/login");
+        }
+    },[]);
   
   const [instructors,setInstructors] = useState([]);
 
@@ -32,7 +39,6 @@ function Instructor(props) {
     getInstructorData();
   },[]);
 
-  const history = useHistory();
 
   function handleClick(id) {
   history.push({

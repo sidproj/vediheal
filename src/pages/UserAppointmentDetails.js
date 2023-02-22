@@ -2,17 +2,27 @@ import React, { useEffect, useState } from 'react'
 import Card from 'react-bootstrap/Card';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import { Modal, Button } from 'react-bootstrap'
-function UserAppointmentDetails() {
+import { useHistory } from 'react-router-dom';
+function UserAppointmentDetails(props) {
+
+  const history = useHistory();
+    useEffect(()=>{
+      console.log(props);
+        if(!props.userJWT){
+            history.push("/login");
+        }
+    },[]);
+
   
   const [appointments,setAppointments] = useState([]);
 
   const getAppointmentData = async ()=>{
     const data = {
       // change this later
-      jwt:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU1ZGZkZDJkN2RkYTk1NTlkNDIyMiIsImlhdCI6MTY3NDQyMTI1Mn0.Gl2sqvPjunPYkVtiq6NbmMYLqZDYKdfrn8QZfCkuWTg",
-
+      "jwt":props.userJWT,
+      "is_appointed":true
     }
-    const url = "http://localhost:5000/aapointment/user";
+    const url = "http://localhost:5000/appointment/user";
     const options = {
         method: "POST",
         body: JSON.stringify(data),
@@ -71,8 +81,8 @@ function UserAppointmentDetails() {
                 <tr>
                   <td scope="row">{start.getFullYear() +"/"+(start.getMonth()+1)+"/"+start.getDate()+" "+start.getHours()+":"+start.getMinutes()+":"+ start.getSeconds()}</td>
                   <td>{start.getFullYear() +"/"+(end.getMonth()+1)+"/"+end.getDate()+" "+end.getHours()+":"+end.getMinutes()+":"+ end.getSeconds()}</td>
-                  <td>{appointment.reiki_id.name}</td>
-                  <td>{appointment.instructor_id.first_name} {appointment.instructor_id.last_name}</td>
+                  <td>{appointment.reiki_id?.name}</td>
+                  <td>{appointment.instructor_id?.first_name} {appointment.instructor_id?.last_name}</td>
                   <td>{appointment.price}</td>
                 </tr>
               )

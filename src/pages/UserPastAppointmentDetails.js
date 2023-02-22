@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import _ from "lodash";
-import InstructorUpcomingAppointmentDetailsModal from "./modals/InstructorUpcomingAppointmentDetailsModal"
-import { useState } from 'react';
-import "./Services.css"
+import UserPastAppointmentDetailsModal from "./modals/UserPastAppointmentDetailsModal"
+import UserUpcomingAppointmentDetailsModal from "./modals/UserUpcomingAppointmentDetailsModal"
 
 const servicedCards = [
   {
@@ -46,13 +45,11 @@ const servicedCards = [
   },
 ];  
 
-function InstructorPastAppointmentDetails(props) {
-
-  const [appointments,setAppointments] = useState([]);
+function UserPastAppointmentDetails(props) {
 
   const history = useHistory();
     useEffect(()=>{
-        if(!props.instructorJWT){
+        if(!props.userJWT){
             history.push("/login");
         }
     },[]);
@@ -62,7 +59,7 @@ function InstructorPastAppointmentDetails(props) {
         "jwt":props.instructorJWT,
         "is_completed":true
       }
-      const url = "http://localhost:5000/appointment/instructor";
+      const url = "http://localhost:5000/appointment/user";
       const options = {
           method: "POST",
           body: JSON.stringify(data),
@@ -72,10 +69,10 @@ function InstructorPastAppointmentDetails(props) {
       }
       const res = await fetch(url,options);
       const body = await res.json();
-      setAppointments(body);
       console.log(body);
     }
 
+    
     useEffect(()=>{
       getData();
     },[]);
@@ -85,24 +82,24 @@ function InstructorPastAppointmentDetails(props) {
     <div className="serviceContainer mt-6">
 
     <div className="serviceCards">
-      {_.map(appointments, (card, index) => {
+      {_.map(servicedCards, (card, index) => {
         return (
           <div
-            className="card"
+            className="reikiCard"
             key={index}
           >
           
 
           <div className="divRow">
-            <div><img className="cardImage" src={card.reiki_id.image} alt="img" /></div>
+            <div><img className="cardImage" src={card.image} alt="img" /></div>
             <div className="diCol">
               <div className="cardText">
-                <div dangerouslySetInnerHTML={{ __html: card.reiki_id.name }}></div>
+                <div dangerouslySetInnerHTML={{ __html: card.label }}></div>
               </div>
             
-              {/* <div>Order Id : {card._id} </div> */}
-              <div>Client name:  {card.user_id.firt_name}</div>
-              <div className='cardBtn'><InstructorUpcomingAppointmentDetailsModal data={card} /></div>
+              <div>Order Id : </div>
+              <div>Date : </div>
+              <div className='cardBtn'><UserUpcomingAppointmentDetailsModal /></div>
               {/* <div className="cardBtn"><img classname="img" src={require("../assets/next.png")} /></div> */}
             </div>
             
@@ -115,4 +112,4 @@ function InstructorPastAppointmentDetails(props) {
     </div>
   )
 }
-export default InstructorPastAppointmentDetails;
+export default UserPastAppointmentDetails;

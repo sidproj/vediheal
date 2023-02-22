@@ -20,7 +20,7 @@
 
 .card{
     display: flex;
-    background-color: #fce4de !important;
+    background-color: #f8cfc1 !important;
     border-radius: 8px;
     cursor: pointer;
 }

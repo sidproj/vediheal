@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Dashboard.css";
 import DashBoardBody from "../../Components/DashBoardBody/DashBoardBody";
 import Service from "../Service/Service";
 import Feedback from "../../Components/Feedback/Feedback";
 import Footer from "../../Components/Footer/Footer";
+import { useHistory } from "react-router-dom";
 
-function Dashboard() {
+const Dashboard = (props)=> {
+  const history = useHistory();
+  useEffect(()=>{
+    console.log(props);
+      if(props.instructorJWT!=undefined){
+          history.push("/login");
+      }
+  },[]);
+
   return (
     <div className="bg">
     <div className="container">
@@ -20,7 +29,7 @@ function Dashboard() {
       </div>
       <div className="rounded-pill btn">Know more</div>
       <DashBoardBody />
-      <Service />
+      <Service {...props}/>
       <Feedback />
       <div className="connect">Connect with us</div>
       <div className="connectIcon">

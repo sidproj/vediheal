@@ -16,6 +16,13 @@ import {
 
 export default function ProfilePage(props) {
 
+  const history = useHistory();
+    useEffect(()=>{
+        if(!props.instructorJWT){
+            history.push("/login");
+        }
+    },[]);
+
   
   const [instructor,setInstructor] = useState({});
   const [reikies,setReikies] = useState([]);
@@ -40,10 +47,7 @@ export default function ProfilePage(props) {
     console.log(reikies);
   },[reikies]);
 
-
-
-  const history = useHistory();
-    function handleClick() {
+  function handleClick() {
     history.push("/booking");
   }
 

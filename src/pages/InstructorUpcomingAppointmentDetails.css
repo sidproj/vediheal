@@ -19,34 +19,19 @@
     font-family: 'Montserrat', sans-serif;
     color:#040606;
     align-items: flex-start;
-    
 }
 
 body.service-body{
     background-color: #fce4de !important;
 }
 
-
 .card{
-    display: flex;
-    background-color: #f6f1eb !important;
-    border:none !important;
-    border-radius: 2rem;
-    cursor: pointer;
-    padding:0.3rem;
-    padding-bottom: 0.7rem;
-    max-width: 19rem;
-}
-
-.reikiCard{
     display: flex;
     background-color: #f8cfc1 !important;
     border:none !important;
     border-radius: 2rem;
     cursor: pointer;
     padding:0.3rem;
-    padding-bottom: 0.7rem;
-    max-width: 19rem;
 }
 
 
@@ -63,11 +48,11 @@ body.service-body{
     row-gap: 8px;
     padding: 4px;
     text-align: center;
-    font-weight: 700;
 
 }
 
 .cardSubtext {
+    width:12rem;
     font-size: 0.7rem;
     font-weight: 500;
     text-align: left;
@@ -76,14 +61,12 @@ body.service-body{
 .divRow{
     display: flex;
     flex-direction: row;
-    max-width: 19rem;
+    /* max-width: 19rem; */
 }
 
 .divCol{
     display: flex;
     flex-direction: column;
-    width:13rem !important;
-    height:6rem;
 }
 
 .cardBtn {
@@ -98,6 +81,3 @@ body.service-body{
     width: 5px !important;
 }
 
-.iconClass {
-    margin-right: 1.5rem;
-}

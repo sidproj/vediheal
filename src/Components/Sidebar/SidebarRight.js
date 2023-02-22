@@ -11,8 +11,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 const bar = <FontAwesomeIcon icon={faBars} />;
 
-const SidebarRight = ({isLoggedIn, isInstructor}) => {
-
+const SidebarRight = (props) => {
+  const {isLoggedIn, isInstructor}= props;
     const history = useHistory();
     function userProfile() {
     history.push("/userprofile");
@@ -34,27 +34,41 @@ const SidebarRight = ({isLoggedIn, isInstructor}) => {
     history.push("/login");
   }
 
-
-    function services() {
+  function services() {
     history.push("/services");
   }
 
-    function booking() {
+  function booking() {
     history.push("/booking");
   }
 
   function instructorappointmentdetails() {
-    history.push("/instructorappointmentdetails");
+    history.push("/instructorupcomingappointmentdetails");
   }
 
   function instructorpastappointmentdetails() {
     history.push("/instructorpastappointmentdetails");
   }
 
-  function appointment() {
-    history.push("/userappointmentdetails");
+  function userpastappointment() {
+    history.push("/userpastappointmentdetails");
   }
 
+  function upcomingAppointment() {
+    history.push("/userupcomingappointmentdetails");
+  }
+
+  function schedule(){
+    history.push("/instructorSchedule");
+  }
+
+  function privacypolicy(){
+    history.push("/privacypolicy");
+  }
+
+  function aboutus(){
+    history.push("/aboutus");
+  }
   
    
     const [visibleRight, setVisibleRight] = useState(false);
@@ -63,27 +77,32 @@ const SidebarRight = ({isLoggedIn, isInstructor}) => {
         setVisibleRight(false);
     }
 
-
+    const handelLogout = ()=>{
+      props.setUserJWT(undefined);
+      props.setInstructorJWT(undefined);
+      history.push("/login");
+    }
 
     
-        if(isInstructor){
+        if(props.instructorJWT!=undefined){
             return (
-                    <div>
-
-                    <div className="card">                
+                    <div>               
                         <Sidebar className="card-bg" visible={visibleRight} style={{width:'15em'}} position="right" onHide={() => setVisibleRight(false)}>
   
-                          
-                            <a onClick={() => {instructorProfile(); toggleSidebar();}} className="sideLinks"><h3>Profile</h3></a><br />
-                         
-                            <a onClick={() => {instructorappointmentdetails(); toggleSidebar();}} className="sideLinks" ><h3>Appointment</h3></a><br />
+                            <a onClick={() => {instructorappointmentdetails(); toggleSidebar();}} className="sideLinks" ><h3>Upcoming Appointment</h3></a><br />
                             
                             <a onClick={() => {instructorpastappointmentdetails(); toggleSidebar();}} className="sideLinks" ><h3>Past Appointment</h3></a><br />
 
-                            <a onClick={userProfile} className="sideLinks"><h3>Logout</h3></a>
-                        </Sidebar>                
-                        
-                    </div>
+                            <a onClick={()=> {schedule();toggleSidebar();}} className="sideLinks"><h3>Add Schedule</h3></a><br/>
+
+                            <a onClick={() => {instructorProfile(); toggleSidebar();}} className="sideLinks"><h3>Profile</h3></a><br />
+
+                            <a onClick={() => {privacypolicy(); toggleSidebar();}} className="sideLinks"><h3>Privacy Policy</h3></a><br />
+
+                            <a onClick={() => {aboutus(); toggleSidebar();}} className="sideLinks"><h3>About Us</h3></a><br />
+
+                            <a onClick={() => {handelLogout(); toggleSidebar();}} className="sideLinks"><h3>Logout</h3></a>
+                        </Sidebar>
                     <button onClick={() => setVisibleRight(true)} className="btn rounded-circle" ><i>{bar}</i></button>
                 </div>
                 )
@@ -91,25 +110,27 @@ const SidebarRight = ({isLoggedIn, isInstructor}) => {
 
         else{
           return (
-            <div>
-            <div className="card">                
+            <div>               
                 <Sidebar className="card-bg" visible={visibleRight} style={{width:'15em'}} position="right" onHide={() => setVisibleRight(false)}>
                     <a onClick={() => {home(); toggleSidebar();}} className="sideLinks"><h3>Home</h3></a><br />
                     
-                    {isLoggedIn ?  (<a onClick={() => {userProfile(); toggleSidebar();}} className="sideLinks"><h3>Profile</h3><br /></a>):<></>}
+                    {(props.userJWT!=undefined) ?  (<a onClick={() => {userProfile(); toggleSidebar();}} className="sideLinks"><h3>Profile</h3><br /></a>):<></>}
                     
                     <a onClick={() => {services(); toggleSidebar();}} className="sideLinks" ><h3>Services</h3></a><br />
                    
                     
-                    {isLoggedIn && (<><a onClick={() => {appointment(); toggleSidebar();}} className="sideLinks"><h3>Appointment</h3></a><br /></>)}
+                    {(props.userJWT!=undefined)  && (<><a onClick={() => {upcomingAppointment(); toggleSidebar();}} className="sideLinks"><h3>Upcoming Appointment</h3></a><br /></>)}
+                    {(props.userJWT!=undefined)  && (<><a onClick={() => {userpastappointment(); toggleSidebar();}} className="sideLinks"><h3>Past Appointment</h3></a><br /></>)}
                     
-                    <a onClick={() => {booking(); toggleSidebar();}} className="sideLinks"><h3>Book an Appointment</h3></a>
-                    <br />
+                    {/* <a onClick={() => {booking(); toggleSidebar();}} className="sideLinks"><h3>Book an Appointment</h3></a>
+                    <br /> */}
 
-                    {isLoggedIn ?  (<a onClick={() => {userProfile(); toggleSidebar();}} className="sideLinks"><h3>Logout</h3></a>):(<a onClick={() => {login(); toggleSidebar();}} className="sideLinks"><h3>Login</h3></a>)}
+                    <a onClick={() => {privacypolicy(); toggleSidebar();}} className="sideLinks"><h3>Privacy Policy</h3></a><br />
+
+                    <a onClick={() => {aboutus(); toggleSidebar();}} className="sideLinks"><h3>About Us</h3></a><br />
+
+                    {(props.userJWT!=undefined)  ?  (<a onClick={() => {handelLogout(); toggleSidebar();}} className="sideLinks"><h3>Logout</h3></a>):(<a onClick={() => {login(); toggleSidebar();}} className="sideLinks"><h3>Login</h3></a>)}
                 </Sidebar>                
-                
-            </div>
             <button   onClick={() => setVisibleRight(true)} className="btn rounded-circle" ><i>{bar}</i></button>
         </div>
         )

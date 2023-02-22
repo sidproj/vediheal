@@ -1,15 +1,20 @@
 .btn-col{
-    background-color: #fce4de !important;
+    background-color: #f8cfc1 !important;
 }
 
-.icon {
-    background-color: grey !important;
-}
 
 .form {
     background-color: #F6F1EB !important;
+    border-radius: 1rem;
 }
 
+.loginButton {
+    color : black !important;
+}
+
+.inputfield {
+    background: transparent !important;
+}
 
 .link{
     color: red;
@@ -40,4 +45,19 @@
 
 .forgot-password {
     text-decoration: none;
+}
+
+
+.transparent-input {
+   background-color: rgba(0, 0, 0, 0);
+  
+}
+
+ input.transparent-input{
+       background-color:rgba(0,0,0,0) !important;
+       background: transparent !important;
+    }
+
+.login-btn{
+    max-height:3rem;
 }

@@ -1,9 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CheckoutModal from "../CheckoutModal/CheckoutModal";
 import "./BookingDetailsModal.css";
 import MDBInput from 'mdb-react-ui-kit';
+import { useHistory } from "react-router-dom";
 
-function BookingDetailsModal({ resetBooking, details }) {
+
+function BookingDetailsModal(props) {
+
+  const { resetBooking, details } = props;
+  
+  const history = useHistory();
+  useEffect(()=>{
+    console.log(props);
+      if(!props.userJWT){
+          history.push("/login");
+      }
+  },[]);
+
+  const verifyCoupon= async ()=>{
+    const data = {
+      "jwt":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU1ZGZkZDJkN2RkYTk1NTlkNDIyMiIsImlhdCI6MTY3NjcyMjg2NX0.tVZ-yPx8uKPgNJRWgaw49yKuhGASuovKR34Zb2zCTmk",
+      "code":"test"
+    }
+    const url = "http://localhost:5000/coupon/check";
+    const options = {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+          "Content-Type": "application/json",
+      }
+    }
+    const res = await fetch(url,options);
+    const body = await res.json();
+    console.log(body);
+  }
+
   const { image, label, benefits, sessionPlan, body, expectation } = details;
   const [showBookingModal, setShowBookingModal] = useState(false);
   const onProceedClick = () => {
@@ -58,11 +89,27 @@ function BookingDetailsModal({ resetBooking, details }) {
                 {plan.sessionCount > 1
                   ? plan.sessionCount + " Sessions"
                   : "Session"}
-                <input type="radio" className="radioButton" name={"radio"} />
+                 {
+                  (i==0)? <input 
+                            type="radio" 
+                            className="radioButton" 
+                            checked
+                            name={"radio"} 
+                          />:<input 
+                            type="radio" 
+                            className="radioButton" 
+                            name={"radio"} />
+                }
               </div>
             </div>
           );
         })}
+        <div>
+          <input type="text" name="coupon" id="coupon" />
+          <div className="bookingButton" onClick={() => verifyCoupon()}>
+            Verify Coupon
+          </div>
+        </div>
       </div>
       <div className="bookingButton" onClick={() => onProceedClick()}>
         PROCEED
@@ -71,7 +118,7 @@ function BookingDetailsModal({ resetBooking, details }) {
       <div className="expect">What to expect</div>
       <div className="reikiBody">{expectation}</div>
       {showBookingModal && (
-        <CheckoutModal onClose={() => closeCheckoutModal()} details={details} />
+        <CheckoutModal  reiki={100} onClose={() => closeCheckoutModal()} details={details} />
       )}
     </div>
   );

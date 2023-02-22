@@ -1,19 +1,26 @@
-import React, { useEffect } from 'react'
+import { useEffect ,useState} from 'react'
 import Card from 'react-bootstrap/Card';
 
-  
-import React, {useState} from 'react'
-import Card from 'react-bootstrap/Card';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
-import { Modal, Button } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
+// import { Modal, Button } from 'react-bootstrap';
 
-function InstructorAppointmentDetails() {
+function InstructorAppointmentDetails(props) {
+
+  const history = useHistory();
+    useEffect(()=>{
+        if(!props.instructorJWT){
+            history.push("/login");
+        }
+    },[]);
+
 
   const getData = async ()=>{
     const data={
-      "jwt":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzY1Zjg2YmU2NzM1NjJlNDI5MjczNiIsImlhdCI6MTY3NDUyODcyM30.jG4pUrC2M6iRsAtBb6QpqYXGusf9RnNOjQgBEmH4xzo",
+      "jwt":props.instructorJWT,
+      "is_completed":false
     }
-    const url = "http://localhost:5000/apointment/instructor";
+    const url = "http://localhost:5000/appointment/instructor";
     const options = {
         method: "POST",
         body: JSON.stringify(data),

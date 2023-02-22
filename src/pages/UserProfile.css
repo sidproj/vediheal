@@ -1,5 +1,5 @@
 body{margin-top:20px;
-background-color:#f2f6fc;
+background-color:#fce4de;
 color:#69707a;
 }
 
@@ -66,3 +66,6 @@ color:#69707a;
     display: flex;
     align-items: center;
 }
+input.input{
+    background-color:#fce4de !important;
+ }

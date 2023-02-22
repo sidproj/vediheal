@@ -197,10 +197,11 @@ const servicedCards = [
   },
 ];
 
-function Service() {
+const  Service = (props)=> {
 
   const history = useHistory();
-    function handleClick() {
+
+  function handleClick() {
     history.push("/services");
   }
 
@@ -236,7 +237,7 @@ function Service() {
         {_.map(servicedCards, (card, index) => {
           return (
             <div
-              className="card"
+              className="reikiCard"
               onClick={() => showBookingDetails({ card })}
               key={index}
             >
@@ -256,7 +257,7 @@ function Service() {
               <tr>
                   <td rowspan="2">
                     <div className="cardText">
-                      <div className="cardSubtext">{card.subtext}</div>
+                      <div className="cardSubtext">{card.subtext.slice(0,90)}...</div>
                     </div>
                   </td>
               </tr>
@@ -269,6 +270,7 @@ function Service() {
         <BookingDetailsModal
           resetBooking={resetBookingDetails}
           details={selectedCard}
+          {...props}
         />
       )}
     

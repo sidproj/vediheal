@@ -15,9 +15,9 @@ import {
 }
 from 'mdb-react-ui-kit';
 import InstructorModal from "./instructorModal"
-import AppointmentSchedule from "./instructorModal copy";
 import DateModal from "./dateModal";
 import TimeModal from "./timeModal";
+import { useHistory } from "react-router-dom";
 
 const CheckoutModal = (props) => {
 
@@ -33,47 +33,35 @@ const CheckoutModal = (props) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState(new Date());
 
-  const [selectedSchedule,setselectedSchedule] = useState([]);
-  const [scheduleSelect,setScheduleSelect] = useState([]);
-
-  const generateScheduleOptionData = (scheduleData)=>{
-    const data = [];
-
-    for(let i=0;i<scheduleData.length;i++){
-      const newOption = {
-        label :scheduleData[i].start_time,
-        value :scheduleData[i]._id 
-      }
-      data.push(newOption);
+  const addSchedule = async ()=>{
+    const data = {
+      jwt:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzY1Zjg2YmU2NzM1NjJlNDI5MjczNiIsImlhdCI6MTY3NjcyOTIyM30.PDGBW1pmUyYZew7ybtw39KlEVh2YRGVFDXVSEiTN88I",
+      instructor_id:"63c65f86be673562e4292736",
+      start_time:"2023-03-19T11:00:55Z",
+      end_time:"2023-03-19T12:00:55Z"
     }
-    console.log(data);
-    setScheduleSelect(data);
+
+    const url = "http://localhost:5000/schedule/createSchedule";
+    const options = {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+          "Content-Type": "application/json",
+      }
   }
 
-  const getScheduleData = async ()=>{
-    console.log("Schedule info:- ");
-    const data = {
-      "jwt":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU1ZGZkZDJkN2RkYTk1NTlkNDIyMiIsImlhdCI6MTY3NjcyMjg2NX0.tVZ-yPx8uKPgNJRWgaw49yKuhGASuovKR34Zb2zCTmk",
-      "instructor_id":"63c65f86be673562e4292736"
-    }
+    console.log(options);
 
-    const url = "http://localhost:5000/schedule";
-    const options = {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type": "application/json",
-        }
-    }
     const res = await fetch(url,options);
     const body = await res.json();
-    generateScheduleOptionData(body);
+    console.log(body);
+
   }
 
   const getAppointmentData = async ()=>{
     const data = {
       // change this later
-      "jwt":props.userJWT,
+      "jwt":props.instructorJWT,
       "reiki":"63c3e1398481e6965b972d42"
     }
     const url = "http://localhost:5000/reiki/instructorsByReiki";
@@ -102,14 +90,17 @@ const CheckoutModal = (props) => {
     console.log(selectedInstructor);
   },[selectedInstructor]);
 
-  useEffect(()=>{
-    getAppointmentData();
-    getScheduleData();
-  },[]);
+  // useEffect(()=>{
+  //   getAppointmentData();
+  // },[]);
+  const history = useHistory();
+  const back = ()=>{
+    history.push("instructorupcomingappointmentdetails");
+  }
 
 
 
-  const { image, label } = details;
+  // const { image, label } = details;
   return (
     <div className="checkoutModalContainer">
       <div className="checkoutHeader">
@@ -117,16 +108,16 @@ const CheckoutModal = (props) => {
           src={require("../../../assets/back.png")}
           height="24px"
           alt="header"
-          onClick={onClose}
+          onClick={back}
         />
       </div>
       <div className="checkoutBody">
         <div className="checkoutTitleContainer">
           <div>
-            <img src={image} height="80px" alt="header" />
+            <img src={""} height="80px" alt="header" />
           </div>
           <div>
-            <div>{label}</div>
+            <div>{"label"}</div>
             <div>{"30-45 mins"}</div>
           </div>
         </div>
@@ -173,34 +164,6 @@ const CheckoutModal = (props) => {
 
           <div className="bodyCard">
             <img
-              src={require("../../../assets/time.png")}
-              height="40px"
-              alt="header"
-            />
-            <div className="time">
-              <AppointmentSchedule 
-                changeInstructor={setselectedSchedule} 
-                instructors={scheduleSelect}
-                instructor={selectedInstructor} />
-            </div>
-          </div>
-
-          <div className="bodyCard">
-            <img
-              src={require("../../../assets/user.png")}
-              height="40px"
-              alt="header"
-            />
-            <div className="time">
-              <InstructorModal 
-                changeInstructor={setSelectedInstructor} 
-                instructors={instructors}
-                instructor={selectedInstructor} />
-            </div>
-          </div>
-
-          <div className="bodyCard">
-            <img
               src={require("../../../assets/video.png")}
               height="40px"
               alt="header"
@@ -208,23 +171,8 @@ const CheckoutModal = (props) => {
             <div>Selected date: {selectedDate?.toString()}<br />Selected time: {selectedTime?.toLocaleTimeString()}</div>
           </div>
           
-          {/* <div>
-            <input type="checkbox"></input>{" "}
-            <span className="smallfont">Schedule date and time later</span>
-          </div> */}
-          <br></br> 
-          <div>Total amount to be paid:</div>
-          <div className="price smallfont">
-            <div>Price for 1 session</div>
-            <div>₹499</div>
-          </div>
-          <div className="price">
-            <div>Payable amount</div>
-            <div>₹499</div>
-          </div>
-          
         </div>
-        <div className="bookingButton">PAY NOW</div>
+        <div className="bookingButton" onClick={addSchedule}>Add to Schedule</div>
       </div>
     </div>
   );

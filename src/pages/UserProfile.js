@@ -1,11 +1,21 @@
-import {useEffect,useState} from "react";
+import {useEffect,useLayoutEffect,useState} from "react";
 import "./UserProfile.css";
 import { Modal, Button } from 'react-bootstrap'
 import OrdersModal from "./modals/OrdersModal"
 import ChangePasswordModal from "./modals/ChangePasswordModal"
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useHistory } from "react-router-dom";
 
-const UserProfile = ()=>{
+const UserProfile = (props)=>{
+
+    
+    // authenticating
+    const history = useHistory();
+    useEffect(()=>{
+        if(!props.userJWT){
+            history.push("/login");
+        }
+    },[]);
 
     const [isShow, invokeModal] = useState(false);
     const [error, setError] = useState();
@@ -105,11 +115,11 @@ const UserProfile = ()=>{
           <form>
             <div class="form-group">
               
-              <input type="password" class="form-control" id="oldPassword" placeholder="Enter Current Password" />
+              <input className="input" type="password" class="form-control" id="oldPassword" placeholder="Enter Current Password" />
               <br />
-              <input type="password" class="form-control" id="newPassword" placeholder="Enter New Password" />
+              <input className="input" type="password" class="form-control" id="newPassword" placeholder="Enter New Password" />
               <br />
-              <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm New Password" />
+              <input className="input" type="password" class="form-control" id="confirmPassword" placeholder="Confirm New Password" />
              
             </div>
             <div>
@@ -134,20 +144,21 @@ const UserProfile = ()=>{
         
         <div class="col-xl-8 mx-auto">
             <div class="card mb-4">
-                <div class="card-header">Account Details</div>
-                <div class="card-body">
+                
+                <div class="card-body form">
                     <form>
+                    <div className="text-center large mb-4 header">Account Details</div>
                       
                         <div class="row gx-3 mb-3">
                          
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputFirstName">First name</label>
-                                <input class="form-control" id="inputFirstName" type="text" defaultValue={user?.first_name}  />
+                                <input class="form-control transparent-input" id="inputFirstName" type="text" defaultValue={user?.first_name}  />
                             </div>
                             
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputLastName">Last name</label>
-                                <input class="form-control" id="inputLastName" type="text" defaultValue={user?.last_name} />
+                                <input class="form-control transparent-input" id="inputLastName" type="text" defaultValue={user?.last_name} />
                             </div>
                         </div>
                         
@@ -155,7 +166,7 @@ const UserProfile = ()=>{
                             
                             <div class="col-mb-6">
                                 <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                                <input class="form-control" id="inputEmailAddress" type="email" defaultValue={user?.email}  />
+                                <input class="form-control transparent-input" id="inputEmailAddress" type="email" defaultValue={user?.email}  />
                             </div>
 
                             
@@ -168,7 +179,7 @@ const UserProfile = ()=>{
                             
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputPhone">Phone number</label>
-                                <input class="form-control" id="inputPhone" type="tel" defaultValue={user?.phone_no}  />
+                                <input class="form-control transparent-input" id="inputPhone" type="tel" defaultValue={user?.phone_no}  />
                             </div>
                       
                         </div>
