@@ -26,14 +26,14 @@ const UserProfile = (props)=>{
     const handelChangePassword = async()=>{
     const data = {
       
-      "jwt":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU1ZGZkZDJkN2RkYTk1NTlkNDIyMiIsImlhdCI6MTY3NDUyNjcwM30.BV4ytObY6gt0XUc2IYMOeeOc-NH63TrMVi3lQm9ngyE",
+      "jwt":props.userJWT,
       "old_password":document.getElementById("oldPassword").value,
       "password":document.getElementById("newPassword").value,
       "confirm_password":document.getElementById("confirmPassword").value
     }
 
     console.log(data);
-    const url = "http://localhost:5000/profile/edit/user/password";
+    const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/profile/edit/user/password";
     const options = {
         method: "POST",
         body: JSON.stringify(data),
@@ -61,10 +61,10 @@ const UserProfile = (props)=>{
     const getData = async ()=>{
         const data = {
             // change this later
-            jwt:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU1ZGZkZDJkN2RkYTk1NTlkNDIyMiIsImlhdCI6MTY3NDQyMTI1Mn0.Gl2sqvPjunPYkVtiq6NbmMYLqZDYKdfrn8QZfCkuWTg",
+            jwt:props.userJWT,
 
         }
-        const url = "http://localhost:5000/profile/user";
+        const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/profile/user";
         const options = {
             method: "POST",
             body: JSON.stringify(data),
@@ -83,13 +83,13 @@ const UserProfile = (props)=>{
 
     const handelDataChange= async()=>{
         const data = {
-            "jwt":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU1ZGZkZDJkN2RkYTk1NTlkNDIyMiIsImlhdCI6MTY3NDUyNTQxM30.8rqjOhEvhNEhxDKdZ9HLC4J0Cnael1PwXQZF3wpi0tM",
+            "jwt":props.userJWT,
             "first_name":document.getElementById("inputFirstName").value,
             "last_name":document.getElementById("inputLastName").value,
             "email":document.getElementById("inputEmailAddress").value,
             "phone_no":document.getElementById("inputPhone").value
         }
-        const url = "http://localhost:5000/profile/edit/user";
+        const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/profile/edit/user";
         const options = {
             method: "POST",
             body: JSON.stringify(data),

@@ -266,7 +266,7 @@ function Services(props) {
 
   useEffect(()=>{
     async function getData(){
-      const reikis = await fetch("http://localhost:5000/reiki");
+      const reikis = await fetch("https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/reiki");
       const body = await reikis.json();
       setReikiData(body);
     }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import '../UserProfile.css'
-function OrdersModal() {
+function OrdersModal(props) {
   
   const [appointments,setAppointments] = useState([]);
 
@@ -11,7 +11,7 @@ function OrdersModal() {
       jwt:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU1ZGZkZDJkN2RkYTk1NTlkNDIyMiIsImlhdCI6MTY3NDQyMTI1Mn0.Gl2sqvPjunPYkVtiq6NbmMYLqZDYKdfrn8QZfCkuWTg",
 
     }
-    const url = "http://localhost:5000/aapointment/user";
+    const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/aapointment/user";
     const options = {
         method: "POST",
         body: JSON.stringify(data),

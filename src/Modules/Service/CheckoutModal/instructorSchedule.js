@@ -64,7 +64,7 @@ const CheckoutModal = (props) => {
       "jwt":props.instructorJWT,
       "reiki":"63c3e1398481e6965b972d42"
     }
-    const url = "http://localhost:5000/reiki/instructorsByReiki";
+    const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/reiki/instructorsByReiki";
     const options = {
         method: "POST",
         body: JSON.stringify(data),

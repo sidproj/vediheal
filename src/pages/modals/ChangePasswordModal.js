@@ -13,13 +13,13 @@ function ChangePasswordModal() {
   const handelChangePassword = async()=>{
     const data = {
       
-      "jwt":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU1ZGZkZDJkN2RkYTk1NTlkNDIyMiIsImlhdCI6MTY3NDUyNjcwM30.BV4ytObY6gt0XUc2IYMOeeOc-NH63TrMVi3lQm9ngyE",
+      "jwt":props.userJWT,
       "old_password":document.getElementById("oldPassword").value,
       "password":document.getElementById("newPassword").value,
       "confirm_password":document.getElementById("confirmPassword").value
     }
     console.log(data);
-    const url = "http://localhost:5000/profile/edit/user/password";
+    const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/profile/edit/user/password";
     const options = {
         method: "POST",
         body: JSON.stringify(data),

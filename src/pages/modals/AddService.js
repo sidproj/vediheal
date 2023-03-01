@@ -22,10 +22,10 @@ const AddService = (props) => {
     const newReikies = await getSelectedReikies();
     console.log(newReikies);
     const data = {
-      "jwt":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzY1Zjg2YmU2NzM1NjJlNDI5MjczNiIsImlhdCI6MTY3NDUyODcyM30.jG4pUrC2M6iRsAtBb6QpqYXGusf9RnNOjQgBEmH4xzo",
+      "jwt":props.instructorJWT,
       "reiki":newReikies
     }
-    const url = "http://localhost:5000/reiki/addReiki";
+    const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/reiki/addReiki";
     const options = {
         method: "POST",
         body: JSON.stringify(data),

@@ -28,7 +28,7 @@ export default function ProfilePage(props) {
   const [reikies,setReikies] = useState([]);
   
   const getInstructorData = async ()=>{
-    const url = `http://localhost:5000/reiki/instructor/${props.location.state.detail}`;
+    const url = `https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/reiki/instructor/${props.location.state.detail}`;
     const options = {
       method: 'GET', 
     }

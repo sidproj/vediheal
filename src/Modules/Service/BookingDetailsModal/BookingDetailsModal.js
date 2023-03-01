@@ -19,10 +19,10 @@ function BookingDetailsModal(props) {
 
   const verifyCoupon= async ()=>{
     const data = {
-      "jwt":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzU1ZGZkZDJkN2RkYTk1NTlkNDIyMiIsImlhdCI6MTY3NjcyMjg2NX0.tVZ-yPx8uKPgNJRWgaw49yKuhGASuovKR34Zb2zCTmk",
+      "jwt":props.userJWT,
       "code":"test"
     }
-    const url = "http://localhost:5000/coupon/check";
+    const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/coupon/check";
     const options = {
       method: "POST",
       body: JSON.stringify(data),

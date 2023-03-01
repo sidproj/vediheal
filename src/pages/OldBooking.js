@@ -22,7 +22,7 @@ function Booking() {
 
   const getInstructorData = async ()=>{
 
-    const url = "http://localhost:5000/reiki/instructor";
+    const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/reiki/instructor";
     const options = {
       method: 'GET', 
     }
@@ -59,7 +59,7 @@ function Booking() {
   },[selectedInstructor]);
 
   const getReikiBenifits = async()=>{
-    const url = `http://localhost:5000/reiki/single/${selectedReiki.value}`;
+    const url = `https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/reiki/single/${selectedReiki.value}`;
     const options = {
       method: 'GET', 
     }

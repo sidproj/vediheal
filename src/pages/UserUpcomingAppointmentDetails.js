@@ -63,7 +63,7 @@ function UserUpcomingAppointmentDetails(props) {
       "jwt":props.userJWT,
       "is_appointed":false
     }
-    const url = "http://localhost:5000/appointment/user";
+    const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/appointment/user";
     const options = {
         method: "POST",
         body: JSON.stringify(data),
