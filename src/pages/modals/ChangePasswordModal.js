@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import '../UserProfile.css'
-function ChangePasswordModal() {
+function ChangePasswordModal(props) {
   const [isShow, invokeModal] = React.useState(false);
   const [error, setError] = useState();
   const initModal = () => {
