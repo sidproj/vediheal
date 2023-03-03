@@ -1,7 +1,6 @@
 .feedbackContainer{
     display: flex;
     padding: 20px;
-    overflow-x: auto;
     column-gap: 20px;
 }
 

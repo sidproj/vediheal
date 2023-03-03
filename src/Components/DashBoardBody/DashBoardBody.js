@@ -46,7 +46,7 @@ function DashBoardBody() {
           return (
             <div className="benefitContainer" key={index}>
               <img src={benefit.image} height="60px" alt="img" />
-              <div className="benefitLabel">{benefit.label}</div>
+              <div className="benefitLabel bodyTitle">{benefit.label}</div>
               <div className="benefitSubtext">{benefit.subtext}</div>
             </div>
           );

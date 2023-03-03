@@ -2,13 +2,17 @@
     display: flex;
     position: fixed;
     top: 0;
-    height: 50px;
+    height: 60px;
     justify-content: space-between;
     align-items: center;
     z-index: 100;
     width: 100vw;
     background-color: #fce4de;
     margin-top: 0 !important;
+    padding-left:0.5em;
+    padding-right: 0.5em;
+    padding-top:0.5em;
+    padding-bottom: 0.5em;
 }
 
 .menuContainer {

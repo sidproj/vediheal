@@ -1,12 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
 import DashBoardBody from "../../Components/DashBoardBody/DashBoardBody";
 import Service from "../Service/Service";
-import Feedback from "../../Components/Feedback/Feedback";
 import Footer from "../../Components/Footer/Footer";
 import { useHistory } from "react-router-dom";
+import DemoCarousel from "./Carousel";
+import {Collapse} from 'react-collapse';
+import ReivewCarousel from "./ReivewsCarousel";
 
 const Dashboard = (props)=> {
+
+  const [knowMore,setKnowMore] = useState(false);
+
+  const handleKnowMoreChange=()=>{
+    setKnowMore(!knowMore);
+  }
+
   const history = useHistory();
   useEffect(()=>{
     console.log(props);
@@ -18,7 +27,7 @@ const Dashboard = (props)=> {
   return (
     <div className="bg">
     <div className="container">
-      <img src={require("../../assets/banner.png")} width="100%" alt="img" />
+      <DemoCarousel/>
       <div className="titleContainer">
         Modern problems with <span className="redText">Vedic</span> solutions
       </div>
@@ -27,10 +36,14 @@ const Dashboard = (props)=> {
         options to create an experience that can help us in treating modern
         problems with ancient vedic solutions.
       </div>
-      <div className="rounded-pill btn">Know more</div>
+      <div className="rounded-pill btn" onClick={handleKnowMoreChange}>Know more</div>
+
+      <Collapse isOpened={knowMore}>
       <DashBoardBody />
+      </Collapse>
+
       <Service {...props}/>
-      <Feedback />
+      <ReivewCarousel/>
       <div className="connect">Connect with us</div>
       <div className="connectIcon">
         <img src={require("../../assets/insta.png")} height="20px" alt="img" />

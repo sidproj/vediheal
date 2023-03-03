@@ -5,6 +5,9 @@
     align-items: center;
     padding: 20px;
     row-gap: 20px;
+    width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 .serviceTitle{
@@ -19,7 +22,8 @@
     font-family: 'Montserrat', sans-serif;
     color:#040606;
     align-items: flex-start;
-    
+    align-items: center;
+    width: 100%;
 }
 
 body.service-body{
@@ -46,7 +50,7 @@ body.service-body{
     cursor: pointer;
     padding:0.3rem;
     padding-bottom: 0.7rem;
-    max-width: 19rem;
+    max-width: 21rem;
 }
 
 
