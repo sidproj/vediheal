@@ -51,8 +51,8 @@ function BookingDetailsModal(props) {
       "code":code,
       "minAmount":initialAmt
     }
-    // const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/coupon/check";
-    const url = "http://localhost:5000/coupon/check";
+    const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/coupon/check";
+    // const url = "http://localhost:5000/coupon/check";
     const options = {
       method: "POST",
       body: JSON.stringify(data),
@@ -75,8 +75,8 @@ function BookingDetailsModal(props) {
       "code":code,
       "minAmount":initialAmt
     }
-    // const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/coupon/check";
-    const url = "http://localhost:5000/coupon/check";
+    const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/coupon/check";
+    // const url = "http://localhost:5000/coupon/check";
     const options = {
       method: "POST",
       body: JSON.stringify(data),
