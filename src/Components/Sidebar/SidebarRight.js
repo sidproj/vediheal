@@ -14,7 +14,7 @@ const bar = <FontAwesomeIcon icon={faBars} />;
 const SidebarRight = (props) => {
   const {isLoggedIn, isInstructor}= props;
     const history = useHistory();
-    function userProfile() {
+  function userProfile() {
     history.push("/userprofile");
   }
 
