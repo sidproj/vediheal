@@ -45,50 +45,58 @@ function BookingDetailsModal(props) {
   }
 
   const handleCouponVerifyOnAmountChange = async (amount)=>{
-    const code = amount;
-    const data = {
-      "jwt":props.userJWT,
-      "code":code,
-      "minAmount":initialAmt
-    }
-    const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/coupon/check";
-    // const url = "http://localhost:5000/coupon/check";
-    const options = {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-          "Content-Type": "application/json",
+    try{
+      const code = amount;
+      const data = {
+        "jwt":props.userJWT,
+        "code":code,
+        "minAmount":initialAmt
       }
+      const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/coupon/check";
+      // const url = "http://localhost:5000/coupon/check";
+      const options = {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+        }
+      }
+      const res = await fetch(url,options);
+      const body = await res.json();
+      console.log(body);
+      setCouponAvail(body.status);
+      if(body.status)setCouponDis(body.coupon.discount_amt);
+      else{setCouponDis(0);}
+    }catch(error){
+      setCouponDis(0);
     }
-    const res = await fetch(url,options);
-    const body = await res.json();
-    console.log(body);
-    setCouponAvail(body.status);
-    if(body.status)setCouponDis(body.coupon.discount_amt);
-    else{setCouponDis(0);}
   }
 
   const verifyCoupon= async ()=>{
-    const code = document.getElementById("coupon").value;
-    const data = {
-      "jwt":props.userJWT,
-      "code":code,
-      "minAmount":initialAmt
-    }
-    const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/coupon/check";
-    // const url = "http://localhost:5000/coupon/check";
-    const options = {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-          "Content-Type": "application/json",
+    try{
+      const code = document.getElementById("coupon").value;
+      const data = {
+        "jwt":props.userJWT,
+        "code":code,
+        "minAmount":initialAmt
       }
+      const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/coupon/check";
+      // const url = "http://localhost:5000/coupon/check";
+      const options = {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+        }
+      }
+      const res = await fetch(url,options);
+      const body = await res.json();
+      console.log(body);
+      setCouponAvail(body.status);
+      if(body.status)setCouponDis(body.coupon.discount_amt);
+    }catch(error){
+      setCouponDis(0);
     }
-    const res = await fetch(url,options);
-    const body = await res.json();
-    console.log(body);
-    setCouponAvail(body.status);
-    if(body.status)setCouponDis(body.coupon.discount_amt);
   }
 
   const { image, label, benefits, sessionPlan, body, expectation } = details;
