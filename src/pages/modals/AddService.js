@@ -25,7 +25,7 @@ const AddService = (props) => {
       "jwt":props.instructorJWT,
       "reiki":newReikies
     }
-    const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/reiki/addReiki";
+    const url = "https://vediheal-backend.vercel.app/reiki/addReiki";
     const options = {
         method: "POST",
         body: JSON.stringify(data),

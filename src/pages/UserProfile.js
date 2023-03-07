@@ -33,7 +33,7 @@ const UserProfile = (props)=>{
     }
 
     console.log(data);
-    const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/profile/edit/user/password";
+    const url = "https://vediheal-backend.vercel.app/profile/edit/user/password";
     const options = {
         method: "POST",
         body: JSON.stringify(data),
@@ -64,7 +64,7 @@ const UserProfile = (props)=>{
             jwt:props.userJWT,
 
         }
-        const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/profile/user";
+        const url = "https://vediheal-backend.vercel.app/profile/user";
         const options = {
             method: "POST",
             body: JSON.stringify(data),
@@ -89,7 +89,7 @@ const UserProfile = (props)=>{
             "email":document.getElementById("inputEmailAddress").value,
             "phone_no":document.getElementById("inputPhone").value
         }
-        const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/profile/edit/user";
+        const url = "https://vediheal-backend.vercel.app/profile/edit/user";
         const options = {
             method: "POST",
             body: JSON.stringify(data),

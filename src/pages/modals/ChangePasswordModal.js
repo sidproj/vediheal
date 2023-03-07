@@ -19,7 +19,7 @@ function ChangePasswordModal(props) {
       "confirm_password":document.getElementById("confirmPassword").value
     }
     console.log(data);
-    const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/profile/edit/user/password";
+    const url = "https://vediheal-backend.vercel.app/profile/edit/user/password";
     const options = {
         method: "POST",
         body: JSON.stringify(data),

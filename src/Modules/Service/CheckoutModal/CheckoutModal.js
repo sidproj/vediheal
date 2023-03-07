@@ -57,7 +57,7 @@ const CheckoutModal = (props) => {
       "instructor_id":"63c65f86be673562e4292736"
     }
 
-    const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/schedule";
+    const url = "https://vediheal-backend.vercel.app/schedule";
     const options = {
         method: "POST",
         body: JSON.stringify(data),
@@ -76,7 +76,7 @@ const CheckoutModal = (props) => {
       "jwt":props.userJWT,
       "reiki":"63c3e1398481e6965b972d42"
     }
-    const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/reiki/instructorsByReiki";
+    const url = "https://vediheal-backend.vercel.app/reiki/instructorsByReiki";
     const options = {
         method: "POST",
         body: JSON.stringify(data),

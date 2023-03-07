@@ -30,10 +30,10 @@ function Login(props) {
     let url;
     let con;
     if(document.getElementById("instructorCheck").checked){
-      url="https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/login/instructor";
+      url="https://vediheal-backend.vercel.app/login/instructor";
       con=true;
     }else{
-      url="https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/login/user";
+      url="https://vediheal-backend.vercel.app/login/user";
       con=false;
     }
 

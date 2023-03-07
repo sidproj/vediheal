@@ -23,10 +23,10 @@ function SignUp(props) {
     let url;
     let con;
     if(document.getElementById("instructorCheck").checked){
-      url="https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/register/instructor";
+      url="https://vediheal-backend.vercel.app/register/instructor";
       con=true;
     }else{
-      url="https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/register/user";
+      url="https://vediheal-backend.vercel.app/register/user";
       con=false;
     }
 

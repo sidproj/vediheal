@@ -24,7 +24,7 @@ function Instructor(props) {
       return;
     }
 
-    const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/reiki/instructor";
+    const url = "https://vediheal-backend.vercel.app/reiki/instructor";
     const options = {
       method: 'GET', 
     }

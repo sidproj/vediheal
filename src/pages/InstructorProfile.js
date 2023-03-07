@@ -31,7 +31,7 @@ const handelChangePassword = async()=>{
     }
 
     console.log(data);
-    const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/profile/edit/user/password";
+    const url = "https://vediheal-backend.vercel.app/profile/edit/user/password";
     const options = {
         method: "POST",
         body: JSON.stringify(data),
@@ -63,7 +63,7 @@ const handelChangePassword = async()=>{
         const data = {
             jwt:props.instructorJWT,
         }
-        const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/profile/instructor";
+        const url = "https://vediheal-backend.vercel.app/profile/instructor";
         const options = {
             method: "POST",
             body: JSON.stringify(data),
@@ -79,7 +79,7 @@ const handelChangePassword = async()=>{
     }
 
     const getReikiData = async ()=>{
-        const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/reiki";
+        const url = "https://vediheal-backend.vercel.app/reiki";
         const options = {
           method: 'GET', 
         }
@@ -103,7 +103,7 @@ const handelChangePassword = async()=>{
             "phone_no":document.getElementById("inputPhone").value,
             "description":document.getElementById("description").value
         }
-        const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/profile/edit/instructor";
+        const url = "https://vediheal-backend.vercel.app/profile/edit/instructor";
         const options = {
             method: "POST",
             body: JSON.stringify(data),

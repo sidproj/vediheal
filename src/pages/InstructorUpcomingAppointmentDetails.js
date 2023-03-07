@@ -65,7 +65,7 @@ function InstructorUpcomingAppointmentDetails(props) {
       "jwt":props.instructorJWT,
       "is_completed":false
     }
-    const url = "https://vediheal-backend-hq8luoz5h-sidproj.vercel.app/appointment/instructor";
+    const url = "https://vediheal-backend.vercel.app/appointment/instructor";
     const options = {
         method: "POST",
         body: JSON.stringify(data),
