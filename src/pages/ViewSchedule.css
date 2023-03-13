@@ -1,0 +1,9 @@
+.cardWidth {
+    max-width : 21rem !important;
+    width:15rem !important;
+    height : 8rem !important;
+}
+
+.paddingLeft {
+	padding-left:5px;
+}
