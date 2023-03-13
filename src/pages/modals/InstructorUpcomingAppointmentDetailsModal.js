@@ -4,6 +4,7 @@ import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./InstructorUpcomingAppointmentDetailsModal.css"
+import UpdateMeetingLinkModal from "./UpdateMeetingLinkModal"
 function InstructorUpcomingAppointmentDetailsModal(props) { 
 
   const data = props.data;
@@ -76,10 +77,15 @@ function InstructorUpcomingAppointmentDetailsModal(props) {
                     <td>{
                       data.start_time!=null?(<div>Start Time :</div> ):<></>
                     }</td>
+                    
+                  </tr>
+                  <tr>
                     <td>
-                      {
+                      { /*
                         data.meeting_link?(<div>Meeting link : {data.meeting_link}</div>):<></>
-                      }
+                      */ }
+                      <UpdateMeetingLinkModal />
+
                     </td>
                   </tr>
                 </tbody>

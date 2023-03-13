@@ -20,6 +20,7 @@ import UserUpcomingAppointmentDetails from "./pages/UserUpcomingAppointmentDetai
 import UserPastAppointmentDetails from "./pages/UserPastAppointmentDetails";
 import InstructorUpcomingAppointmentDetails from "./pages/InstructorUpcomingAppointmentDetails"
 import InstructorSchedule from "./Modules/Service/CheckoutModal/instructorSchedule";
+import ViewSchedule from "./pages/ViewSchedule";
 
 export default function Routing(props) {
 
@@ -99,6 +100,9 @@ export default function Routing(props) {
 
           <Route path='/aboutus' exact 
             render={()=><AboutUs {...props}/>}/>    
+
+          <Route path='/viewschedule' exact 
+            render={()=><ViewSchedule {...props}/>}/>    
         </switch>
       </BrowserRouter>
     </div>

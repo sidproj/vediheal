@@ -15,7 +15,7 @@ const DateModal = (props)=>{
         const date  = document.getElementById("startTime").value;
         console.log(date);
     }
- 
+  
   return ( 
 
    

@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import _ from "lodash";
-import InstructorUpcomingAppointmentDetailsModal from "./modals/InstructorUpcomingAppointmentDetailsModal"
 import { useState } from 'react';
 import "./Services.css"
+import "./ViewSchedule.css"
+import { Modal, Button } from 'react-bootstrap';
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const servicedCards = [
+const scheduleCards = [
   {
     id: 1,
     label: `Anti-<span class="redText">Depression</span> Reiki`,
@@ -46,9 +49,22 @@ const servicedCards = [
   },
 ];  
 
-function InstructorPastAppointmentDetails(props) {
+function ViewSchedule(props) {
 
   const [appointments,setAppointments] = useState([]);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const deleteCard = (id) => {
+    const updatedAppointments = appointments.filter((card) => card.id !== id);
+    setAppointments(updatedAppointments);
+  };
+
+  const handleDelete = (props) => {
+    // Delete the card and close the modal
+    console.log(props);
+    props.deleteCard(props.card.id);
+    setShowDeleteModal(false);
+  }
 
   const history = useHistory();
     useEffect(()=>{
@@ -83,36 +99,55 @@ function InstructorPastAppointmentDetails(props) {
 
   return (
     <div className="serviceContainer mt-6">
-
-    <div className="serviceCards">
-      {_.map(appointments, (card, index) => {
-        return (
-          <div
-            className="card"
-            key={index}
-          >
-          
-
+  <div className="serviceCards">
+    {_.map(appointments, (card, index) => {
+      return (
+        <div className="card cardWidth" key={index}>
           <div className="divRow">
-            <div><img className="cardImage" src={card.reiki_id.image} alt="img" /></div>
+
             <div className="divCol">
               <div className="cardText">
-                <div dangerouslySetInnerHTML={{ __html: card.reiki_id.name }}></div>
-              </div> 
-            
-              {/* <div>Order Id : {card._id} </div> */}
-              <div>Client name:  {card.user_id.firt_name}</div>
-              <div className='cardBtn'><InstructorUpcomingAppointmentDetailsModal data={card} /></div>
-              {/* <div className="cardBtn"><img classname="img" src={require("../assets/next.png")} /></div> */}
+                <div>
+                  <h4>Available Slots</h4>
+                </div>
+              </div>
+              <div className="paddingLeft">  
+                <div><b>Date</b>: 16-03-2023</div>
+                <div><b>Time</b>: 4:00 to 4:30</div>
+              </div>
+              <div className="cardBtn">
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  onClick={() => {
+                    setShowDeleteModal(true);
+                  }}
+                />
+              </div>
+              <div>
+              <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Schedule</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete this Schedule?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={()=>handleDelete(props)}>
+            Yes, delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
+              </div>
+             
             </div>
-            
           </div>
+        </div>
+      );
+    })}
+  </div>
+</div>
 
-          </div>
-        );
-      })}
-    </div>
-    </div>
   )
 }
-export default InstructorPastAppointmentDetails;
+export default ViewSchedule;

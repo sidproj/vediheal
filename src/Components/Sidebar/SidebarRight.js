@@ -62,6 +62,10 @@ const SidebarRight = (props) => {
     history.push("/instructorSchedule");
   }
 
+  function viewSchedule(){
+    history.push("/viewschedule");
+  }
+
   function privacypolicy(){
     history.push("/privacypolicy");
   }
@@ -94,6 +98,8 @@ const SidebarRight = (props) => {
                             <a onClick={() => {instructorpastappointmentdetails(); toggleSidebar();}} className="sideLinks" ><h3>Past Appointment</h3></a><br />
 
                             <a onClick={()=> {schedule();toggleSidebar();}} className="sideLinks"><h3>Add Schedule</h3></a><br/>
+
+                            <a onClick={()=> {viewSchedule();toggleSidebar();}} className="sideLinks"><h3>View Schedule</h3></a><br/>
 
                             <a onClick={() => {instructorProfile(); toggleSidebar();}} className="sideLinks"><h3>Profile</h3></a><br />
 

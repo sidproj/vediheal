@@ -4,12 +4,19 @@ import { MDBInput } from 'mdb-react-ui-kit';
 
 const TimeModal = (props)=>{
     
-    const [isShow, invokeModal] = React.useState(false); 
+    const [isShow, invokeModal] = React.useState(false);
+     const [selectedTime, setSelectedTime] = useState(new Date()); 
     const [error, setError] = useState(); 
     const initModal = () => { 
       return invokeModal(!isShow) 
     }
- 
+
+     const handleTime = (event) => {
+    const date  = document.getElementById("sTime").value;
+    
+  };
+
+
   return ( 
 
    
@@ -24,9 +31,9 @@ const TimeModal = (props)=>{
                 <div>Select Time</div>
                 <div className="time">
                 <MDBInput className="mx-auto inputColor" 
-                    wrapperClass='w-100'  id='startTime' 
+                    wrapperClass='w-100'  id='sTime' 
                     type='time'// onChange={e => setSelectedTime(new Date("1970-01-01 " + e.target.value))} 
-                    responsive fluid/>
+                    responsive fluid onChange={(event)=>props.changeTime(event)}/>
                 </div>
         </div>        
         </Modal.Body>  

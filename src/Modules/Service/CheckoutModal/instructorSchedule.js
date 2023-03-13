@@ -26,6 +26,18 @@ const CheckoutModal = (props) => {
       console.log(e.target.value);
   }
 
+  const handleTime = (event) => {
+  const [hours, minutes] = event.target.value.split(':');
+  setSelectedTime(new Date(
+    selectedDate.getFullYear(),
+    selectedDate.getMonth(),
+    selectedDate.getDate(),
+    parseInt(hours),
+    parseInt(minutes)
+  ));
+}
+
+
   const { onClose, details ,reiki} = props;
 
   const [instructors,setInstructors] = useState([]);
@@ -104,21 +116,18 @@ const CheckoutModal = (props) => {
   return (
     <div className="checkoutModalContainer">
       <div className="checkoutHeader">
-        <img
-          src={require("../../../assets/back.png")}
-          height="24px"
-          alt="header"
-          onClick={back}
-        />
+        
       </div>
       <div className="checkoutBody">
-        <div className="checkoutTitleContainer">
+        <div className="checkoutTitleContainer bodyCard">
           <div>
-            <img src={""} height="80px" alt="header" />
+            <img src={require("../../../assets/back.png")}
+          height="24px"
+          alt="header"
+          onClick={back}  alt="header" />
           </div>
           <div>
-            <div>{"label"}</div>
-            <div>{"30-45 mins"}</div>
+            <div  style={ {textAlign: "center"}}>{"Add New Schedule"}</div>
           </div>
         </div>
         <div className="checkoutBodyContainer">
@@ -153,7 +162,10 @@ const CheckoutModal = (props) => {
               <MDBRow>
                 <MDBCol>
                   <div className="time" >
-                    <div className="time"><TimeModal /></div>
+                    <div className="time"><TimeModal 
+                        changeTime={handleTime}
+                      selectedTime={selectedTime}
+                    /></div>
                     
                   </div>
                 </MDBCol>
@@ -168,7 +180,21 @@ const CheckoutModal = (props) => {
               height="40px"
               alt="header"
             />
-            <div>Selected date: {selectedDate?.toString()}<br />Selected time: {selectedTime?.toLocaleTimeString()}</div>
+            
+
+            <div>
+  Selected date: {selectedDate.getDate() + '/' + (selectedDate.getMonth() + 1) + '/' + selectedDate.getFullYear()}<br />
+  Selected time: {
+    selectedTime instanceof Date && !isNaN(selectedTime.getTime()) ? (
+      selectedTime.getHours() + ':' + selectedTime.getMinutes() + ' to ' +
+      new Date(selectedTime.getFullYear(), selectedTime.getMonth(), selectedTime.getDate(), selectedTime.getHours(), selectedTime.getMinutes() + 30).getHours() + ':' +
+      new Date(selectedTime.getFullYear(), selectedTime.getMonth(), selectedTime.getDate(), selectedTime.getHours(), selectedTime.getMinutes() + 30).getMinutes()
+    ) : (
+      'Invalid date'
+    )
+  }
+</div>
+
           </div>
           
         </div>
@@ -178,3 +204,4 @@ const CheckoutModal = (props) => {
   );
 };
 export default CheckoutModal;
+
