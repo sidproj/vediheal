@@ -18,6 +18,7 @@ import InstructorModal from "./instructorModal"
 import AppointmentSchedule from "./instructorModal copy";
 import DateModal from "./dateModal";
 import TimeModal from "./timeModal";
+import { useHistory } from "react-router-dom";
 
 const CheckoutModal = (props) => {
 
@@ -27,6 +28,7 @@ const CheckoutModal = (props) => {
   }
 
   const { onClose, details ,reiki} = props;
+  const history = useHistory();
 
   const [instructors,setInstructors] = useState([]);
   const [selectedInstructor,setSelectedInstructor] = useState();
@@ -49,6 +51,12 @@ const CheckoutModal = (props) => {
     console.log(data);
     setScheduleSelect(data);
   }
+
+  useEffect(()=>{
+      if(!props.userJWT){
+          history.push("/login");
+      }
+  },[])
 
   const getScheduleData = async ()=>{
     console.log("Schedule info:- ");
@@ -131,46 +139,7 @@ const CheckoutModal = (props) => {
           </div>
         </div>
         <div className="checkoutBodyContainer">
-          <div className="bodyCard">
-            <img
-              src={require("../../../assets/calendar.png")}
-              height="40px"
-              alt="header"
-            />
-            <MDBContainer fluid>
-              <MDBRow>
-                <MDBCol>
-                  <div className="time" >
-                    {/* <div className="time"><div className="mt-2">Date&nbsp;&nbsp;</div><MDBInput className="mx-auto inputColor"  wrapperClass='w-100'  id='date' type='date' onChange={e => setSelectedDate(new Date(e.target.value))} responsive fluid/></div> */}
-                    <DateModal 
-                      changeDate={handleDate}
-                      selectedDate={selectedDate}
-                    />
-                  </div>
-                </MDBCol>
-              </MDBRow>
-            </MDBContainer>  
-            
-          </div>
-          <div className="bodyCard">
-            <img
-              src={require("../../../assets/time.png")}
-              height="40px"
-              alt="header"
-            />
-            <MDBContainer fluid>
-              <MDBRow>
-                <MDBCol>
-                  <div className="time" >
-                    <div className="time"><TimeModal /></div>
-                    
-                  </div>
-                </MDBCol>
-              </MDBRow>
-            </MDBContainer>  
-
-          </div>
-
+          
           <div className="bodyCard">
             <img
               src={require("../../../assets/time.png")}
@@ -224,7 +193,7 @@ const CheckoutModal = (props) => {
           </div>
           
         </div>
-        <div className="bookingButton">PAY NOW</div>
+        <div className="bookingButton" onClick={""}>PAY NOW</div>
       </div>
     </div>
   );

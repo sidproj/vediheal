@@ -18,13 +18,13 @@ function BookingDetailsModal(props) {
 
   useEffect(()=>{
     console.log(props);
-      if(!props.userJWT){
-          history.push("/login");
-      }else{
+      // if(!props.userJWT){
+      //     history.push("/login");
+      // }else{
         document.getElementById("s1").checked=true;
         handleAmtChange("amt1");
         setTotal(parseInt(initialAmt));
-      }
+      // }
   },[]);
 
   
@@ -204,7 +204,12 @@ function BookingDetailsModal(props) {
       <div className="expect">What to expect</div>
       <div className="reikiBody">{expectation}</div>
       {showBookingModal && (
-        <CheckoutModal  reiki={100} onClose={() => closeCheckoutModal()} details={details} />
+        <CheckoutModal  
+          reiki={100} 
+          onClose={() => closeCheckoutModal()} 
+          details={details} 
+          {...props}
+          />
       )}
     </div>
   );

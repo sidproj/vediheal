@@ -14,6 +14,7 @@ import {
   MDBCheckbox
 }
 from 'mdb-react-ui-kit';
+import { useState } from "react";
 
 function Login(props) {
 
@@ -21,6 +22,8 @@ function Login(props) {
   //   console.log(props);
   //   props.setUserJWT("hello world");
   // },[]);
+
+  const [loginError,setLoginError] = useState(null);
 
   const handelLogin = async ()=>{
     const data = {
@@ -31,9 +34,11 @@ function Login(props) {
     let con;
     if(document.getElementById("instructorCheck").checked){
       url="https://vediheal-backend.vercel.app/login/instructor";
+      url="http://localhost:5000/login/instructor"
       con=true;
     }else{
       url="https://vediheal-backend.vercel.app/login/user";
+      url="http://localhost:5000/login/user"
       con=false;
     }
 
@@ -46,7 +51,10 @@ function Login(props) {
     }
     const res = await fetch(url,options);
     const body = await res.json();
+    console.log(body);
+    // return;
     if(body.message && body.message=="Login successful!"){
+      setLoginError(null);
       if(con){
         props.setInstructorJWT(body.jwt);
         history.push("/instructorupcomingappointmentdetails");
@@ -56,7 +64,10 @@ function Login(props) {
         history.push("/");
       }
     }
-    console.log(body);
+    else{
+      setLoginError(body.error);
+      console.log(body);
+    }
   }
 
   const history = useHistory();
@@ -82,6 +93,7 @@ function Login(props) {
               <MDBInput className="transparent-input" wrapperClass='mb-4 w-100' placeholder='Email address*' id='email' type='email' size="lg"/>
               <MDBInput className="transparent-input" wrapperClass='mb-4 w-100' placeholder='Password*' id='password' type='password' size="lg"/>
               
+              <span className="link">{loginError}</span>
 
               <p className="fw-bold text-left forgot-password"><ForgetPasswordEmailModal /></p>
               <div class="form-check">
