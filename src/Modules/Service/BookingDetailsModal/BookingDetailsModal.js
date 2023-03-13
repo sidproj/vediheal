@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 
 function BookingDetailsModal(props) {
 
+  console.log(props.details.benifits);
   const { resetBooking, details } = props;
 
   const [couponAvail,setCouponAvail] = useState(undefined);
@@ -17,7 +18,6 @@ function BookingDetailsModal(props) {
   const history = useHistory();
 
   useEffect(()=>{
-    console.log(props);
       // if(!props.userJWT){
       //     history.push("/login");
       // }else{
@@ -105,7 +105,6 @@ function BookingDetailsModal(props) {
     }
   }
 
-  const { image, label, benefits, sessionPlan, body, expectation } = details;
   const [showBookingModal, setShowBookingModal] = useState(false);
   const onProceedClick = () => {
     setShowBookingModal(true);
@@ -128,23 +127,25 @@ function BookingDetailsModal(props) {
         </div>
         <div className="headerBody">
           <div>
-            <img src={image} height="80px" alt="header" />
+            <img src={props.details.image} height="80px" alt="header" />
           </div>
           <div className="rightContainer">
-            <div className="rightContainerHeader">{label}</div>
+            <div className="rightContainerHeader">{props.details.name}</div>
             <div className="rightContainerBody">
-              {benefits.map((benefit, index) => {
-                return (
-                  <div className="benefit" key={index}>
-                    <img
-                      src={require("../../../assets/tick.png")}
-                      height="18px"
-                      alt="header"
-                    />
-                    {benefit}
-                  </div>
-                );
-              })}
+              {
+                props.details.benifits.map((benifit)=>{
+                  return (
+                    <div className="benefit">
+                      <img
+                        src={require("../../../assets/tick.png")}
+                        height="18px"
+                        alt="header"
+                      />
+                      {benifit.name}
+                    </div>
+                  );
+                })
+              }
             </div>
           </div>
         </div>
@@ -200,15 +201,16 @@ function BookingDetailsModal(props) {
       <div className="bookingButton" onClick={() => onProceedClick()}>
         PROCEED
       </div>
-      <div className="reikiBody">{body}</div>
+      <div className="reikiBody">{props.details.description}</div>
       <div className="expect">What to expect</div>
-      <div className="reikiBody">{expectation}</div>
+      <div className="reikiBody">{props.details.expectations}</div>
       {showBookingModal && (
-        <CheckoutModal  
-          reiki={100} 
+        <CheckoutModal
           onClose={() => closeCheckoutModal()} 
           details={details} 
           {...props}
+          reiki={props.details}
+          price={499}
           />
       )}
     </div>

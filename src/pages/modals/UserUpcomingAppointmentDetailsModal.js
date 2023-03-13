@@ -5,13 +5,15 @@ import '../UserProfile.css'
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./InstructorUpcomingAppointmentDetailsModal.css"
-function UserUpcomingAppointmentDetailsModal() { 
+function UserUpcomingAppointmentDetailsModal(props) { 
   const [isShow, invokeModal] = React.useState(false); 
   const [error, setError] = useState(); 
   
   const initModal = () => { 
     invokeModal(!isShow) 
   } 
+
+  console.log(props);
  
   return ( 
     <> 
@@ -32,23 +34,19 @@ function UserUpcomingAppointmentDetailsModal() {
               <table>
                 <tbody className='textCol'>
                   <tr>
-                    <td >Reiki Name : </td>
+                    <td >Reiki Name : {props?.appointment?.reiki_id?.name}</td>
                     <td></td>
                   </tr>
                   <tr>
-                    <td>Order ID :</td>
+                    <td>Order ID : {props?.appointment?._id}</td>
                     <td> </td>
                   </tr>
                   <tr>
-                    <td>Instructor Name :</td>
+                    <td>Instructor Name : {props?.appointment?.instructor_id?.first_name} {props?.appointment?.instructor_id?.last_name}</td>
                     <td></td>
                   </tr>
                   <tr>
-                    <td>Order Date :</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td><div>Start Time :</div> <></>
+                    <td><div>Start Time :{props?.appointment?.time_slot?.start_time}</div> <></>
               </td>
                   </tr>
                 </tbody>

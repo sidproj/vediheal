@@ -51,19 +51,28 @@ const scheduleCards = [
 
 function ViewSchedule(props) {
 
-  const [appointments,setAppointments] = useState([]);
+  const [schedules,setSchedules] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  const deleteCard = (id) => {
-    const updatedAppointments = appointments.filter((card) => card.id !== id);
-    setAppointments(updatedAppointments);
-  };
-
-  const handleDelete = (props) => {
-    // Delete the card and close the modal
-    console.log(props);
-    props.deleteCard(props.card.id);
-    setShowDeleteModal(false);
+  const handleDelete = async (id) => {
+    const data={
+      "jwt":props.instructorJWT,
+      "id":id
+    }
+    const url = "http://localhost:5000/schedule/deleteSchedule";
+    const options = {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+        }
+    }
+    const res = await fetch(url,options);
+    const body = await res.json();
+    console.log(body);
+    if(body.status){
+      history.push("/viewschedule");
+    }
   }
 
   const history = useHistory();
@@ -76,9 +85,8 @@ function ViewSchedule(props) {
     const getData = async ()=>{
       const data={
         "jwt":props.instructorJWT,
-        "is_completed":true
       }
-      const url = "https://vediheal-backend.vercel.app/appointment/instructor";
+      const url = "http://localhost:5000/schedule/instructor";
       const options = {
           method: "POST",
           body: JSON.stringify(data),
@@ -88,7 +96,7 @@ function ViewSchedule(props) {
       }
       const res = await fetch(url,options);
       const body = await res.json();
-      setAppointments(body);
+      setSchedules(body);
       console.log(body);
     }
 
@@ -100,7 +108,7 @@ function ViewSchedule(props) {
   return (
     <div className="serviceContainer mt-6">
   <div className="serviceCards">
-    {_.map(appointments, (card, index) => {
+    {_.map(schedules, (card, index) => {
       return (
         <div className="card cardWidth" key={index}>
           <div className="divRow">
@@ -112,8 +120,8 @@ function ViewSchedule(props) {
                 </div>
               </div>
               <div className="paddingLeft">  
-                <div><b>Date</b>: 16-03-2023</div>
-                <div><b>Time</b>: 4:00 to 4:30</div>
+                <div><b>Date</b>: {card.start_time}</div>
+                <div><b>Time</b>: {card.start_time}</div>
               </div>
               <div className="cardBtn">
                 <FontAwesomeIcon
@@ -133,7 +141,7 @@ function ViewSchedule(props) {
           <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
             Cancel
           </Button>
-          <Button variant="danger" onClick={()=>handleDelete(props)}>
+          <Button variant="danger" onClick={()=>handleDelete(card._id)}>
             Yes, delete
           </Button>
         </Modal.Footer>

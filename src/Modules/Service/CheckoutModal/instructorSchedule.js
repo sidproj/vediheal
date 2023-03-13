@@ -46,11 +46,14 @@ const CheckoutModal = (props) => {
   const [selectedTime, setSelectedTime] = useState(new Date());
 
   const addSchedule = async ()=>{
+    const date = selectedDate;
+    date.setTime(selectedTime);
+    console.log(date);
+    const endDate = date;
     const data = {
-      jwt:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzY1Zjg2YmU2NzM1NjJlNDI5MjczNiIsImlhdCI6MTY3NjcyOTIyM30.PDGBW1pmUyYZew7ybtw39KlEVh2YRGVFDXVSEiTN88I",
-      instructor_id:"63c65f86be673562e4292736",
-      start_time:"2023-03-19T11:00:55Z",
-      end_time:"2023-03-19T12:00:55Z"
+      jwt:props.instructorJWT,
+      start_time:date,
+      end_time:endDate
     }
 
     const url = "http://localhost:5000/schedule/createSchedule";
@@ -68,34 +71,6 @@ const CheckoutModal = (props) => {
     const body = await res.json();
     console.log(body);
 
-  }
-
-  const getAppointmentData = async ()=>{
-    const data = {
-      // change this later
-      "jwt":props.instructorJWT,
-      "reiki":"63c3e1398481e6965b972d42"
-    }
-    const url = "https://vediheal-backend.vercel.app/reiki/instructorsByReiki";
-    const options = {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type": "application/json",
-        }
-    }
-    const res = await fetch(url,options);
-    const body = await res.json();
-    console.log(body);
-    const instructors=[];
-    body.map(instructor=>{
-      instructors.push({
-        label:instructor.first_name+" "+instructor.last_name,
-        value:instructor._id
-      });
-    });
-    console.log(instructors);
-    setInstructors(instructors);
   }
 
   useEffect(()=>{
@@ -124,7 +99,7 @@ const CheckoutModal = (props) => {
             <img src={require("../../../assets/back.png")}
           height="24px"
           alt="header"
-          onClick={back}  alt="header" />
+          onClick={back} />
           </div>
           <div>
             <div  style={ {textAlign: "center"}}>{"Add New Schedule"}</div>

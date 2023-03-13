@@ -271,6 +271,7 @@ const  Service = (props)=> {
           resetBooking={resetBookingDetails}
           details={selectedCard}
           {...props}
+          reiki={reikiData}
         />
       )}
     

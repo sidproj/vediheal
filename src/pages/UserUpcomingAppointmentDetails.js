@@ -63,7 +63,8 @@ function UserUpcomingAppointmentDetails(props) {
       "jwt":props.userJWT,
       "is_appointed":false
     }
-    const url = "https://vediheal-backend.vercel.app/appointment/user";
+    // const url = "https://vediheal-backend.vercel.app/appointment/user";
+    const url = "http://localhost:5000/appointment/user";
     const options = {
         method: "POST",
         body: JSON.stringify(data),
@@ -90,7 +91,7 @@ function UserUpcomingAppointmentDetails(props) {
     <div className="serviceContainer mt-6">
 
     <div className="serviceCards">
-      {_.map(servicedCards, (card, index) => {
+      {_.map(appointments, (card, index) => {
         return (
           <div
             className="reikiCard"
@@ -99,15 +100,13 @@ function UserUpcomingAppointmentDetails(props) {
           
 
           <div className="divRow">
-            <div><img className="cardImage" src={card.image} alt="img" /></div>
+            <div><img className="cardImage" src={require("../assets/5.png")} alt="img" /></div>
             <div className="diCol">
               <div className="cardText">
-                <div dangerouslySetInnerHTML={{ __html: card.label }}></div>
+                <div dangerouslySetInnerHTML={{ __html: card.reiki_id.name }}></div>
               </div>
-            
-              <div>Order Id : </div>
-              <div>Date : </div>
-              <div className='cardBtn'>< UserUpcomingAppointmentDetailsModal /></div>
+              <div>Date :{card.time_slot.start_time} </div>
+              <div className='cardBtn'>< UserUpcomingAppointmentDetailsModal appointment={card}/></div>
               {/* <div className="cardBtn"><img classname="img" src={require("../assets/next.png")} /></div> */}
             </div>
             

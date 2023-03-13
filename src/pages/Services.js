@@ -269,6 +269,7 @@ function Services(props) {
       const reikis = await fetch("https://vediheal-backend.vercel.app/reiki");
       const body = await reikis.json();
       setReikiData(body);
+      console.log(body);
     }
     getData();
   },[]);
@@ -277,7 +278,8 @@ function Services(props) {
   const [showModal, setShowModal] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const showBookingDetails = ({ card }) => {
-    setSelectedCard(card.bookingDetails);
+    setSelectedCard(card);
+    console.log(card);
     setShowModal(true);
   };
   const resetBookingDetails = () => {
@@ -291,7 +293,7 @@ function Services(props) {
     <div className="serviceContainer mt-6">
 
       <div className="serviceCards">
-        {_.map(servicedCards, (card, index) => {
+        {_.map(reikiData, (card, index) => {
           return (
             <div
               className="reikiCard"
@@ -301,12 +303,16 @@ function Services(props) {
             
 
             <div className="divRow">
-              <div><img className="cardImage" src={card.image} alt="img" /></div>
+              {
+                card.image != ""?
+                (<div><img className="cardImage" src={card.image} alt="img" /></div>):
+                (<div><img className="cardImage" src={require("../assets/5.png")}/></div>)
+              }
               <div className="diCol">
                 <div className="cardText">
-                  <div dangerouslySetInnerHTML={{ __html: card.label }}></div>
+                  <div dangerouslySetInnerHTML={{ __html: card.name }}></div>
                 </div>
-                <div className="cardSubtext">{card.subtext.substring(0,70)}...</div>
+                <div className="cardSubtext">{card.description.replace(/(\r\n|\n|\r)/gm, "").substring(0,70)}...</div>
                 <div className="cardBtn"><FontAwesomeIcon className="iconClass" onClick={() => showBookingDetails({ card })}  icon={faArrowRight} /></div>
               </div> 
             </div>

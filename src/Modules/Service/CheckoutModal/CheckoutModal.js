@@ -1,31 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./CheckoutModal.css";
-import Form from 'react-bootstrap/Form';
-import Select from 'react-select';
-import {
-  MDBBtn,
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBCard,
-  MDBCardBody,
-  MDBInput,
-  MDBIcon,
-  MDBCheckbox
-}
-from 'mdb-react-ui-kit';
 import InstructorModal from "./instructorModal"
 import AppointmentSchedule from "./instructorModal copy";
-import DateModal from "./dateModal";
-import TimeModal from "./timeModal";
 import { useHistory } from "react-router-dom";
 
 const CheckoutModal = (props) => {
 
-  function handleDate(e){
-      setSelectedDate(new Date(e.target.value));
-      console.log(e.target.value);
-  }
+  
 
   const { onClose, details ,reiki} = props;
   const history = useHistory();
@@ -62,10 +43,10 @@ const CheckoutModal = (props) => {
     console.log("Schedule info:- ");
     const data = {
       "jwt":props.userJWT,
-      "instructor_id":"63c65f86be673562e4292736"
+      "reiki":props.reiki._id
     }
 
-    const url = "https://vediheal-backend.vercel.app/schedule";
+    const url = "http://localhost:5000/schedule";
     const options = {
         method: "POST",
         body: JSON.stringify(data),
@@ -75,7 +56,33 @@ const CheckoutModal = (props) => {
     }
     const res = await fetch(url,options);
     const body = await res.json();
+    console.log(body);
+    console.log("reiki:",props.reiki);
     generateScheduleOptionData(body);
+  }
+
+  const handleAppointment = async ()=>{
+    console.log(selectedSchedule);
+    const data = {
+      // change this later
+      "jwt":props.userJWT,
+      "reiki":props.reiki._id,
+      "schedule_id":selectedSchedule.value,
+      "price":props.price
+    }
+    // const url = "https://vediheal-backend.vercel.app/appointment/set";
+    const url = "http://localhost:5000/appointment/set";
+    const options = {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+        }
+    }
+    const res = await fetch(url,options);
+    const body = await res.json();
+    console.log(body);
+    if(body.status == "success") history.push("/");
   }
 
   const getAppointmentData = async ()=>{
@@ -84,7 +91,8 @@ const CheckoutModal = (props) => {
       "jwt":props.userJWT,
       "reiki":"63c3e1398481e6965b972d42"
     }
-    const url = "https://vediheal-backend.vercel.app/reiki/instructorsByReiki";
+    // const url = "https://vediheal-backend.vercel.app/reiki/instructorsByReiki";
+    const url = "http://localhost:5000/reiki/instructorsByReiki";
     const options = {
         method: "POST",
         body: JSON.stringify(data),
@@ -153,7 +161,7 @@ const CheckoutModal = (props) => {
                 instructor={selectedInstructor} />
             </div>
           </div>
-
+{/* 
           <div className="bodyCard">
             <img
               src={require("../../../assets/user.png")}
@@ -166,7 +174,7 @@ const CheckoutModal = (props) => {
                 instructors={instructors}
                 instructor={selectedInstructor} />
             </div>
-          </div>
+          </div> */}
 
           <div className="bodyCard">
             <img
@@ -193,7 +201,7 @@ const CheckoutModal = (props) => {
           </div>
           
         </div>
-        <div className="bookingButton" onClick={""}>PAY NOW</div>
+        <div className="bookingButton" onClick={handleAppointment}>PAY NOW</div>
       </div>
     </div>
   );
