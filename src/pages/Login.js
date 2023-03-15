@@ -34,11 +34,11 @@ function Login(props) {
     let con;
     if(document.getElementById("instructorCheck").checked){
       url="https://vediheal-backend.vercel.app/login/instructor";
-      url="http://localhost:5000/login/instructor"
+      // url="http://localhost:5000/login/instructor"
       con=true;
     }else{
       url="https://vediheal-backend.vercel.app/login/user";
-      url="http://localhost:5000/login/user"
+      // url="http://localhost:5000/login/user"
       con=false;
     }
 
