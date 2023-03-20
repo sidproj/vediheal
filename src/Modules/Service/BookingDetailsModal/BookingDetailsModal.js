@@ -201,9 +201,11 @@ function BookingDetailsModal(props) {
       <div className="bookingButton" onClick={() => onProceedClick()}>
         PROCEED
       </div>
-      <div className="reikiBody">{props.details.description}</div>
-      <div className="expect">What to expect</div>
-      <div className="reikiBody">{props.details.expectations}</div>
+      <div className="footer">
+        <div className="reikiBody">{props.details.description}</div>
+        <div className="expect">What to expect</div>
+        <div className="reikiBody">{props.details.expectations}</div>
+      </div>
       {showBookingModal && (
         <CheckoutModal
           onClose={() => closeCheckoutModal()} 

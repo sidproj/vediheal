@@ -113,13 +113,13 @@ const UserProfile = (props)=>{
         </Modal.Header>
         <Modal.Body>
           <form>
-            <div class="form-group">
+            <div className="form-group">
               
-              <input className="input" type="password" class="form-control" id="oldPassword" placeholder="Enter Current Password" />
+              <input classNameName="input" type="password" className="form-control" id="oldPassword" placeholder="Enter Current Password" />
               <br />
-              <input className="input" type="password" class="form-control" id="newPassword" placeholder="Enter New Password" />
+              <input classNameName="input" type="password" className="form-control" id="newPassword" placeholder="Enter New Password" />
               <br />
-              <input className="input" type="password" class="form-control" id="confirmPassword" placeholder="Confirm New Password" />
+              <input classNameName="input" type="password" className="form-control" id="confirmPassword" placeholder="Confirm New Password" />
              
             </div>
             <div>
@@ -131,42 +131,42 @@ const UserProfile = (props)=>{
           <Button variant="danger" onClick={initModal}>
             Close
           </Button>
-          <button type="submit" class="btn btn-danger" onClick={handelChangePassword} >Submit</button>
+          <button type="submit" className="btn btn-danger" onClick={handelChangePassword} >Submit</button>
          </Modal.Footer>
       </Modal>
 
-        <div>
+        <div classNameName="mx-auto">
 
         
-        <div class="container-xl px-4 mt-8">
+        <div className="container-xl mt-8" >
             
-    <div class="row">
+    <div className="row">
         
-        <div class="col-xl-8 mx-auto">
-            <div class="card mb-4">
+        <div className="col-xl-8 mx-auto">
+            <div className="card mb-4 mx-auto">
                 
-                <div class="card-body form">
+                <div className="card-body form">
                     <form>
-                    <div className="text-center large mb-4 header">Account Details</div>
+                    <div classNameName="text-center large mb-4 header">Account Details</div>
                       
-                        <div class="row gx-3 mb-3">
+                        <div className="row gx-3 mb-3">
                          
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="inputFirstName">First name</label>
-                                <input class="form-control transparent-input" id="inputFirstName" type="text" defaultValue={user?.first_name}  />
+                            <div className="col-md-6">
+                                <label className="small mb-1" for="inputFirstName">First name</label>
+                                <input className="form-control transparent-input" id="inputFirstName" type="text" defaultValue={user?.first_name}  />
                             </div>
                             
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="inputLastName">Last name</label>
-                                <input class="form-control transparent-input" id="inputLastName" type="text" defaultValue={user?.last_name} />
+                            <div className="col-md-6">
+                                <label className="small mb-1" for="inputLastName">Last name</label>
+                                <input className="form-control transparent-input" id="inputLastName" type="text" defaultValue={user?.last_name} />
                             </div>
                         </div>
                         
-                        <div class="row gx-3 mb-3">
+                        <div className="row gx-3 mb-3">
                             
-                            <div class="col-mb-6">
-                                <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                                <input class="form-control transparent-input" id="inputEmailAddress" type="email" defaultValue={user?.email}  />
+                            <div className="col-mb-6">
+                                <label className="small mb-1" for="inputEmailAddress">Email address</label>
+                                <input className="form-control transparent-input" id="inputEmailAddress" type="email" defaultValue={user?.email}  />
                             </div>
 
                             
@@ -175,21 +175,21 @@ const UserProfile = (props)=>{
 
                         
                         
-                        <div class="row gx-3 mb-3">
+                        <div className="row gx-3 mb-3">
                             
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="inputPhone">Phone number</label>
-                                <input class="form-control transparent-input" id="inputPhone" type="tel" defaultValue={user?.phone_no}  />
+                            <div className="col-md-6">
+                                <label className="small mb-1" for="inputPhone">Phone number</label>
+                                <input className="form-control transparent-input" id="inputPhone" type="tel" defaultValue={user?.phone_no}  />
                             </div>
                       
                         </div>
-                        <div class="row gx-3 mb-3">
+                        <div className="row gx-3 mb-3">
                             
-                            <div class="col-md-6 mb-3">
-                                <button class="btn " type="button" onClick={handelDataChange}>Save changes</button>
+                            <div className="col-md-6 mb-3">
+                                <button className="btn " type="button" onClick={handelDataChange}>Save changes</button>
                             </div>
-                            <div class="col-md-6">                                
-                                    <button onClick={initModal} class="btn" type="button">
+                            <div className="col-md-6">                                
+                                    <button onClick={initModal} className="btn" type="button">
                                         Change Password
                                     </button>
                             </div>
