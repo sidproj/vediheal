@@ -4,6 +4,7 @@ import Dashboard from "./Modules/Dashboard/Dashboard";
 import Service from "./Modules/Service/Service";
 import Header from "./Components/Header/Header";
 import Login from "./pages/Login";
+import InstructorLogin from "./pages/InstructorLogin";
 import SignUp from "./pages/SignUp"
 import UserProfile from "./pages/UserProfile";
 import InstructorProfile from "./pages/InstructorProfile";
@@ -36,6 +37,8 @@ export default function Routing(props) {
           
           <Route path='/login' exact 
             render={()=><Login {...props}/>}/>
+          <Route path='/instructorlogin' exact 
+            render={()=><InstructorLogin {...props}/>}/>  
           
           <Route path="/" exact 
             render={()=><Dashboard {...props}/>} />
