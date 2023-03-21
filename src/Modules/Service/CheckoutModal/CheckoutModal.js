@@ -3,6 +3,8 @@ import "./CheckoutModal.css";
 import InstructorModal from "./instructorModal"
 import AppointmentSchedule from "./instructorModal copy";
 import { useHistory } from "react-router-dom";
+import SessionSelectionModal from "./SessionSelectionModal"
+import SelectSessionModal from "./SelectSessionModal"
 
 const CheckoutModal = (props) => {
 
@@ -156,10 +158,13 @@ const CheckoutModal = (props) => {
               alt="header"
             />
             <div className="time">
+              {/* 
               <AppointmentSchedule 
                 changeInstructor={setselectedSchedule} 
                 instructors={scheduleSelect}
-                instructor={selectedInstructor} />
+                instructor={selectedInstructor} /> 
+                */}
+            <SelectSessionModal />
             </div>
           </div>
 {/* 

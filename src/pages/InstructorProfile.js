@@ -157,14 +157,14 @@ const handelChangePassword = async()=>{
        
 
         
-        <div className="container-xl px-4 mt-8">
+        <div className="container-xl px-4 mt-8 mx-auto">
             
-    <div className="row" >
+    <div className="row mx-auto" >
        
         <div className="col-xl-8 mx-auto">
-            <div className="cardNew mb-4 form">
+            <div className="cardNew mb-4 form mx-auto">
                 
-                <div className="card-body form">
+                <div className="card-body form mx-auto">
                     <form >
                     <div className="text-center large mb-4 header">Account Details</div>
                         <div className="row gx-3 mb-3">

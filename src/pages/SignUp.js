@@ -58,6 +58,10 @@ function SignUp(props) {
     history.push("/login");
   }
 
+  function privacypolicy(){
+    history.push("/privacypolicy");
+  }
+
   
   return (
     <MDBContainer fluid>
@@ -80,7 +84,7 @@ function SignUp(props) {
 
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="privacyCheck" />
-                <label class="form-check-label" for="flexCheckDisabled">I agree with VediHeal's <span className="link"><a>Terms and Conditions</a></span> and <span className="link"><a>Privacy Policy</a></span></label>
+                <label class="form-check-label" for="flexCheckDisabled">I agree with VediHeal's <span className="link"><a onClick={() => {privacypolicy();}}>Terms and Conditions</a></span> and <span className="link"><a onClick={() => {privacypolicy();}}>Privacy Policy</a></span></label>
               </div>
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="instructorCheck" />

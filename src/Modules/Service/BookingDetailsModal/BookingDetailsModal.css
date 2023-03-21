@@ -90,3 +90,7 @@
 .priceContainer{
     column-gap: 10px;
 }
+
+.footer {
+    text-align : center !important;
+}

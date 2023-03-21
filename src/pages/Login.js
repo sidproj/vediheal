@@ -18,6 +18,8 @@ import { useState } from "react";
 
 function Login(props) {
 
+
+
   // useEffect(()=>{
   //   console.log(props);
   //   props.setUserJWT("hello world");
@@ -75,6 +77,10 @@ function Login(props) {
     history.push("/signup");
   }
 
+  function privacypolicy(){
+    history.push("/privacypolicy");
+  }
+
 
 
   return (
@@ -98,7 +104,7 @@ function Login(props) {
               <p className="fw-bold text-left forgot-password"><ForgetPasswordEmailModal /></p>
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="privacyCheck" />
-                <label class="form-check-label" for="flexCheckDisabled">I agree with VediHeal's <span className="link"><a>Terms and Conditions</a></span> and <span className="link"><a>Privacy Policy</a></span></label>
+                <label class="form-check-label" for="flexCheckDisabled">I agree with VediHeal's <span className="link"><a onClick={() => {privacypolicy();}}>Terms and Conditions</a></span> and <span className="link"><a onClick={() => {privacypolicy();}}>Privacy Policy</a></span></label>
               </div>
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="instructorCheck" />
