@@ -18,6 +18,8 @@ function UpdateMeetingLinkModal(props) {
     setIsShow(true);
   };
 
+  console.log(props);
+
   return (
     <>
       <Button variant="primary" className="bookingButton" onClick={handleShow}>

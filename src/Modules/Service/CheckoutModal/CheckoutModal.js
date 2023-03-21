@@ -158,13 +158,14 @@ const CheckoutModal = (props) => {
               alt="header"
             />
             <div className="time">
-              {/* 
-              <AppointmentSchedule 
-                changeInstructor={setselectedSchedule} 
-                instructors={scheduleSelect}
-                instructor={selectedInstructor} /> 
-                */}
-            <SelectSessionModal />
+            
+            <AppointmentSchedule 
+              changeInstructor={setselectedSchedule} 
+              instructors={scheduleSelect}
+              instructor={selectedInstructor} /> 
+              
+            {/* <SelectSessionModal /> */}
+            {/* <AppointmentSchedule /> */}
             </div>
           </div>
 {/* 

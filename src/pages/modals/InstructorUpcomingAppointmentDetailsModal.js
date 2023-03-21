@@ -84,7 +84,7 @@ function InstructorUpcomingAppointmentDetailsModal(props) {
                       { /*
                         data.meeting_link?(<div>Meeting link : {data.meeting_link}</div>):<></>
                       */ }
-                      <UpdateMeetingLinkModal />
+                      <UpdateMeetingLinkModal meeting={data.meeting_link} />
 
                     </td>
                   </tr>

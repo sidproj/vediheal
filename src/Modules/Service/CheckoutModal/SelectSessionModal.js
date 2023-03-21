@@ -29,7 +29,8 @@ const SelectSessionModal = ({isOpen, onRequestClose, sessions}) => {
         && sessionDate.getFullYear() === selectedDate.getFullYear();
     });
     setFilteredSessions(filtered);
-  }, [selectedDate, sessions]);
+    console.log("0",filtered);
+  },[]);
 
   return (
     <>
@@ -39,7 +40,7 @@ const SelectSessionModal = ({isOpen, onRequestClose, sessions}) => {
       <h2>Select a Date</h2>
       <input type="date" value={selectedDate.toISOString().substr(0,10)} onChange={(e) => setSelectedDate(new Date(e.target.value))} />
       <h2>Sessions</h2>
-      {filteredSessions.map((session, i) => (
+      {filteredSessions?.map((session, i) => (
         <div key={i}>
           <p>{session.name}</p>
           <p>{session.time}</p>

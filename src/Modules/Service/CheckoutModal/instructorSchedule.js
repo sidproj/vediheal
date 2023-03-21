@@ -56,7 +56,7 @@ const CheckoutModal = (props) => {
       end_time:endDate
     }
 
-    const url = "http://localhost:5000/schedule/createSchedule";
+    const url = "https://vediheal-backend.vercel.app/schedule/createSchedule";
     const options = {
       method: "POST",
       body: JSON.stringify(data),
