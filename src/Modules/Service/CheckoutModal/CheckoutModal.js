@@ -166,6 +166,7 @@ const CheckoutModal = (props) => {
               
             {/* <SelectSessionModal /> */}
             {/* <AppointmentSchedule /> */}
+            <SelectSessionModal/>
             </div>
           </div>
 {/* 

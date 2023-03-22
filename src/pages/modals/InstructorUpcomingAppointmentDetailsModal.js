@@ -13,7 +13,9 @@ function InstructorUpcomingAppointmentDetailsModal(props) {
   const [error, setError] = useState(); 
   const initModal = () => { 
     return invokeModal(!isShow) 
-  } 
+  }
+
+  console.log(props);
  
 //   const handelChangePassword = async()=>{ 
 //     const data = { 
@@ -84,7 +86,7 @@ function InstructorUpcomingAppointmentDetailsModal(props) {
                       { /*
                         data.meeting_link?(<div>Meeting link : {data.meeting_link}</div>):<></>
                       */ }
-                      <UpdateMeetingLinkModal meeting={data.meeting_link} />
+                      <UpdateMeetingLinkModal data={props.data} instructorJWT = {props.instructorJWT} />
 
                     </td>
                   </tr>
