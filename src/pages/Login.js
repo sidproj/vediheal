@@ -33,16 +33,9 @@ function Login(props) {
       "password":document.getElementById("password").value
     }
     let url;
-    let con;
-    if(document.getElementById("instructorCheck").checked){
-      url="https://vediheal-backend.vercel.app/login/instructor";
-      // url="http://localhost:5000/login/instructor"
-      con=true;
-    }else{
+
+
       url="https://vediheal-backend.vercel.app/login/user";
-      // url="http://localhost:5000/login/user"
-      con=false;
-    }
 
     const options = {
         method: "POST",
@@ -57,14 +50,9 @@ function Login(props) {
     // return;
     if(body.message && body.message=="Login successful!"){
       setLoginError(null);
-      if(con){
-        props.setInstructorJWT(body.jwt);
-        history.push("/instructorupcomingappointmentdetails");
-      }
-      else {
+
         props.setUserJWT(body.jwt);
         history.push("/");
-      }
     }
     else{
       setLoginError(body.error);

@@ -24,6 +24,7 @@
     align-items: flex-start;
     align-items: center;
     width: 100%;
+
 }
 
 body.service-body{
@@ -91,10 +92,13 @@ body.service-body{
 }
 
 .cardBtn {
-   display: flex;
-   flex-direction: row;
-   align-items: flex-end;
-   justify-content: flex-end;
+   
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+  width: 100%;
+  padding: 0 10px;
 }
 
 .img {
@@ -104,4 +108,9 @@ body.service-body{
 
 .iconClass {
     margin-right: 1.5rem;
+}
+
+.iconHeight{
+/*    height : 5rem;
+    max-height: 5rem;*/
 }

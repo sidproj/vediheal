@@ -308,7 +308,7 @@ function Services(props) {
                 (<div><img className="cardImage" src={card.image} alt="img" /></div>):
                 (<div><img className="cardImage" src={require("../assets/5.png")}/></div>)
               }
-              <div className="diCol">
+              <div className="divCol">
                 <div className="cardText">
                   <div dangerouslySetInnerHTML={{ __html: card.name }}></div>
                 </div>
