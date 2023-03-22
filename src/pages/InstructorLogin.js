@@ -16,7 +16,7 @@ import {
 from 'mdb-react-ui-kit';
 import { useState } from "react";
 
-function Login(props) {
+function InstructorLogin(props) {
 
 
 
@@ -81,8 +81,8 @@ function Login(props) {
     history.push("/privacypolicy");
   }
 
-  function instructorLogin(){
-    history.push("/instructorlogin");
+  function login(){
+    history.push("/login");
   }
 
 
@@ -98,7 +98,7 @@ function Login(props) {
             <MDBCardBody className='p-5 w-100 d-flex flex-column form'>
 
               <h2 className="fw-bold mb-2 text-center">Log in</h2>
-              <p className="fw-bold text-center mb-3">Don't have an account?<span className="link"><a onClick={handleClick}> Sign up</a></span></p>
+              
 
               <MDBInput className="transparent-input" wrapperClass='mb-4 w-100' placeholder='Email address*' id='email' type='email' size="lg"/>
               <MDBInput className="transparent-input" wrapperClass='mb-4 w-100' placeholder='Password*' id='password' type='password' size="lg"/>
@@ -111,7 +111,7 @@ function Login(props) {
                 <label class="form-check-label" for="flexCheckDisabled">I agree with VediHeal's <span className="link"><a onClick={() => {privacypolicy();}}>Terms and Conditions</a></span> and <span className="link"><a onClick={() => {privacypolicy();}}>Privacy Policy</a></span></label>
               </div>
               <div class="form-check">
-                <span className="link"><a onClick={() => {instructorLogin()}}><label class="form-check-label">Are You an Instructor?</label></a></span>
+                <span className="link"><a onClick={() => {login();}}><label class="form-check-label">Not an Instructor?</label></a></span>
               </div>
               <br />
               <MDBBtn className="login-btn" onClick={handelLogin}>
@@ -131,4 +131,4 @@ function Login(props) {
   );
 }
 
-export default Login;
+export default InstructorLogin;
