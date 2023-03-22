@@ -5,6 +5,7 @@ import AppointmentSchedule from "./instructorModal copy";
 import { useHistory } from "react-router-dom";
 import SessionSelectionModal from "./SessionSelectionModal"
 import SelectSessionModal from "./SelectSessionModal"
+import AppointmentDateModal from "./AppointmentDateModal"
 
 const CheckoutModal = (props) => {
 
@@ -158,13 +159,14 @@ const CheckoutModal = (props) => {
               alt="header"
             />
             <div className="time">
-              {/* 
+       
               <AppointmentSchedule 
                 changeInstructor={setselectedSchedule} 
                 instructors={scheduleSelect}
                 instructor={selectedInstructor} /> 
-                */}
-            <SelectSessionModal />
+      
+             {/* <SelectSessionModal /> */}
+             {/* *<AppointmentDateModal /> */}
             </div>
           </div>
 {/* 
@@ -188,7 +190,7 @@ const CheckoutModal = (props) => {
               height="40px"
               alt="header"
             />
-            <div>Selected date: {selectedDate?.toString()}<br />Selected time: {selectedTime?.toLocaleTimeString()}</div>
+            <div>Selected date: {selectedDate.getDate() + '/' + (selectedDate.getMonth() + 1) + '/' + selectedDate.getFullYear()}<br />Selected time: {selectedTime?.toLocaleTimeString()}</div>
           </div>
           
           {/* <div>

@@ -92,7 +92,7 @@ function UserPastAppointmentDetails(props) {
 
           <div className="divRow">
             <div><img className="cardImage" src={card.image} alt="img" /></div>
-            <div className="diCol">
+            <div className="divCol">
               <div className="cardText">
                 <div dangerouslySetInnerHTML={{ __html: card.label }}></div>
               </div>
