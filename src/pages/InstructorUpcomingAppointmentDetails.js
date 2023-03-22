@@ -113,7 +113,7 @@ function InstructorUpcomingAppointmentDetails(props) {
             
               {/* <div>Order Id : {card._id} </div> */}
               <div>Client name : {card.user_id.first_name}</div>
-              <div className='cardBtn'><InstructorUpcomingAppointmentDetailsModal data={card}/></div>
+              <div className='cardBtn'><InstructorUpcomingAppointmentDetailsModal data={card} instructorJWT={props.instructorJWT} /></div>
               {/* <div className="cardBtn"><img classname="img" src={require("../assets/next.png")} /></div> */}
             </div>
             

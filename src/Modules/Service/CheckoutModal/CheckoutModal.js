@@ -159,6 +159,7 @@ const CheckoutModal = (props) => {
               alt="header"
             />
             <div className="time">
+
        
               <AppointmentSchedule 
                 changeInstructor={setselectedSchedule} 
