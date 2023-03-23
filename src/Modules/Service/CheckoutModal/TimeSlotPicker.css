@@ -1,0 +1,12 @@
+.carousel {
+  margin: auto;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(100%);
+}
+
+.parent-element {
+  text-align: center;
+}
