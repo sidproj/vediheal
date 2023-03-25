@@ -162,12 +162,15 @@ const CheckoutModal = (props) => {
               alt="header"
             />
             <div className="time">
-            <TimeSlotPicker />  
-      {/* <TimeSlotModal /> */}
-            {/* <AppointmentSchedule 
-                           changeInstructor={setselectedSchedule} 
-                           instructors={scheduleSelect}
-                           instructor={selectedInstructor} /> */} 
+
+            <TimeSlotPicker />
+            
+              {/*
+              <AppointmentSchedule 
+                changeInstructor={setselectedSchedule} 
+                instructors={scheduleSelect}
+                instructor={selectedInstructor} /> 
+              */}
       
              {/* <SelectSessionModal /> */}
              {/* *<AppointmentDateModal /> */}

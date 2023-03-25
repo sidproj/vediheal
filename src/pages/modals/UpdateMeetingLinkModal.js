@@ -9,7 +9,27 @@ function UpdateMeetingLinkModal(props) {
     setIsShow(false);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    const link = document.getElementById("meeting").value;
+    if( link == null || link == undefined || link.length == 0)return;
+    const data = {
+      // "jwt":props.instructorJWT,
+      "jwt":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzY1Zjg2YmU2NzM1NjJlNDI5MjczNiIsImlhdCI6MTY3OTQxNjI5M30.-K_r_KCB_fdC_zmcDfYm50m8Lt3qBDiC6DTKz_d6MjA",
+      "appointment_id":props.data._id,
+      "meeting_link":link
+    }
+    let url="https://vediheal-backend.vercel.app/appointment/changeLink";
+
+    const options = {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+          "Content-Type": "application/json",
+      }
+    }
+    const res = await fetch(url,options);
+    const body = await res.json();
+    console.log(body);
     // TODO: Implement save functionality
     setIsShow(false);
   };
@@ -17,6 +37,8 @@ function UpdateMeetingLinkModal(props) {
   const handleShow = () => {
     setIsShow(true);
   };
+
+  console.log(props);
 
   return (
     <>
@@ -33,7 +55,7 @@ function UpdateMeetingLinkModal(props) {
           <p>
             <strong>Enter new meeting link:</strong>
           </p>
-          <input type="text" className="form-control" />
+          <input type="text" id="meeting" className="form-control" />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
