@@ -22,6 +22,7 @@ import UserPastAppointmentDetails from "./pages/UserPastAppointmentDetails";
 import InstructorUpcomingAppointmentDetails from "./pages/InstructorUpcomingAppointmentDetails"
 import InstructorSchedule from "./Modules/Service/CheckoutModal/instructorSchedule";
 import ViewSchedule from "./pages/ViewSchedule";
+import RazorPay from "./Modules/Service/CheckoutModal/razorpayGateway";
 
 export default function Routing(props) {
 
@@ -106,6 +107,9 @@ export default function Routing(props) {
 
           <Route path='/viewschedule' exact 
             render={()=><ViewSchedule {...props}/>}/>    
+            
+          <Route path='/pay' exact 
+            render={()=><RazorPay {...props}/>}/>  
         </switch>
       </BrowserRouter>
     </div>

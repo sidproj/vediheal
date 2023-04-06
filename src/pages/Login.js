@@ -53,7 +53,7 @@ function Login(props) {
 
         props.setUserJWT(body.jwt);
         history.push("/");
-    }
+      }
     else{
       setLoginError(body.error);
       console.log(body);

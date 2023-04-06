@@ -17,7 +17,6 @@ const CheckoutModal = (props) => {
   const { onClose, details ,reiki} = props;
   const history = useHistory();
 
-  const [instructors,setInstructors] = useState([]);
   const [selectedInstructor,setSelectedInstructor] = useState();
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState(new Date());
@@ -63,12 +62,15 @@ const CheckoutModal = (props) => {
     }
     const res = await fetch(url,options);
     const body = await res.json();
-    console.log(body);
-    console.log("reiki:",props.reiki);
     generateScheduleOptionData(body);
   }
 
+  const testRazorpay = async ()=>{
+    console.log("razorpay pending...");
+  }
+
   const handleAppointment = async ()=>{
+    // history.push("/pay");return;
     console.log(selectedSchedule);
     const data = {
       // change this later
@@ -92,45 +94,15 @@ const CheckoutModal = (props) => {
     if(body.status == "success") history.push("/");
   }
 
-  const getAppointmentData = async ()=>{
-    const data = {
-      // change this later
-      "jwt":props.userJWT,
-      "reiki":"63c3e1398481e6965b972d42"
-    }
-    const url = "https://vediheal-backend.vercel.app/reiki/instructorsByReiki";
-    // const url = "http://localhost:5000/reiki/instructorsByReiki";
-    const options = {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type": "application/json",
-        }
-    }
-    const res = await fetch(url,options);
-    const body = await res.json();
-    console.log(body);
-    const instructors=[];
-    body.map(instructor=>{
-      instructors.push({
-        label:instructor.first_name+" "+instructor.last_name,
-        value:instructor._id
-      });
-    });
-    console.log(instructors);
-    setInstructors(instructors);
-  }
-
   useEffect(()=>{
     console.log(selectedInstructor);
   },[selectedInstructor]);
 
   useEffect(()=>{
-    getAppointmentData();
     getScheduleData();
   },[]);
 
-
+  console.log(props);
 
   const { image, label } = details;
   return (
