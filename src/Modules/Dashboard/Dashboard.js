@@ -18,7 +18,7 @@ const Dashboard = (props)=> {
 
   const history = useHistory();
   useEffect(()=>{
-    console.log(props);
+    // console.log(props);
       if(props.instructorJWT!=undefined){
           history.push("/login");
       }

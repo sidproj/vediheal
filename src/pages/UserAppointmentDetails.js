@@ -7,7 +7,7 @@ function UserAppointmentDetails(props) {
 
   const history = useHistory();
     useEffect(()=>{
-      console.log(props);
+      // console.log(props);
         if(!props.userJWT){
             history.push("/login");
         }
@@ -32,7 +32,7 @@ function UserAppointmentDetails(props) {
     }
     const res = await fetch(url,options);
     const body = await res.json();
-    console.log(body);
+    // console.log(body);
     setAppointments(body);
   }
 

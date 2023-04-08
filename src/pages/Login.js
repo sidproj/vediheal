@@ -10,8 +10,6 @@ import {
   MDBCard,
   MDBCardBody,
   MDBInput,
-  MDBIcon,
-  MDBCheckbox
 }
 from 'mdb-react-ui-kit';
 import { useState } from "react";
@@ -46,7 +44,7 @@ function Login(props) {
     }
     const res = await fetch(url,options);
     const body = await res.json();
-    console.log(body);
+    // console.log(body);
     // return;
     if(body.message && body.message=="Login successful!"){
       setLoginError(null);
@@ -56,7 +54,6 @@ function Login(props) {
       }
     else{
       setLoginError(body.error);
-      console.log(body);
     }
   }
 
@@ -98,9 +95,9 @@ function Login(props) {
                 <input class="form-check-input" type="checkbox" id="privacyCheck" />
                 <label class="form-check-label" for="flexCheckDisabled">I agree with VediHeal's <span className="link"><a onClick={() => {privacypolicy();}}>Terms and Conditions</a></span> and <span className="link"><a onClick={() => {privacypolicy();}}>Privacy Policy</a></span></label>
               </div>
-              <div class="form-check">
+              {/* <div class="form-check">
                 <span className="link"><a onClick={() => {instructorLogin()}}><label class="form-check-label">Are You an Instructor?</label></a></span>
-              </div>
+              </div> */}
               <br />
               <MDBBtn className="login-btn" onClick={handelLogin}>
                 <span className="loginbutton">Login</span>

@@ -13,7 +13,7 @@ function UserUpcomingAppointmentDetailsModal(props) {
     invokeModal(!isShow) 
   } 
 
-  console.log(props);
+  // console.log(props);
  
   return ( 
     <> 

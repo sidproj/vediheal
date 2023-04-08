@@ -36,9 +36,14 @@
 .sideLinks{
     text-decoration: none;
     color : white;
-
 }
 
 .sideLinks:hover{
     color : #fce4de;
+}
+
+.sideLinks > div{
+    font-size: 15px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
 }

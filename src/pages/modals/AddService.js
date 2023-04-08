@@ -20,7 +20,7 @@ const AddService = (props) => {
 
   const handelReikiChange = async ()=>{
     const newReikies = await getSelectedReikies();
-    console.log(newReikies);
+    // console.log(newReikies);
     const data = {
       "jwt":props.instructorJWT,
       "reiki":newReikies

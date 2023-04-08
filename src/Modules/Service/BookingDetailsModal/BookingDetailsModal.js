@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 
 function BookingDetailsModal(props) {
 
-  console.log(props.details.benefits);
+  // console.log(props.details.benefits);
   const { resetBooking, details } = props;
 
   const [couponAvail,setCouponAvail] = useState(undefined);
@@ -40,7 +40,7 @@ function BookingDetailsModal(props) {
   const handleAmtChange = (id)=>{
     setCouponAvail(undefined);
     const value = document.getElementById(id).innerText;
-    console.log(value);
+    // console.log(value);
     setInitialAmt(value);
     handleCouponVerifyOnAmountChange(value);
   }
@@ -64,7 +64,7 @@ function BookingDetailsModal(props) {
       }
       const res = await fetch(url,options);
       const body = await res.json();
-      console.log(body);
+      // console.log(body);
       if(body.status){
         setCouponDis(body.coupon.discount_amt);
       }
@@ -93,7 +93,7 @@ function BookingDetailsModal(props) {
       }
       const res = await fetch(url,options);
       const body = await res.json();
-      console.log(body);
+      // console.log(body);
       setCouponAvail(body.status);
       if(body.status){
         setCouponAvail(body.status);

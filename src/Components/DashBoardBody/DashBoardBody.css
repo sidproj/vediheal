@@ -15,7 +15,7 @@
 
 .bodySubtext {
     color: white;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     padding: 20px;
     text-align: center;
 }
@@ -31,11 +31,11 @@
 }
 
 .benefitLabel{
-    font-weight: 600;
+    font-weight: 700;
     font-size: 1rem;
 }
 
 .benefitSubtext {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     text-align: center;
 }

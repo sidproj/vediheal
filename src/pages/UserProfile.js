@@ -43,7 +43,7 @@ const UserProfile = (props)=>{
     }
     const res = await fetch(url,options);
     const body = await res.json();
-    console.log(body);
+    // console.log(body);
     if(!body.status == "Error") invokeModal(false);
     else setError(body.error);
   }
@@ -99,7 +99,7 @@ const UserProfile = (props)=>{
         }
         const res = await fetch(url,options);
         const body = await res.json();
-        console.log(body);
+        // console.log(body);
         setUser(body.user);
     }
 
@@ -167,14 +167,8 @@ const UserProfile = (props)=>{
                             <div className="col-mb-6">
                                 <label className="small mb-1" for="inputEmailAddress">Email address</label>
                                 <input className="form-control transparent-input" id="inputEmailAddress" type="email" defaultValue={user?.email}  />
-                            </div>
-
-                            
-                                
+                            </div>  
                         </div>
-
-                        
-                        
                         <div className="row gx-3 mb-3">
                             
                             <div className="col-md-6">

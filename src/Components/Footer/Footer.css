@@ -22,3 +22,7 @@
     text-align: center;
     font-size: 0.8rem;
 }
+
+.footerLinks > div{
+    cursor: pointer;
+}

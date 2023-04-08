@@ -15,7 +15,7 @@ function InstructorUpcomingAppointmentDetailsModal(props) {
     return invokeModal(!isShow) 
   }
 
-  console.log(props);
+  // console.log(props);
  
 //   const handelChangePassword = async()=>{ 
 //     const data = { 

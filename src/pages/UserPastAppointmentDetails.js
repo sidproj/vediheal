@@ -69,7 +69,7 @@ function UserPastAppointmentDetails(props) {
       }
       const res = await fetch(url,options);
       const body = await res.json();
-      console.log(body);
+      // console.log(body);
     }
 
     

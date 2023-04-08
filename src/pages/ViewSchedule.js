@@ -28,7 +28,7 @@ function ViewSchedule(props) {
     }
     const res = await fetch(url,options);
     const body = await res.json();
-    console.log(body);
+    // console.log(body);
     if(body.status){
       history.push("/viewschedule");
     }
@@ -56,7 +56,7 @@ function ViewSchedule(props) {
       const res = await fetch(url,options);
       const body = await res.json();
       setSchedules(body);
-      console.log(body);
+      // console.log(body);
     }
 
     useEffect(()=>{

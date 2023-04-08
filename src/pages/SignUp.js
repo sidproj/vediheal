@@ -20,16 +20,8 @@ function SignUp(props) {
       "password":document.getElementById("password").value,
       "confirm_password":document.getElementById("conf_password").value
     }
-    let url;
+    const url="https://vediheal-backend.vercel.app/register/user";
     let con;
-    if(document.getElementById("instructorCheck").checked){
-      url="https://vediheal-backend.vercel.app/register/instructor";
-      con=true;
-    }else{
-      url="https://vediheal-backend.vercel.app/register/user";
-      con=false;
-    }
-
     const options = {
         method: "POST",
         body: JSON.stringify(data),
@@ -43,14 +35,8 @@ function SignUp(props) {
     const successful="Registration Successful";
     
     if(body.message && body.message==successful){
-      if(con){
-        props.setInstructorJWT(body.jwt);
-        history.push("/instructorprofile");
-      }
-      else{
-        props.setUserJWT(body.jwt);
-        history.push("/");
-      }
+      props.setUserJWT(body.jwt);
+      history.push("/");
     }
   }
 
@@ -86,10 +72,10 @@ function SignUp(props) {
                 <input class="form-check-input" type="checkbox" id="privacyCheck" />
                 <label class="form-check-label" for="flexCheckDisabled">I agree with VediHeal's <span className="link"><a onClick={() => {privacypolicy();}}>Terms and Conditions</a></span> and <span className="link"><a onClick={() => {privacypolicy();}}>Privacy Policy</a></span></label>
               </div>
-              <div class="form-check">
+              {/* <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="instructorCheck" />
                 <label class="form-check-label">Are You an Instructor?</label>
-              </div>
+              </div> */}
               <br />
               <MDBBtn size='lg' className="login-btn" onClick={handelRegister}>
                 Sign Up

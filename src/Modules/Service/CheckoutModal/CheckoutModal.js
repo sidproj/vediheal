@@ -34,7 +34,7 @@ const CheckoutModal = (props) => {
       }
       data.push(newOption);
     }
-    console.log(data);
+    // console.log(data);
     setScheduleSelect(data);
   }
 
@@ -45,7 +45,7 @@ const CheckoutModal = (props) => {
   },[])
 
   const getScheduleData = async ()=>{
-    console.log("Schedule info:- ");
+    // console.log("Schedule info:- ");
     const data = {
       "jwt":props.userJWT,
       "reiki":props.reiki._id
@@ -66,12 +66,12 @@ const CheckoutModal = (props) => {
   }
 
   const testRazorpay = async ()=>{
-    console.log("razorpay pending...");
+    // console.log("razorpay pending...");
   }
 
   const handleAppointment = async ()=>{
     // history.push("/pay");return;
-    console.log(selectedSchedule);
+    // console.log(selectedSchedule);
     const data = {
       // change this later
       "jwt":props.userJWT,
@@ -90,19 +90,19 @@ const CheckoutModal = (props) => {
     }
     const res = await fetch(url,options);
     const body = await res.json();
-    console.log(body);
+    // console.log(body);
     if(body.status == "success") history.push("/");
   }
 
   useEffect(()=>{
-    console.log(selectedInstructor);
+    // console.log(selectedInstructor);
   },[selectedInstructor]);
 
   useEffect(()=>{
     getScheduleData();
   },[]);
 
-  console.log(props);
+  // console.log(props);
 
   const { image, label } = details;
   return (

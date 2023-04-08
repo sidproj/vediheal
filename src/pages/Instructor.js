@@ -31,7 +31,7 @@ function Instructor(props) {
     
     const result = await fetch(url,options);
     const body = await  result.json();
-    console.log(body);
+    // console.log(body);
     setInstructors(body);
   }
   

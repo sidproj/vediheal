@@ -23,7 +23,7 @@ const CheckoutModal = (props) => {
 
   function handleDate(e){
       setSelectedDate(new Date(e.target.value));
-      console.log(e.target.value);
+      // console.log(e.target.value);
   }
 
   const handleTime = (event) => {
@@ -48,7 +48,7 @@ const CheckoutModal = (props) => {
   const addSchedule = async ()=>{
     const date = selectedDate;
     date.setTime(selectedTime);
-    console.log(date);
+    // console.log(date);
     const endDate = date;
     const data = {
       jwt:props.instructorJWT,
@@ -65,16 +65,16 @@ const CheckoutModal = (props) => {
       }
   }
 
-    console.log(options);
+    // console.log(options);
 
     const res = await fetch(url,options);
     const body = await res.json();
-    console.log(body);
+    // console.log(body);
 
   }
 
   useEffect(()=>{
-    console.log(selectedInstructor);
+    // console.log(selectedInstructor);
   },[selectedInstructor]);
 
   // useEffect(()=>{

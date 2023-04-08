@@ -1,8 +1,6 @@
 import React, {useState} from 'react'
 import Card from 'react-bootstrap/Card';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
-import { Modal, Button } from 'react-bootstrap'
-
 import EditModal from "./modals/EditModal";
 
 

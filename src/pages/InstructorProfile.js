@@ -1,7 +1,5 @@
 import {React,useLayoutEffect, useEffect,useState} from "react";
 import { Modal, Button } from 'react-bootstrap'
-import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
-import ChangePasswordModal from "./modals/ChangePasswordModal"
 import AddService from "./modals/AddService"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useHistory } from "react-router-dom";
@@ -30,7 +28,7 @@ const handelChangePassword = async()=>{
       "confirm_password":document.getElementById("confirmPassword").value
     }
 
-    console.log(data);
+    // console.log(data);
     const url = "https://vediheal-backend.vercel.app/profile/edit/user/password";
     const options = {
         method: "POST",
@@ -41,7 +39,7 @@ const handelChangePassword = async()=>{
     }
     const res = await fetch(url,options);
     const body = await res.json();
-    console.log(body);
+    // console.log(body);
     if(!body.status == "Error") invokeModal(false);
     else setError(body.error);
   }
@@ -73,7 +71,7 @@ const handelChangePassword = async()=>{
         }
         const res = await fetch(url,options);
         const body = await res.json();
-        console.log(body);
+        // console.log(body);
         setInstructor(body.instructor);
         setInstructorReikies(body.instructor.reikies);
     }

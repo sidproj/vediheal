@@ -10,8 +10,6 @@ import {
   MDBCard,
   MDBCardBody,
   MDBInput,
-  MDBIcon,
-  MDBCheckbox
 }
 from 'mdb-react-ui-kit';
 import { useState } from "react";
@@ -46,7 +44,7 @@ function InstructorLogin(props) {
     }
     const res = await fetch(url,options);
     const body = await res.json();
-    console.log(body);
+    // console.log(body);
     // return;
     if(body.message && body.message=="Login successful!"){
       setLoginError(null);
@@ -56,7 +54,7 @@ function InstructorLogin(props) {
     }
     else{
       setLoginError(body.error);
-      console.log(body);
+      // console.log(body);
     }
   }
 

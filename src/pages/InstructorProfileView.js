@@ -34,7 +34,7 @@ export default function ProfilePage(props) {
     }
     const result = await fetch(url,options);
     const body = await  result.json();
-    console.log(body);
+    // console.log(body);
     setInstructor(body);
     setReikies(body.instructorReikis);
   }
@@ -44,7 +44,7 @@ export default function ProfilePage(props) {
   },[]);
 
   useEffect(()=>{
-    console.log(reikies);
+    // console.log(reikies);
   },[reikies]);
 
   function handleClick() {
