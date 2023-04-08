@@ -11,9 +11,9 @@ const DateModal = (props)=>{
     }
 
     const handleDate = (event)=>{
-        console.log(event.target);
+        // console.log(event.target);
         const date  = document.getElementById("startTime").value;
-        console.log(date);
+        // console.log(date);
     }
   
   return ( 

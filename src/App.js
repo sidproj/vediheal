@@ -6,7 +6,7 @@ export default function App() {
   const [instructorJWT,setInstructorJWT] = useState();
 
   useEffect(()=>{
-    console.log(userJWT);
+    // console.log(userJWT);
   },[userJWT]);
 
   
