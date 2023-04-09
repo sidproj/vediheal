@@ -23,6 +23,8 @@ const CheckoutModal = (props) => {
 
   const [selectedSchedule,setselectedSchedule] = useState([]);
   const [scheduleSelect,setScheduleSelect] = useState([]);
+  //map data for modal
+  const [mapData,setMapData] = useState([]);
 
   const generateScheduleOptionData = (scheduleData)=>{
     const data = [];
@@ -36,6 +38,7 @@ const CheckoutModal = (props) => {
     }
     // console.log(data);
     setScheduleSelect(data);
+    createDateTimeMap(data);
   }
 
   useEffect(()=>{
@@ -43,6 +46,27 @@ const CheckoutModal = (props) => {
           history.push("/login");
       }
   },[])
+
+  const createDateTimeMap = (schedules) => {
+    console.log(schedules);
+    const map={};
+    for(let i=0;i<schedules.length;i++){
+      const temp = new Date(schedules[i].label);
+      const date = temp.toLocaleDateString();
+      
+      const time = {
+        "id":schedules[i].value,
+        "time":`${temp.getHours()} : ${temp.getMinutes()}`
+      }
+      if (map[date] == null || map[date] == null){
+        map[date]=[time];
+      }else{
+        map[date].push(time);
+      }
+    }
+    console.log(map);
+    setMapData(map);
+  }
 
   const getScheduleData = async ()=>{
     // console.log("Schedule info:- ");
@@ -95,10 +119,6 @@ const CheckoutModal = (props) => {
   }
 
   useEffect(()=>{
-    // console.log(selectedInstructor);
-  },[selectedInstructor]);
-
-  useEffect(()=>{
     getScheduleData();
   },[]);
 
@@ -136,32 +156,8 @@ const CheckoutModal = (props) => {
             <div className="time">
 
             <TimeSlotPicker />
-            
-              {/*
-              <AppointmentSchedule 
-                changeInstructor={setselectedSchedule} 
-                instructors={scheduleSelect}
-                instructor={selectedInstructor} /> 
-              */}
-      
-             {/* <SelectSessionModal /> */}
-             {/* *<AppointmentDateModal /> */}
             </div>
           </div>
-{/* 
-          <div className="bodyCard">
-            <img
-              src={require("../../../assets/user.png")}
-              height="40px"
-              alt="header"
-            />
-            <div className="time">
-              <InstructorModal 
-                changeInstructor={setSelectedInstructor} 
-                instructors={instructors}
-                instructor={selectedInstructor} />
-            </div>
-          </div> */}
 
           <div className="bodyCard">
             <img
@@ -171,11 +167,6 @@ const CheckoutModal = (props) => {
             />
             <div>Selected date: {selectedDate.getDate() + '/' + (selectedDate.getMonth() + 1) + '/' + selectedDate.getFullYear()}<br />Selected time: {selectedTime?.toLocaleTimeString()}</div>
           </div>
-          
-          {/* <div>
-            <input type="checkbox"></input>{" "}
-            <span className="smallfont">Schedule date and time later</span>
-          </div> */}
           <br></br> 
           <div>Total amount to be paid:</div>
           <div className="price smallfont">

@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 import DemoCarousel from "./Carousel";
 import { Collapse } from "react-collapse";
 import ReivewCarousel from "./ReivewsCarousel";
+import Services from "../../pages/Services";
 
 const Dashboard = (props) => {
   const [knowMore, setKnowMore] = useState(false);
@@ -41,22 +42,20 @@ const Dashboard = (props) => {
         <Collapse isOpened={knowMore}>
           <DashBoardBody />
         </Collapse>
+      {/* <Service {...props}/>
+       */}
+       <Services {...props} footer={1}/>
+      <ReivewCarousel/>
+      <div className="connect">Connect with us</div>
+      <div className="connectIcon">
+        <img src={require("../../assets/insta.png")} height="20px" alt="img" />
+        <img src={require("../../assets/fb.png")} height="20px" alt="img" />
+        <img
+          src={require("../../assets/youtube.png")}
+          height="20px"
+          alt="img"
+        />
 
-        <Service {...props} />
-        <ReivewCarousel />
-        <div className="connect">Connect with us</div>
-        <div className="connectIcon">
-          <img
-            src={require("../../assets/insta.png")}
-            height="20px"
-            alt="img"
-          />
-          <img src={require("../../assets/fb.png")} height="20px" alt="img" />
-          <img
-            src={require("../../assets/youtube.png")}
-            height="20px"
-            alt="img"
-          />
         </div>
         <Footer />
       </div>

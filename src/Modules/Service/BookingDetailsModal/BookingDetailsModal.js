@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { MdCurrencyRupee } from "react-icons/md";
 
 function BookingDetailsModal(props) {
+
   // console.log(props.details.benefits);
   const { resetBooking, details } = props;
 
@@ -134,6 +135,7 @@ function BookingDetailsModal(props) {
           <div className="rightContainer">
             <div className="rightContainerHeader">{props.details.name}</div>
             <div className="rightContainerBody">
+
               {props.details.benefits?.map((benifit) => {
                 return (
                   <div className="benefit">

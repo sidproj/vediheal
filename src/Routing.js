@@ -30,17 +30,19 @@ export default function Routing(props) {
       <BrowserRouter>
         <Header {...props} />
         <switch>
-          <Route path="/login" exact render={() => <Login {...props} />} />
-          <Route
-            path="/instructorlogin"
-            exact
-            render={() => <InstructorLogin {...props} />}
-          />
-
-          <Route path="/" exact render={() => <Dashboard {...props} />} />
-
-          <Route path="/signup" exact render={() => <SignUp {...props} />} />
-
+          
+          <Route path='/login' exact 
+            render={()=><Login {...props}/>}/>
+          <Route path='/instructorlogin' exact 
+            render={()=><InstructorLogin {...props}/>}/>  
+          
+          <Route path="/" exact 
+            render={()=><Dashboard {...props}/>} />
+          
+          
+          <Route path='/signup' exact 
+            render={()=><SignUp {...props}/>}/>
+          
           {/* done authenticating */}
           <Route path="/service" render={() => <Service {...props} />} />
 

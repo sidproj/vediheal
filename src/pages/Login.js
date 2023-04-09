@@ -141,9 +141,9 @@ function Login(props) {
                   </span>
                 </label>
               </div>
-              {/* <div class="form-check">
+              <div class="form-check">
                 <span className="link"><a onClick={() => {instructorLogin()}}><label class="form-check-label">Are You an Instructor?</label></a></span>
-              </div> */}
+              </div>
               <br />
               <MDBBtn className="login-btn" onClick={handelLogin}>
                 <span className="loginbutton">Login</span>

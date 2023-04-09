@@ -16,7 +16,7 @@ const servicedCards = [
     bookingDetails: {
       image: require("../../assets/5.png"),
       label: "Anti-depression Reiki",
-      benefits: [
+      benifits: [
         "Boosts Mood",
         "Relives Anxiety",
         "Heals Depression",
@@ -54,7 +54,7 @@ const servicedCards = [
     bookingDetails: {
       image: require("../../assets/6.png"),
       label: "Pain relief",
-      benefits: [
+      benifits: [
         "Boosts Mood",
         "Relives Anxiety",
         "Heals Depression",
@@ -92,7 +92,7 @@ const servicedCards = [
     bookingDetails: {
       image: require("../../assets/6.png"),
       label: "Reiki for addiction and detoxification",
-      benefits: [
+      benifits: [
         "Boosts Mood",
         "Relives Anxiety",
         "Heals Depression",
@@ -130,7 +130,7 @@ const servicedCards = [
     bookingDetails: {
       image: require("../../assets/8.png"),
       label: "Sleep disturbance reiki",
-      benefits: [
+      benifits: [
         "Boosts Mood",
         "Relives Anxiety",
         "Heals Depression",
@@ -168,7 +168,7 @@ const servicedCards = [
     bookingDetails: {
       image: require("../../assets/9.png"),
       label: "Health Crisis Reiki",
-      benefits: [
+      benifits: [
         "Boosts Mood",
         "Relives Anxiety",
         "Heals Depression",
@@ -211,6 +211,7 @@ const Service = (props) => {
       const reikis = await fetch("https://vediheal-backend.vercel.app/reiki");
       const body = await reikis.json();
       setReikiData(body);
+      console.log(body);
     }
     getData();
   }, []);
@@ -241,13 +242,32 @@ const Service = (props) => {
         </button>
       </div>
       <div className="serviceCards">
-        {_.map(servicedCards, (card, index) => {
+        {_.map(reikiData, (card, index) => {
           return (
             <div
               className="reikiCard"
               onClick={() => showBookingDetails({ card })}
               key={index}
             >
+             <table>
+              <tr>
+                  <td rowspan="2" >
+                    <img src={card.image} height="100px" alt="img" />
+                  </td>
+                  <th >
+                   <div className="cardText" >
+                      <div dangerouslySetInnerHTML={{ __html: card.name }}></div>
+                    </div>
+                  </th>
+              </tr>
+              <tr>
+                  <td rowspan="2">
+                    <div className="cardText">
+                      <div className="cardSubtext">{card.description.slice(0,90)}...</div>
+                    </div>
+                  </td>
+              </tr>
+            </table>
               <div className="divRow">
                 {card.image != "" ? (
                   <div>
