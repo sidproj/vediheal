@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 import DemoCarousel from "./Carousel";
 import {Collapse} from 'react-collapse';
 import ReivewCarousel from "./ReivewsCarousel";
+import Services from "../../pages/Services";
 
 const Dashboard = (props)=> {
 
@@ -42,7 +43,9 @@ const Dashboard = (props)=> {
       <DashBoardBody />
       </Collapse>
 
-      <Service {...props}/>
+      {/* <Service {...props}/>
+       */}
+       <Services {...props} footer={1}/>
       <ReivewCarousel/>
       <div className="connect">Connect with us</div>
       <div className="connectIcon">

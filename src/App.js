@@ -11,7 +11,7 @@ export default function App() {
 
   
   useEffect(()=>{
-    console.log(instructorJWT);
+    // console.log(instructorJWT);
   },[instructorJWT]);
 
   return (

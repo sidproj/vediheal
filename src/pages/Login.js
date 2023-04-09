@@ -95,9 +95,9 @@ function Login(props) {
                 <input class="form-check-input" type="checkbox" id="privacyCheck" />
                 <label class="form-check-label" for="flexCheckDisabled">I agree with VediHeal's <span className="link"><a onClick={() => {privacypolicy();}}>Terms and Conditions</a></span> and <span className="link"><a onClick={() => {privacypolicy();}}>Privacy Policy</a></span></label>
               </div>
-              {/* <div class="form-check">
+              <div class="form-check">
                 <span className="link"><a onClick={() => {instructorLogin()}}><label class="form-check-label">Are You an Instructor?</label></a></span>
-              </div> */}
+              </div>
               <br />
               <MDBBtn className="login-btn" onClick={handelLogin}>
                 <span className="loginbutton">Login</span>

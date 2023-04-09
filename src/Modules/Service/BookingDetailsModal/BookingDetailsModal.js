@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 
 function BookingDetailsModal(props) {
 
-  // console.log(props.details.benefits);
+  console.log(props);
   const { resetBooking, details } = props;
 
   const [couponAvail,setCouponAvail] = useState(undefined);
@@ -133,7 +133,7 @@ function BookingDetailsModal(props) {
             <div className="rightContainerHeader">{props.details.name}</div>
             <div className="rightContainerBody">
               {
-                props.details.benefits?.map((benifit)=>{
+                props.details.benifits?.map((benifit)=>{
                   return (
                     <div className="benefit">
                       <img
@@ -141,7 +141,7 @@ function BookingDetailsModal(props) {
                         height="18px"
                         alt="header"
                       />
-                      {benifit}
+                      {benifit.name}
                     </div>
                   );
                 })

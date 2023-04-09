@@ -14,7 +14,7 @@ const servicedCards = [
     bookingDetails: {
       image: require("../../assets/5.png"),
       label: "Anti-depression Reiki",
-      benefits: [
+      benifits: [
         "Boosts Mood",
         "Relives Anxiety",
         "Heals Depression",
@@ -52,7 +52,7 @@ const servicedCards = [
     bookingDetails: {
       image: require("../../assets/6.png"),
       label: "Pain relief",
-      benefits: [
+      benifits: [
         "Boosts Mood",
         "Relives Anxiety",
         "Heals Depression",
@@ -90,7 +90,7 @@ const servicedCards = [
     bookingDetails: {
       image: require("../../assets/6.png"),
       label: "Reiki for addiction and detoxification",
-      benefits: [
+      benifits: [
         "Boosts Mood",
         "Relives Anxiety",
         "Heals Depression",
@@ -128,7 +128,7 @@ const servicedCards = [
     bookingDetails: {
       image: require("../../assets/8.png"),
       label: "Sleep disturbance reiki",
-      benefits: [
+      benifits: [
         "Boosts Mood",
         "Relives Anxiety",
         "Heals Depression",
@@ -166,7 +166,7 @@ const servicedCards = [
     bookingDetails: {
       image: require("../../assets/9.png"),
       label: "Health Crisis Reiki",
-      benefits: [
+      benifits: [
         "Boosts Mood",
         "Relives Anxiety",
         "Heals Depression",
@@ -198,7 +198,6 @@ const servicedCards = [
 ];
 
 const  Service = (props)=> {
-
   const history = useHistory();
 
   function handleClick() {
@@ -210,6 +209,7 @@ const  Service = (props)=> {
       const reikis = await fetch("https://vediheal-backend.vercel.app/reiki");
       const body = await reikis.json();
       setReikiData(body);
+      console.log(body);
     }
     getData();
   },[]);
@@ -231,10 +231,10 @@ const  Service = (props)=> {
         Our <span className="redText">Services</span>
       </div>
       <div className="serviceTitle">
-        <button type="button" className="btn rounded-pill" onClick={handleClick}>View All</button>
+        <button type="button" className="btn rounded-pill">View All</button>
       </div>
       <div className="serviceCards">
-        {_.map(servicedCards, (card, index) => {
+        {_.map(reikiData, (card, index) => {
           return (
             <div
               className="reikiCard"
@@ -248,16 +248,14 @@ const  Service = (props)=> {
                   </td>
                   <th >
                    <div className="cardText" >
-                      <div dangerouslySetInnerHTML={{ __html: card.label }}></div>
+                      <div dangerouslySetInnerHTML={{ __html: card.name }}></div>
                     </div>
                   </th>
-
-
               </tr>
               <tr>
                   <td rowspan="2">
                     <div className="cardText">
-                      <div className="cardSubtext">{card.subtext.slice(0,90)}...</div>
+                      <div className="cardSubtext">{card.description.slice(0,90)}...</div>
                     </div>
                   </td>
               </tr>

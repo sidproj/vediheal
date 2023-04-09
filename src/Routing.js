@@ -51,7 +51,7 @@ export default function Routing(props) {
           
           {/* done authenticating */}
           <Route path="/service" 
-            render={()=><Service {...props}/>} />
+            render={()=><Service {...props} />} />
           
           {/* done authenticating */}
           <Route path="/userprofile" exact 
@@ -67,7 +67,7 @@ export default function Routing(props) {
           
           {/* done authenticating */}
           <Route path="/services" exact 
-            render={()=><Services {...props}/>} />
+            render={()=><Services {...props} footer={0}/>} />
 
 
           {/* done authenticating */}

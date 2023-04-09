@@ -23,6 +23,8 @@ const CheckoutModal = (props) => {
 
   const [selectedSchedule,setselectedSchedule] = useState([]);
   const [scheduleSelect,setScheduleSelect] = useState([]);
+  //map data for modal
+  const [mapData,setMapData] = useState([]);
 
   const generateScheduleOptionData = (scheduleData)=>{
     const data = [];
@@ -63,6 +65,7 @@ const CheckoutModal = (props) => {
       }
     }
     console.log(map);
+    setMapData(map);
   }
 
   const getScheduleData = async ()=>{

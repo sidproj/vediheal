@@ -12,6 +12,7 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "./Services.css";
+import Footer from "../Components/Footer/Footer";
 
 function Services(props) {
 
@@ -95,7 +96,7 @@ function Services(props) {
 
   return (
    
-
+  <div>
     <div className="serviceContainer mt-6">
 
       <div className="serviceCards">
@@ -134,7 +135,10 @@ function Services(props) {
           {...props}
         />
       )}
-    
+    </div>
+      {
+        props.footer==0?<Footer/>:<></>
+      }
     </div>
   );
 }
