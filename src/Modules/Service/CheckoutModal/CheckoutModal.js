@@ -1,126 +1,122 @@
 import React, { useEffect, useState } from "react";
 import "./CheckoutModal.css";
-import InstructorModal from "./instructorModal"
+import InstructorModal from "./instructorModal";
 import AppointmentSchedule from "./instructorModal copy";
 import { useHistory } from "react-router-dom";
-import SessionSelectionModal from "./SessionSelectionModal"
-import SelectSessionModal from "./SelectSessionModal"
-import AppointmentDateModal from "./AppointmentDateModal"
-import TimeSlotModal from './TimeSlotModal';
-import DatePickerModal from './DatePickerModal'
-import TimeSlotPicker from './TimeSlotPicker'
+import SessionSelectionModal from "./SessionSelectionModal";
+import SelectSessionModal from "./SelectSessionModal";
+import AppointmentDateModal from "./AppointmentDateModal";
+import TimeSlotModal from "./TimeSlotModal";
+import DatePickerModal from "./DatePickerModal";
+import TimeSlotPicker from "./TimeSlotPicker";
 
 const CheckoutModal = (props) => {
-
-  
-
-  const { onClose, details ,reiki} = props;
+  const { onClose, details, reiki } = props;
   const history = useHistory();
 
-  const [selectedInstructor,setSelectedInstructor] = useState();
+  const [selectedInstructor, setSelectedInstructor] = useState();
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState(new Date());
 
-  const [selectedSchedule,setselectedSchedule] = useState([]);
-  const [scheduleSelect,setScheduleSelect] = useState([]);
+  const [selectedSchedule, setselectedSchedule] = useState([]);
+  const [scheduleSelect, setScheduleSelect] = useState([]);
   //map data for modal
-  const [mapData,setMapData] = useState([]);
+  const [mapData, setMapData] = useState([]);
 
-  const generateScheduleOptionData = (scheduleData)=>{
+  const generateScheduleOptionData = (scheduleData) => {
     const data = [];
 
-    for(let i=0;i<scheduleData.length;i++){
+    for (let i = 0; i < scheduleData.length; i++) {
       const newOption = {
-        label :scheduleData[i].start_time,
-        value :scheduleData[i]._id 
-      }
+        label: scheduleData[i].start_time,
+        value: scheduleData[i]._id,
+      };
       data.push(newOption);
     }
     // console.log(data);
     setScheduleSelect(data);
     createDateTimeMap(data);
-  }
+  };
 
-  useEffect(()=>{
-      if(!props.userJWT){
-          history.push("/login");
-      }
-  },[])
+  useEffect(() => {
+    if (!props.userJWT) {
+      history.push("/login");
+    }
+  }, []);
 
   const createDateTimeMap = (schedules) => {
     console.log(schedules);
-    const map={};
-    for(let i=0;i<schedules.length;i++){
+    const map = {};
+    for (let i = 0; i < schedules.length; i++) {
       const temp = new Date(schedules[i].label);
       const date = temp.toLocaleDateString();
-      
+
       const time = {
-        "id":schedules[i].value,
-        "time":`${temp.getHours()} : ${temp.getMinutes()}`
-      }
-      if (map[date] == null || map[date] == null){
-        map[date]=[time];
-      }else{
+        id: schedules[i].value,
+        time: `${temp.getHours()} : ${temp.getMinutes()}`,
+      };
+      if (map[date] == null || map[date] == null) {
+        map[date] = [time];
+      } else {
         map[date].push(time);
       }
     }
-    console.log(map);
     setMapData(map);
-  }
+  };
 
-  const getScheduleData = async ()=>{
+  const getScheduleData = async () => {
     // console.log("Schedule info:- ");
     const data = {
-      "jwt":props.userJWT,
-      "reiki":props.reiki._id
-    }
+      jwt: props.userJWT,
+      reiki: props.reiki._id,
+    };
 
     const url = "https://vediheal-backend.vercel.app/schedule";
     // const url = "http://localhost:5000/schedule";
     const options = {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type": "application/json",
-        }
-    }
-    const res = await fetch(url,options);
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const res = await fetch(url, options);
     const body = await res.json();
     generateScheduleOptionData(body);
-  }
+  };
 
-  const testRazorpay = async ()=>{
+  const testRazorpay = async () => {
     // console.log("razorpay pending...");
-  }
+  };
 
-  const handleAppointment = async ()=>{
+  const handleAppointment = async () => {
     // history.push("/pay");return;
     // console.log(selectedSchedule);
     const data = {
       // change this later
-      "jwt":props.userJWT,
-      "reiki":props.reiki._id,
-      "schedule_id":selectedSchedule.value,
-      "price":props.price
-    }
+      jwt: props.userJWT,
+      reiki: props.reiki._id,
+      schedule_id: selectedSchedule.value,
+      price: props.price,
+    };
     const url = "https://vediheal-backend.vercel.app/appointment/set";
     // const url = "http://localhost:5000/appointment/set";
     const options = {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type": "application/json",
-        }
-    }
-    const res = await fetch(url,options);
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const res = await fetch(url, options);
     const body = await res.json();
     // console.log(body);
-    if(body.status == "success") history.push("/");
-  }
+    if (body.status == "success") history.push("/");
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     getScheduleData();
-  },[]);
+  }, []);
 
   // console.log(props);
 
@@ -146,7 +142,6 @@ const CheckoutModal = (props) => {
           </div>
         </div>
         <div className="checkoutBodyContainer">
-          
           <div className="bodyCard">
             <img
               src={require("../../../assets/time.png")}
@@ -154,8 +149,7 @@ const CheckoutModal = (props) => {
               alt="header"
             />
             <div className="time">
-
-            <TimeSlotPicker />
+              <TimeSlotPicker dateTimeMap={mapData} />
             </div>
           </div>
 
@@ -165,9 +159,18 @@ const CheckoutModal = (props) => {
               height="40px"
               alt="header"
             />
-            <div>Selected date: {selectedDate.getDate() + '/' + (selectedDate.getMonth() + 1) + '/' + selectedDate.getFullYear()}<br />Selected time: {selectedTime?.toLocaleTimeString()}</div>
+            <div>
+              Selected date:{" "}
+              {selectedDate.getDate() +
+                "/" +
+                (selectedDate.getMonth() + 1) +
+                "/" +
+                selectedDate.getFullYear()}
+              <br />
+              Selected time: {selectedTime?.toLocaleTimeString()}
+            </div>
           </div>
-          <br></br> 
+          <br></br>
           <div>Total amount to be paid:</div>
           <div className="price smallfont">
             <div>Price for 1 session</div>
@@ -177,9 +180,10 @@ const CheckoutModal = (props) => {
             <div>Payable amount</div>
             <div>₹499</div>
           </div>
-          
         </div>
-        <div className="bookingButton" onClick={handleAppointment}>PAY NOW</div>
+        <div className="bookingButton" onClick={handleAppointment}>
+          PAY NOW
+        </div>
       </div>
     </div>
   );
