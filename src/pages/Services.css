@@ -1,119 +1,111 @@
-.serviceContainer{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    row-gap: 20px;
-    width: 100%;
-    padding-left: 0px;
-    padding-right: 0px;
+.serviceContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  row-gap: 20px;
+  width: 100%;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
-.serviceTitle{
-    font-weight: 700;
-    font-size: 1.2rem;
+.serviceTitle {
+  font-weight: 700;
+  font-size: 1.2rem;
 }
 
-.serviceCards{
-    display: flex;
-    flex-direction: column;
-    row-gap: 20px;
-    font-family: 'Montserrat', sans-serif;
-    color:#040606;
-    align-items: flex-start;
-    align-items: center;
-    width: 100%;
-
+.serviceCards {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  font-family: "Montserrat", sans-serif;
+  color: #040606;
+  align-items: flex-start;
+  align-items: center;
+  width: 100%;
 }
 
-body.service-body{
-    background-color: #fce4de !important;
+body.service-body {
+  background-color: #fce4de !important;
 }
 
-
-.card{
-    display: flex;
-    background-color: #f6f1eb !important;
-    border:none !important;
-    border-radius: 2rem;
-    cursor: pointer;
-    padding:0.3rem;
-    padding-bottom: 0.7rem;
-    max-width: 19rem;
+.card {
+  display: flex;
+  background-color: #f6f1eb !important;
+  border: none !important;
+  border-radius: 2rem;
+  cursor: pointer;
+  padding: 0.3rem;
+  padding-bottom: 0.7rem;
+  max-width: 19rem;
 }
 
-.reikiCard{
-    display: flex;
-    background-color: #f8cfc1 !important;
-    border:none !important;
-    border-radius: 2rem;
-    cursor: pointer;
-    padding:0.3rem;
-    padding-bottom: 0.7rem;
-    max-width: 21rem;
-    position: relative;
+.reikiCard {
+  display: flex;
+  background-color: #f8cfc1 !important;
+  border: none !important;
+  border-radius: 2rem;
+  cursor: pointer;
+  padding: 0.3rem;
+  padding-bottom: 0.7rem;
+  position: relative;
+  width: 100%;
+  min-height: 140px;
 }
 
-
-.cardImage{
-    width:7rem;
-    height:7rem;
-    object-fit: contain;
-    display: flex;
-    flex-direction: column;
+.cardImage {
+  height: 140px;
+  object-fit: contain;
+  display: flex;
+  flex-direction: column;
 }
-.cardText{
-    display: flex;
-    flex-direction: column;
-    row-gap: 8px;
-    padding: 4px;
-    text-align: center;
-    font-weight: 700;
-
+.cardText {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  padding: 4px;
+  padding-left: 0;
+  font-weight: 700;
+  font-size: 1.15rem;
 }
 
 .cardSubtext {
-    font-size: 0.7rem;
-    font-weight: 500;
-    text-align: left;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-align: left;
+  padding-right: 4px;
 }
 
-.divRow{
-    display: flex;
-    flex-direction: row;
-    max-width: 19rem;
+.divRow {
+  display: flex;
+  flex-direction: row;
 }
 
-.divCol{
-    display: flex;
-    flex-direction: column;
-    width:13rem !important;
-    height:6rem;
+.divCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* width: 13rem !important; */
+  height: 6rem;
 }
 
 .cardBtn {
-   position: absolute;
-   bottom: 8px;
-   right: 0;
-   display: flex;
-   flex-direction: row;
-   align-items: flex-end;
-   justify-content: flex-end;
-   width: 100%;
-   padding: 0 10px;
+  position: absolute;
+  bottom: 8px;
+  right: 15px;
+  color: #935d57;
+  padding: 0 5px;
+  border: 2px solid #935d57;
+  border-radius: 20px;
 }
 
 .img {
-    height: 5px !important;
-    width: 5px !important;
+  height: 5px !important;
+  width: 5px !important;
 }
 
-.iconClass {
-    margin-right: 1.5rem;
-}
-
-.iconHeight{
-/*    height : 5rem;
+.iconHeight {
+  /*    height : 5rem;
     max-height: 5rem;*/
 }

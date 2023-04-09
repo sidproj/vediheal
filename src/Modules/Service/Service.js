@@ -3,11 +3,13 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import BookingDetailsModal from "./BookingDetailsModal/BookingDetailsModal";
 import "./Service.css";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const servicedCards = [
   {
     id: 1,
-    label: `Anti-<span class="redText">Depression</span> Reiki`,
+    name: `Anti-<span class="redText">Depression</span> Reiki`,
     subtext:
       "Reiki is a scientific and research-proven technique to get rid of anxiety and depression through our body’s natural healing ability.",
     image: require("../../assets/5.png"),
@@ -45,7 +47,7 @@ const servicedCards = [
   },
   {
     id: 2,
-    label: `Pain <span class="redText">Relief </span> Reiki`,
+    name: `Pain <span class="redText">Relief </span> Reiki`,
     subtext:
       "Reiki is a scientific and research-proven technique that helps decrease pain perception by healing the emotional aspect of pain.",
     image: require("../../assets/6.png"),
@@ -83,7 +85,7 @@ const servicedCards = [
   },
   {
     id: 3,
-    label: `Reiki for <span class="redText">Addiction</span> and <span class="redText">detoxification.</span>`,
+    name: `Reiki for <span class="redText">Addiction</span> and <span class="redText">detoxification.</span>`,
     subtext:
       " Reiki helps a person to shift their energy in a positive direction and no longer want to use or abuse any illicit substances.",
     image: require("../../assets/7.png"),
@@ -121,7 +123,7 @@ const servicedCards = [
   },
   {
     id: 4,
-    label: `Sleep <span class="redText">Disturbance</span> Reiki`,
+    name: `Sleep <span class="redText">Disturbance</span> Reiki`,
     subtext:
       "Reiki is a scientific and research-proven technique that helps in solving the problems like Insomnia or Narcolepsy.",
     image: require("../../assets/8.png"),
@@ -159,7 +161,7 @@ const servicedCards = [
   },
   {
     id: 5,
-    label: `Health <span class="redText">Crisis </span> Reiki`,
+    name: `Health <span class="redText">Crisis </span> Reiki`,
     subtext:
       "Support the well-being of people receiving traditional medical treatments such as chemotherapy, radiation, surgery, and kidney dialysis.",
     image: require("../../assets/9.png"),
@@ -197,24 +199,23 @@ const servicedCards = [
   },
 ];
 
-const  Service = (props)=> {
-
+const Service = (props) => {
   const history = useHistory();
 
   function handleClick() {
     history.push("/services");
   }
 
-  useEffect(()=>{
-    async function getData(){
+  useEffect(() => {
+    async function getData() {
       const reikis = await fetch("https://vediheal-backend.vercel.app/reiki");
       const body = await reikis.json();
       setReikiData(body);
     }
     getData();
-  },[]);
+  }, []);
 
-  const [reikiData,setReikiData] = useState();
+  const [reikiData, setReikiData] = useState();
   const [showModal, setShowModal] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const showBookingDetails = ({ card }) => {
@@ -231,7 +232,13 @@ const  Service = (props)=> {
         Our <span className="redText">Services</span>
       </div>
       <div className="serviceTitle">
-        <button type="button" className="btn rounded-pill" onClick={handleClick}>View All</button>
+        <button
+          type="button"
+          className="btn rounded-pill"
+          onClick={handleClick}
+        >
+          View All
+        </button>
       </div>
       <div className="serviceCards">
         {_.map(servicedCards, (card, index) => {
@@ -241,27 +248,33 @@ const  Service = (props)=> {
               onClick={() => showBookingDetails({ card })}
               key={index}
             >
-             <table>
-              <tr>
-                  <td rowspan="2" >
-                    <img src={card.image} height="100px" alt="img" />
-                  </td>
-                  <th >
-                   <div className="cardText" >
-                      <div dangerouslySetInnerHTML={{ __html: card.label }}></div>
-                    </div>
-                  </th>
-
-
-              </tr>
-              <tr>
-                  <td rowspan="2">
-                    <div className="cardText">
-                      <div className="cardSubtext">{card.subtext.slice(0,90)}...</div>
-                    </div>
-                  </td>
-              </tr>
-            </table>
+              <div className="divRow">
+                {card.image != "" ? (
+                  <div>
+                    <img className="cardImage" src={card.image} alt="img" />
+                  </div>
+                ) : (
+                  <div>
+                    <img
+                      className="cardImage"
+                      src={require("../../assets/5.png")}
+                    />
+                  </div>
+                )}
+                <div className="divCol">
+                  <div className="cardText">
+                    <div dangerouslySetInnerHTML={{ __html: card.name }}></div>
+                  </div>
+                  <div className="cardSubtext">{card.subtext}</div>
+                  {/* <div className="cardSubtext">{card.description.replace(/(\r\n|\n|\r)/gm, "").substring(0,70)}...</div> */}
+                  <div className="cardBtn">
+                    <FontAwesomeIcon
+                      onClick={() => showBookingDetails({ card })}
+                      icon={faArrowRight}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           );
         })}
@@ -274,9 +287,8 @@ const  Service = (props)=> {
           reiki={reikiData}
         />
       )}
-    
     </div>
   );
-}
+};
 
 export default Service;
