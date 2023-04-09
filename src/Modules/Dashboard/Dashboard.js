@@ -5,44 +5,43 @@ import Service from "../Service/Service";
 import Footer from "../../Components/Footer/Footer";
 import { useHistory } from "react-router-dom";
 import DemoCarousel from "./Carousel";
-import {Collapse} from 'react-collapse';
+import { Collapse } from "react-collapse";
 import ReivewCarousel from "./ReivewsCarousel";
 import Services from "../../pages/Services";
 
-const Dashboard = (props)=> {
+const Dashboard = (props) => {
+  const [knowMore, setKnowMore] = useState(false);
 
-  const [knowMore,setKnowMore] = useState(false);
-
-  const handleKnowMoreChange=()=>{
+  const handleKnowMoreChange = () => {
     setKnowMore(!knowMore);
-  }
+  };
 
   const history = useHistory();
-  useEffect(()=>{
-    // console.log(props);
-      if(props.instructorJWT!=undefined){
-          history.push("/login");
-      }
-  },[]);
+  useEffect(() => {
+    if (props.instructorJWT != undefined) {
+      history.push("/login");
+    }
+  }, []);
 
   return (
     <div className="bg">
-    <div className="container">
-      <DemoCarousel/>
-      <div className="titleContainer">
-        Modern problems with <span className="redText">Vedic</span> solutions
-      </div>
-      <div className="subtext">
-        We are a vedic-healing ecosystem that brings together multiple healing
-        options to create an experience that can help us in treating modern
-        problems with ancient vedic solutions.
-      </div>
-      <div className="rounded-pill btn" onClick={handleKnowMoreChange}>Know more</div>
+      <div className="container">
+        <DemoCarousel />
+        <div className="titleContainer">
+          Modern problems with <span className="redText">Vedic</span> solutions
+        </div>
+        <div className="subtext">
+          We are a vedic-healing ecosystem that brings together multiple healing
+          options to create an experience that can help us in treating modern
+          problems with ancient vedic solutions.
+        </div>
+        <div className="rounded-pill btn" onClick={handleKnowMoreChange}>
+          Know more
+        </div>
 
-      <Collapse isOpened={knowMore}>
-      <DashBoardBody />
-      </Collapse>
-
+        <Collapse isOpened={knowMore}>
+          <DashBoardBody />
+        </Collapse>
       {/* <Service {...props}/>
        */}
        <Services {...props} footer={1}/>
@@ -56,13 +55,12 @@ const Dashboard = (props)=> {
           height="20px"
           alt="img"
         />
+
+        </div>
+        <Footer />
       </div>
-      <Footer />
     </div>
-    </div>
-    
-    
   );
-}
+};
 
 export default Dashboard;

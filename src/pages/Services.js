@@ -15,14 +15,12 @@ import "./Services.css";
 import Footer from "../Components/Footer/Footer";
 
 function Services(props) {
-
-  
   // const [reikies,setReikies] = useState([]);
 
   // const getReikiesData = async ()=>{
   //   const url = "http://localhost:5000/reiki";
   //   const options = {
-  //     method: 'GET', 
+  //     method: 'GET',
   //   }
   //   const result = await fetch(url,options);
   //   const body = await  result.json();
@@ -32,7 +30,6 @@ function Services(props) {
   // useEffect(()=>{
   //   getReikiesData();
   // },[]);
-
 
   // const history = useHistory();
 
@@ -59,29 +56,29 @@ function Services(props) {
   // }
 
   const history = useHistory();
-    // useEffect(()=>{
-    //   console.log("hiiya");
-    //   console.log(props);
-    //     if(!props.userJWT){
-    //         history.push("/login");
-    //     }
-    // },[]);
+  // useEffect(()=>{
+  //   console.log("hiiya");
+  //   console.log(props);
+  //     if(!props.userJWT){
+  //         history.push("/login");
+  //     }
+  // },[]);
 
-    function handleClick() {
+  function handleClick() {
     history.push("/services");
   }
 
-  useEffect(()=>{
-    async function getData(){
+  useEffect(() => {
+    async function getData() {
       const reikis = await fetch("https://vediheal-backend.vercel.app/reiki");
       const body = await reikis.json();
       setReikiData(body);
       // console.log(body);
     }
     getData();
-  },[]);
+  }, []);
 
-  const [reikiData,setReikiData] = useState();
+  const [reikiData, setReikiData] = useState();
   const [showModal, setShowModal] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const showBookingDetails = ({ card }) => {
@@ -94,11 +91,9 @@ function Services(props) {
     setShowModal(false);
   };
 
-  return (
-   
+  return (   
   <div>
     <div className="serviceContainer mt-6">
-
       <div className="serviceCards">
         {_.map(reikiData, (card, index) => {
           return (
@@ -107,23 +102,33 @@ function Services(props) {
               onClick={() => showBookingDetails({ card })}
               key={index}
             >
-            
-
-            <div className="divRow">
-              {
-                card.image != ""?
-                (<div><img className="cardImage" src={card.image} alt="img" /></div>):
-                (<div><img className="cardImage" src={require("../assets/5.png")}/></div>)
-              }
-              <div className="divCol">
-                <div className="cardText">
-                  <div dangerouslySetInnerHTML={{ __html: card.name }}></div>
+              <div className="divRow">
+                {card.image != "" ? (
+                  <div>
+                    <img className="cardImage" src={card.image} alt="img" />
+                  </div>
+                ) : (
+                  <div>
+                    <img
+                      className="cardImage"
+                      src={require("../assets/5.png")}
+                    />
+                  </div>
+                )}
+                <div className="divCol">
+                  <div className="cardText">
+                    <div dangerouslySetInnerHTML={{ __html: card.name }}></div>
+                  </div>
+                  <div className="cardSubtext">{card.description}</div>
+                  {/* <div className="cardSubtext">{card.description.replace(/(\r\n|\n|\r)/gm, "").substring(0,70)}...</div> */}
+                  <div className="cardBtn">
+                    <FontAwesomeIcon
+                      onClick={() => showBookingDetails({ card })}
+                      icon={faArrowRight}
+                    />
+                  </div>
                 </div>
-                <div className="cardSubtext">{card.description.replace(/(\r\n|\n|\r)/gm, "").substring(0,70)}...</div>
-                <div className="cardBtn"><FontAwesomeIcon className="iconClass" onClick={() => showBookingDetails({ card })}  icon={faArrowRight} /></div>
-              </div> 
-            </div>
-
+              </div>
             </div>
           );
         })}
