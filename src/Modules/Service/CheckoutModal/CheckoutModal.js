@@ -49,11 +49,30 @@ const CheckoutModal = (props) => {
     const map = {};
     for (let i = 0; i < schedules.length; i++) {
       const temp = new Date(schedules[i].label);
-      const date = temp.toLocaleDateString();
+
+      //convertion into dd/mm/yyyy formate
+      const yyyy = temp.getFullYear();
+      let mm = temp.getMonth() + 1; // Months start at 0!
+      let dd = temp.getDate();
+
+      if (dd < 10) dd = '0' + dd;
+      if (mm < 10) mm = '0' + mm;
+      //end convertion
+
+      //convertion into hours and minutes
+      let hours = temp.getHours();
+      let minutes = temp.getMinutes();
+
+      if(hours < 10) hours = '0' + hours;
+      if(minutes < 10) minutes = '0' + minutes;
+
+      //end convertion
+
+      const date =  dd + '/' + mm + '/' + yyyy;
 
       const time = {
         id: schedules[i].value,
-        time: `${temp.getHours()} : ${temp.getMinutes()}`,
+        time: `${hours}:${minutes}`,
       };
       if (map[date] == null || map[date] == null) {
         map[date] = [time];
@@ -173,12 +192,12 @@ const CheckoutModal = (props) => {
           <br></br>
           <div>Total amount to be paid:</div>
           <div className="price smallfont">
-            <div>Price for 1 session</div>
-            <div>₹499</div>
+            <div>Price for the session/s</div>
+            <div>₹{props.price}</div>
           </div>
           <div className="price">
             <div>Payable amount</div>
-            <div>₹499</div>
+            <div>₹{props.price}</div>
           </div>
         </div>
         <div className="bookingButton" onClick={handleAppointment}>
