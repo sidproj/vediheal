@@ -267,7 +267,7 @@ function BookingDetailsModal(props) {
           details={details}
           {...props}
           reiki={props.details}
-          price={499}
+          price={total}
         />
       )}
     </div>
