@@ -67,15 +67,18 @@ body.service-body {
   row-gap: 8px;
   padding: 4px;
   padding-left: 0;
-  font-weight: 700;
-  font-size: 1.15rem;
+  font-weight:600;
+  font-size: 1.20rem;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .cardSubtext {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 500;
   text-align: left;
   padding-right: 4px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .divRow {
@@ -109,4 +112,8 @@ body.service-body {
 .iconHeight {
   /*    height : 5rem;
     max-height: 5rem;*/
+}
+
+.th{
+  color:#FF4D4D;
 }

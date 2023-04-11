@@ -76,7 +76,7 @@ function BookingDetailsModal(props) {
   };
 
   const verifyCoupon = async () => {
-    console.log("clicked");
+    // console.log("clicked");
     try {
       const code = document.getElementById("coupon").value;
       const data = {
@@ -95,7 +95,7 @@ function BookingDetailsModal(props) {
       };
       const res = await fetch(url, options);
       const body = await res.json();
-      // console.log(body);
+      console.log(body);
       setCouponAvail(body.status);
       if (body.status) {
         setCouponAvail(body.status);

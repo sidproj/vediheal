@@ -13,13 +13,29 @@ function UserUpcomingAppointmentDetailsModal(props) {
     invokeModal(!isShow) 
   } 
 
+  const getDate = (data)=>{
+    const date = new Date(data);
+    const formated= " "+date.toLocaleDateString();
+    return formated;
+  }
+
+  const getTime = (data)=>{
+    const date = new Date(data);
+    let formated=" ";
+    if((""+date.getHours()).length == 1) formated+= ("0"+date.getHours()+":");
+    else formated+=date.getHours()+":";
+    
+    if((""+date.getMinutes()).length == 1) {
+      formated += ("0"+date.getMinutes());
+    }
+    else formated+=date.getMinutes();
+    return formated;
+  }
+
   // console.log(props);
  
   return ( 
     <> 
-       {/* <button onClick={initModal} class="btn btn-col" type="button"> 
-        <FontAwesomeIcon icon={faArrowRight} />
-      </button>  */}
 
 <FontAwesomeIcon className="iconClass" onClick={initModal}  icon={faArrowRight} />
       <Modal show={isShow}> 
@@ -46,8 +62,18 @@ function UserUpcomingAppointmentDetailsModal(props) {
                     <td></td>
                   </tr>
                   <tr>
-                    <td><div>Start Time :{props?.appointment?.time_slot?.start_time}</div> <></>
-              </td>
+                    <td>Instructor Email : {props?.appointment?.instructor_id?.email} </td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><div>Start Date :{getDate(props.appointment?.time_slot?.start_time)}</div></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><div>Start Time :{
+                     getTime(props.appointment?.time_slot?.start_time)
+                    }</div></td>
+                    <td></td>
                   </tr>
                 </tbody>
                </table>

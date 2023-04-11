@@ -26,6 +26,16 @@ function Login(props) {
       email: document.getElementById("email").value,
       password: document.getElementById("password").value,
     };
+
+    if(data.email==null || data.email.length == 0){
+      setLoginError("Please enter email!");
+      return;
+    }
+    if(data.password==null || data.password.length == 0){
+      setLoginError("Please enter password!");
+      return;
+    }
+
     let url;
 
     url = "https://vediheal-backend.vercel.app/login/user";
@@ -141,9 +151,9 @@ function Login(props) {
                   </span>
                 </label>
               </div>
-              <div class="form-check">
+              {/* <div class="form-check">
                 <span className="link"><a onClick={() => {instructorLogin()}}><label class="form-check-label">Are You an Instructor?</label></a></span>
-              </div>
+              </div> */}
               <br />
               <MDBBtn className="login-btn" onClick={handelLogin}>
                 <span className="loginbutton">Login</span>

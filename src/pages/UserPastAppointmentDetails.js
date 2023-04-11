@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import _ from "lodash";
 import UserPastAppointmentDetailsModal from "./modals/UserPastAppointmentDetailsModal"
@@ -47,6 +47,9 @@ const servicedCards = [
 
 function UserPastAppointmentDetails(props) {
 
+  
+  const [appointments,setAppointments] = useState([]);
+
   const history = useHistory();
     useEffect(()=>{
         if(!props.userJWT){
@@ -56,10 +59,11 @@ function UserPastAppointmentDetails(props) {
 
     const getData = async ()=>{
       const data={
-        "jwt":props.instructorJWT,
+        "jwt":props.userJWT,
         "is_completed":true
       }
-      const url = "https://vediheal-backend.vercel.app/appointment/user";
+      // const url = "https://vediheal-backend.vercel.app/appointment/user";
+      const url = "http://localhost:5000/appointment/user"
       const options = {
           method: "POST",
           body: JSON.stringify(data),
@@ -69,7 +73,8 @@ function UserPastAppointmentDetails(props) {
       }
       const res = await fetch(url,options);
       const body = await res.json();
-      // console.log(body);
+      console.log("hehe",body);
+      setAppointments(body);
     }
 
     
@@ -82,7 +87,7 @@ function UserPastAppointmentDetails(props) {
     <div className="serviceContainer mt-6">
 
     <div className="serviceCards">
-      {_.map(servicedCards, (card, index) => {
+      {_.map(appointments, (card, index) => {
         return (
           <div
             className="reikiCard"
@@ -91,15 +96,14 @@ function UserPastAppointmentDetails(props) {
           
 
           <div className="divRow">
-            <div><img className="cardImage" src={card.image} alt="img" /></div>
+            <div><img className="cardImage" src={require("../assets/5.png")} alt="img" /></div>
             <div className="divCol">
               <div className="cardText">
-                <div dangerouslySetInnerHTML={{ __html: card.label }}></div>
+                <div dangerouslySetInnerHTML={{ __html: card.reiki_id.name }}></div>
               </div>
-            
-              <div>Order Id : </div>
-              <div>Date : </div>
-              <div className='cardBtn'><UserUpcomingAppointmentDetailsModal /></div>
+              <div>Instructor : {card.instructor_id.first_name} {card.instructor_id.last_name}</div>
+              <div>Date :{card.time_slot?.start_time} </div>
+              <div className='cardBtn'><UserUpcomingAppointmentDetailsModal appointment={card} /></div>
               {/* <div className="cardBtn"><img classname="img" src={require("../assets/next.png")} /></div> */}
             </div>
             
