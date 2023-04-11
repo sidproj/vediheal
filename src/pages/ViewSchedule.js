@@ -63,6 +63,24 @@ function ViewSchedule(props) {
       getData();
     },[]);
 
+    const getDate = (data)=>{
+      const date = new Date(data);
+      const formated= " "+date.toLocaleDateString();
+      return formated;
+    }
+  
+    const getTime = (data)=>{
+      const date = new Date(data);
+      let formated=" ";
+      if((""+date.getHours()).length == 1) formated+= ("0"+date.getHours()+":");
+      else formated+=date.getHours()+":";
+      
+      if((""+date.getMinutes()).length == 1) {
+        formated += ("0"+date.getMinutes());
+      }
+      else formated+=date.getMinutes();
+      return formated;
+    }
 
   return (
     <div className="serviceContainer mt-6">
@@ -79,8 +97,8 @@ function ViewSchedule(props) {
                 </div>
               </div>
               <div className="paddingLeft">  
-                <div><b>Date</b>: {card.start_time}</div>
-                <div><b>Time</b>: {card.start_time}</div>
+                <div><b>Date</b>: {getDate(card.start_time)}</div>
+                <div><b>Time</b>: {getTime(card.start_time)}</div>
               </div>
               <div className="cardBtn">
                 <FontAwesomeIcon

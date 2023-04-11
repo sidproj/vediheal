@@ -71,7 +71,7 @@ export default function Routing(props) {
           <Route
             path="/services"
             exact
-            render={() => <Services {...props} />}
+            render={() => <Services {...props} footer={0} />}
           />
 
           {/* done authenticating */}
