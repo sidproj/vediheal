@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+
 import CheckoutModal from "../CheckoutModal/CheckoutModal";
 import "./BookingDetailsModal.css";
 import MDBInput from "mdb-react-ui-kit";
@@ -9,7 +12,7 @@ import { MdCurrencyRupee } from "react-icons/md";
 
 function BookingDetailsModal(props) {
 
-  // console.log(props.details.benefits);
+  // console.log(props.details.benifits);
   const { resetBooking, details } = props;
 
   const [couponAvail, setCouponAvail] = useState(undefined);
@@ -77,6 +80,11 @@ function BookingDetailsModal(props) {
 
   const verifyCoupon = async () => {
     // console.log("clicked");
+    if(props.userJWT == undefined || props.userJWT == null){
+      setCouponAvail(false);
+      setCouponDis(0);
+      return;
+    }
     try {
       const code = document.getElementById("coupon").value;
       const data = {
@@ -115,6 +123,9 @@ function BookingDetailsModal(props) {
   const closeCheckoutModal = () => {
     setShowBookingModal(false);
   };
+
+  showBookingModal ? disableBodyScroll(document) : enableBodyScroll(document)
+
   return (
     <div className="modalContainer">
       <div className="Headercontainer">
@@ -136,7 +147,7 @@ function BookingDetailsModal(props) {
             <div className="rightContainerHeader">{props.details.name}</div>
             <div className="rightContainerBody">
 
-              {props.details.benefits?.map((benifit) => {
+              {props.details.benifits?.map((benifit) => {
                 return (
                   <div className="benefit">
                     <img
@@ -144,7 +155,7 @@ function BookingDetailsModal(props) {
                       height="18px"
                       alt="header"
                     />
-                    {benifit}
+                    {benifit.name}
                   </div>
                 );
               })}
