@@ -168,7 +168,7 @@ const CheckoutModal = (props) => {
               alt="header"
             />
             <div className="time">
-              <TimeSlotPicker dateTimeMap={mapData} />
+              <TimeSlotPicker dateTimeMap={mapData} setSelectedSchedule={setselectedSchedule} />
             </div>
           </div>
 

@@ -24,7 +24,7 @@ const TimeSlotPicker = ({ dateTimeMap }) => {
   }, []);
 
   const setDates = () => {
-    console.log("datetime", dateTimeMap);
+    // console.log("datetime", dateTimeMap);
     let newDates = [];
     Object.keys(dateTimeMap).forEach((key) => {
       newDates.push({ date: key, timeSlots: [] });
@@ -32,9 +32,9 @@ const TimeSlotPicker = ({ dateTimeMap }) => {
     Object.values(dateTimeMap).forEach((val, i) => {
       newDates[i].timeSlots.push(val[0].time);
     });
-    console.log("====================================");
-    console.log("newDates", newDates);
-    console.log("====================================");
+    // console.log("====================================");
+    // console.log("newDates", newDates);
+    // console.log("====================================");
     return newDates;
   };
   const dates = setDates();
@@ -45,11 +45,13 @@ const TimeSlotPicker = ({ dateTimeMap }) => {
 
   const handleDateClick = (index) => {
     setSelectedDateIndex(index);
+
     setSelectedTimeSlot(null); // reset time slot selection when changing dates
   };
 
   const handleTimeSlotClick = (timeSlot) => {
     setSelectedTimeSlot(timeSlot);
+    // console.log(selectedTimeSlot)
   };
 
   return (
