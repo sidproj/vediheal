@@ -3,6 +3,7 @@ import { Modal, Button } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
 import "./TimeSlotPicker.css";
 
+
 // const dates = [
 //   { date: "2023-03-24", timeSlots: ["10:00 AM", "11:00 AM", "12:00 PM"] },
 //   { date: "2023-03-25", timeSlots: ["1:00 PM", "2:00 PM", "3:00 PM"] },
@@ -12,10 +13,13 @@ import "./TimeSlotPicker.css";
 //   { date: "2023-03-29", timeSlots: ["7:00 PM", "8:00 PM", "9:00 PM"] },
 // ];
 
-const TimeSlotPicker = ({ dateTimeMap }) => {
+const TimeSlotPicker = ({ dateTimeMap,setSelectedSchedule, setSelectedDate, setSelectedTime  }) => {
   const [selectedDateIndex, setSelectedDateIndex] = useState(0);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
   const [isShow, setShow] = useState(false);
+
+  console.log(dateTimeMap);
+  // console.log("set function",setSelectedSchedule);
 
   let selectedDate;
 
@@ -24,18 +28,14 @@ const TimeSlotPicker = ({ dateTimeMap }) => {
   }, []);
 
   const setDates = () => {
-    // console.log("datetime", dateTimeMap);
-    let newDates = [];
-    Object.keys(dateTimeMap).forEach((key) => {
-      newDates.push({ date: key, timeSlots: [] });
-    });
-    Object.values(dateTimeMap).forEach((val, i) => {
-      newDates[i].timeSlots.push(val[0].time);
-    });
-    // console.log("====================================");
-    // console.log("newDates", newDates);
-    // console.log("====================================");
-    return newDates;
+
+      let newDates = [];
+      Object.entries(dateTimeMap).forEach(([key, value]) => {
+        const timeSlots = value.map(({ id, time }) => ({ id, time }));
+        newDates.push({ date: key, timeSlots });
+      });
+      return newDates;
+
   };
   const dates = setDates();
   selectedDate = dates[selectedDateIndex];
@@ -50,9 +50,24 @@ const TimeSlotPicker = ({ dateTimeMap }) => {
   };
 
   const handleTimeSlotClick = (timeSlot) => {
-    setSelectedTimeSlot(timeSlot);
-    // console.log(selectedTimeSlot)
-  };
+  const selectedDateTime = Object.entries(dateTimeMap).find(([date, slots]) =>
+    slots.some(({ id }) => id === timeSlot)
+  );
+  if (selectedDateTime) {
+    const [selectedDate, selectedTimeSlot] = selectedDateTime;
+    setSelectedDate(selectedDate);
+   
+    setSelectedTime(selectedTimeSlot.find(({ id }) => id === timeSlot).time);
+
+  }
+
+  setSelectedTimeSlot(timeSlot);
+  setSelectedSchedule((prev) => ({
+    ...prev,
+    id: timeSlot,
+  }));
+};
+
 
   return (
     <>
@@ -91,26 +106,29 @@ const TimeSlotPicker = ({ dateTimeMap }) => {
 
             {/* Available time slots for selected date */}
             <div style={{ display: "flex", justifyContent: "center" }}>
-              {selectedDate &&
-                selectedDate.timeSlots.map((timeSlot) => (
-                  <button
-                    key={timeSlot}
-                    style={{
-                      margin: "0 10px",
-                      padding: "5px 15px",
-                      backgroundColor: "#fce4de",
-                      borderRadius: "50px",
-                      border: "0.5px solid #dfdfdf",
-                    }}
-                    onClick={() => handleTimeSlotClick(timeSlot)}
-                    className={selectedTimeSlot === timeSlot ? "active" : ""}
-                    disabled={
-                      selectedTimeSlot !== null && selectedTimeSlot !== timeSlot
-                    }
-                  >
-                    {timeSlot}
-                  </button>
-                ))}
+             
+                    {selectedDate &&
+                  selectedDate.timeSlots.map((timeSlotObj) => (
+                <button
+                  key={timeSlotObj.id}
+                  style={{
+                    margin: "0 10px",
+                    padding: "5px 15px",
+                    backgroundColor: "#fce4de",
+                    borderRadius: "50px",
+                    border: "0.5px solid #dfdfdf",
+                  }}
+                  onClick={() => handleTimeSlotClick(timeSlotObj.id)}
+                  className={selectedTimeSlot === timeSlotObj.id ? "active" : ""}
+                  disabled={
+                    selectedTimeSlot !== null && selectedTimeSlot !== timeSlotObj.id
+                  }
+                >
+                  {timeSlotObj.time}
+                </button>
+              ))}
+
+
             </div>
           </div>
         </Modal.Body>

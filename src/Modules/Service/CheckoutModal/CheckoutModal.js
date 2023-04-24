@@ -15,10 +15,10 @@ const CheckoutModal = (props) => {
   const history = useHistory();
 
   const [selectedInstructor, setSelectedInstructor] = useState();
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedTime, setSelectedTime] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState();
+  const [selectedTime, setSelectedTime] = useState();
 
-  const [selectedSchedule, setselectedSchedule] = useState([]);
+  const [selectedSchedule, setSelectedSchedule] = useState([]);
   const [scheduleSelect, setScheduleSelect] = useState([]);
   //map data for modal
   const [mapData, setMapData] = useState([]);
@@ -44,8 +44,10 @@ const CheckoutModal = (props) => {
     }
   }, []);
 
+
+
   const createDateTimeMap = (schedules) => {
-    console.log(schedules);
+    // console.log(schedules);
     const map = {};
     for (let i = 0; i < schedules.length; i++) {
       const temp = new Date(schedules[i].label);
@@ -101,6 +103,7 @@ const CheckoutModal = (props) => {
     };
     const res = await fetch(url, options);
     const body = await res.json();
+    // console.log(body);
     generateScheduleOptionData(body);
   };
 
@@ -115,9 +118,13 @@ const CheckoutModal = (props) => {
       // change this later
       jwt: props.userJWT,
       reiki: props.reiki._id,
-      schedule_id: selectedSchedule.value,
+      schedule_id: selectedSchedule,
       price: props.price,
     };
+    
+    // console.log(data);
+    // return;
+
     const url = "https://vediheal-backend.vercel.app/appointment/set";
     // const url = "http://localhost:5000/appointment/set";
     const options = {
@@ -168,7 +175,7 @@ const CheckoutModal = (props) => {
               alt="header"
             />
             <div className="time">
-              <TimeSlotPicker dateTimeMap={mapData} setSelectedSchedule={setselectedSchedule} />
+              <TimeSlotPicker dateTimeMap={mapData} setSelectedSchedule={setSelectedSchedule} setSelectedDate={setSelectedDate} setSelectedTime={setSelectedTime}/>
             </div>
           </div>
 
@@ -179,14 +186,9 @@ const CheckoutModal = (props) => {
               alt="header"
             />
             <div>
-              Selected date:{" "}
-              {selectedDate.getDate() +
-                "/" +
-                (selectedDate.getMonth() + 1) +
-                "/" +
-                selectedDate.getFullYear()}
+              Selected date:{selectedDate}
               <br />
-              Selected time: {selectedTime?.toLocaleTimeString()}
+              Selected time: {selectedTime}
             </div>
           </div>
           <br></br>
