@@ -9,6 +9,8 @@ import AppointmentDateModal from "./AppointmentDateModal";
 import TimeSlotModal from "./TimeSlotModal";
 import DatePickerModal from "./DatePickerModal";
 import TimeSlotPicker from "./TimeSlotPicker";
+import Header from "../../../Components/Header/Header";
+import Footer from "../../../Components/Footer/Footer";
 
 const CheckoutModal = (props) => {
   const { onClose, details, reiki } = props;
@@ -148,7 +150,10 @@ const CheckoutModal = (props) => {
 
   const { image, label } = details;
   return (
+    <>
+    
     <div className="checkoutModalContainer">
+    <Header />
       <div className="checkoutHeader">
         <img
           src={require("../../../assets/back.png")}
@@ -207,7 +212,9 @@ const CheckoutModal = (props) => {
           PAY NOW
         </div>
       </div>
+      <Footer />
     </div>
+    </>
   );
 };
 export default CheckoutModal;

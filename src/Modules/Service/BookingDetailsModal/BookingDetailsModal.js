@@ -9,6 +9,9 @@ import { useHistory } from "react-router-dom";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { MdCurrencyRupee } from "react-icons/md";
+import Header from "../../../Components/Header/Header";
+import Footer from "../../../Components/Footer/Footer";
+
 
 function BookingDetailsModal(props) {
 
@@ -132,6 +135,7 @@ function BookingDetailsModal(props) {
 
   return (
     <div className="modalContainer">
+      <Header />
       <div className="Headercontainer">
         <div className="header">
           <div className="backButton" onClick={() => resetBooking()}>
@@ -283,6 +287,7 @@ function BookingDetailsModal(props) {
           setShowBookingModal={setShowBookingModal}
         />
       )}
+      <Footer />
     </div>
   );
 }
