@@ -1,0 +1,29 @@
+.footerEnd {
+
+  display: flex;
+  justify-content: space-between;
+  flex-direction:column;
+  height: '100vh' 
+ 
+
+}
+
+.serviceContainerEnd {
+  min-height: 74vh; /* set the minimum height to the full viewport height */
+  position: relative; /* set the position to relative */
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    row-gap: 20px;
+    width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.FooterBottom {
+  position: absolute; /* set the position to absolute */
+  bottom: 0; /* position at the bottom of the parent */
+  width: 100%; /* set the width to the full width of the parent */
+  height: 4rem; /* set the height of the footer */
+}
