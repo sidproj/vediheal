@@ -12,7 +12,7 @@ import { MdCurrencyRupee } from "react-icons/md";
 
 function BookingDetailsModal(props) {
 
-  // console.log(props.details.benifits);
+  // console.log(props);
   const { resetBooking, details } = props;
 
   const [couponAvail, setCouponAvail] = useState(undefined);
@@ -43,9 +43,13 @@ function BookingDetailsModal(props) {
   const handleAmtChange = (id) => {
     setCouponAvail(undefined);
     const value = document.getElementById(id).innerText;
-    document.getElementById(id).nextSibling.nextSibling.click();
+    // console.log(value);
     setInitialAmt(value);
     handleCouponVerifyOnAmountChange(value);
+    document.getElementById(id).parentElement.nextSibling.firstChild.click();
+    // return;
+    // document.getElementById(id).nextSibling.nextSibling.click();
+    // setInitialAmt(value);
   };
 
   const handleCouponVerifyOnAmountChange = async (amount) => {
@@ -92,8 +96,8 @@ function BookingDetailsModal(props) {
         code: code,
         minAmount: initialAmt,
       };
-      const url = "https://vediheal-backend.vercel.app/coupon/check";
-      // const url = "http://localhost:5000/coupon/check";
+      // const url = "https://vediheal-backend.vercel.app/coupon/check";
+      const url = "http://localhost:5000/coupon/check";
       const options = {
         method: "POST",
         body: JSON.stringify(data),
@@ -103,7 +107,7 @@ function BookingDetailsModal(props) {
       };
       const res = await fetch(url, options);
       const body = await res.json();
-      console.log(body);
+      // console.log(body);
       setCouponAvail(body.status);
       if (body.status) {
         setCouponAvail(body.status);
@@ -124,7 +128,7 @@ function BookingDetailsModal(props) {
     setShowBookingModal(false);
   };
 
-  showBookingModal ? disableBodyScroll(document) : enableBodyScroll(document)
+  // showBookingModal ? disableBodyScroll(document) : enableBodyScroll(document)
 
   return (
     <div className="modalContainer">
@@ -168,9 +172,9 @@ function BookingDetailsModal(props) {
           className="sessionCard smallfont"
           onClick={() => handleAmtChange("amt1")}
         >
-          <div>1 reiki session</div>
+          <div>1 reiki session &nbsp;&nbsp; - &nbsp;&nbsp; ₹<span id="amt1">499</span></div> 
           <div className="priceContainer">
-            ₹<span id="amt1">499</span>/ 1 session
+           
             <input
               type="radio"
               id="s1"
@@ -184,9 +188,8 @@ function BookingDetailsModal(props) {
           className="sessionCard smallfont"
           onClick={() => handleAmtChange("amt2")}
         >
-          <div>2 reiki session</div>
+          <div>2 reiki session &nbsp;&nbsp; - &nbsp;&nbsp; ₹<span id="amt2">1299</span></div>
           <div className="priceContainer">
-            ₹ <span id="amt2">1299</span>/ 3 session
             <input
               type="radio"
               id="s2"
@@ -200,9 +203,8 @@ function BookingDetailsModal(props) {
           className="sessionCard smallfont"
           onClick={() => handleAmtChange("amt3")}
         >
-          <div>3 reiki session</div>
+          <div>3 reiki session &nbsp;&nbsp; - &nbsp;&nbsp; ₹<span id="amt3">1749</span></div>
           <div className="priceContainer">
-            ₹ <span id="amt3">1749</span>/ 5 session
             <input
               type="radio"
               id="s3"
@@ -259,16 +261,15 @@ function BookingDetailsModal(props) {
         CONFIRM BOOKING
       </div>
       <div className="footer">
+        
+        <div className="expect">Description</div>
         <div className="reikiBody">
-          Depression is a very common situation and every 1 in 15 people
-          experience it in the world. We are here to address this in the most
-          result-effective and cost-effective way. Reiki is a science and
-          research proven technique to get rid of anxiety and depression by our
-          body’s natural healing ability.
+          {props.details.description}
         </div>
         <div className="expect">What to expect</div>
         <div className="reikiBody" style={{ paddingTop: "10px" }}>
-          {props.details.expectation ||
+          {props.details.expectations }
+          {props.details.expectations.replace(/(\r\n|\n|\r)/gm, "").length==0 &&
             "This 30 min reiki healing session will help you lighten your mood,and you can experience improvement in physical symptoms, wellbeing and anxiety. At VediHeal we believe depression is not a disease to be cured whereas it is a situation that needs to be healed."}
         </div>
       </div>
@@ -279,6 +280,7 @@ function BookingDetailsModal(props) {
           {...props}
           reiki={props.details}
           price={total}
+          setShowBookingModal={setShowBookingModal}
         />
       )}
     </div>
