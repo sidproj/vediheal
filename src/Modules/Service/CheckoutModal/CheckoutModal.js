@@ -94,8 +94,8 @@ const CheckoutModal = (props) => {
       reiki: props.reiki._id,
     };
 
-    const url = "https://vediheal-backend.vercel.app/schedule";
-    // const url = "http://localhost:5000/schedule";
+    // const url = "https://vediheal-backend.vercel.app/schedule";
+    const url = "http://localhost:5000/schedule";
     const options = {
       method: "POST",
       body: JSON.stringify(data),
@@ -165,8 +165,9 @@ const CheckoutModal = (props) => {
       <div className="checkoutBody">
         <div className="checkoutTitleContainer">
           <div>
-            <img src={image} height="80px" alt="header" />
+            <img src={props.reiki.image} height="80px" alt="header" />
           </div>
+          <div className="rightContainerHeader">{props.reiki.name}</div>
           <div>
             <div>{label}</div>
             <div>{"30-45 mins"}</div>

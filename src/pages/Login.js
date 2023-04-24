@@ -19,6 +19,7 @@ function Login(props) {
   //   props.setUserJWT("hello world");
   // },[]);
 
+
   const [loginError, setLoginError] = useState(null);
 
   const handelLogin = async () => {
@@ -61,7 +62,7 @@ function Login(props) {
       setLoginError(null);
 
       props.setUserJWT(body.jwt);
-      history.push("/");
+      history.push("/services");
     } else {
       setLoginError(body.error);
     }
