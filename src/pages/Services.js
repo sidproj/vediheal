@@ -48,6 +48,20 @@ function Services(props) {
   return (   
   <div>
     <div className="serviceContainer mt-6">
+      {
+        props.footer!=0?(<><div className="serviceTitle">
+                          Our <span className="redText">Services</span>
+                        </div>
+                        <div className="serviceTitle">
+                          <button
+                            type="button"
+                            className="btn rounded-pill"
+                            onClick={handleClick}
+                          >
+                            View All
+                          </button>
+                        </div></>):<></>
+      }
       <div className="serviceCards">
         {_.map(reikiData, (card, index) => {
           return (
