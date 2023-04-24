@@ -18,7 +18,7 @@ const TimeSlotPicker = ({ dateTimeMap,setSelectedSchedule, setSelectedDate, setS
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
   const [isShow, setShow] = useState(false);
 
-  console.log(dateTimeMap);
+  // console.log(dateTimeMap);
   // console.log("set function",setSelectedSchedule);
 
   let selectedDate;
