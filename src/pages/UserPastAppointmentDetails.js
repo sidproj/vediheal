@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import _ from "lodash";
 import UserPastAppointmentDetailsModal from "./modals/UserPastAppointmentDetailsModal"
 import UserUpcomingAppointmentDetailsModal from "./modals/UserUpcomingAppointmentDetailsModal"
+import Footer from '../Components/Footer/Footer';
 
 const servicedCards = [
   {
@@ -62,8 +63,8 @@ function UserPastAppointmentDetails(props) {
         "jwt":props.userJWT,
         "is_completed":true
       }
-      // const url = "https://vediheal-backend.vercel.app/appointment/user";
-      const url = "http://localhost:5000/appointment/user"
+      const url = "https://vediheal-backend.vercel.app/appointment/user";
+      // const url = "http://localhost:5000/appointment/user"
       const options = {
           method: "POST",
           body: JSON.stringify(data),
@@ -83,10 +84,15 @@ function UserPastAppointmentDetails(props) {
     },[]);
 
 
+    const style={
+      marginBottom:"3rem"
+    }
+
   return (
+    <>
     <div className="serviceContainer mt-6">
 
-    <div className="serviceCards">
+    <div className="serviceCards" style={style}>
       {_.map(appointments, (card, index) => {
         return (
           <div
@@ -114,6 +120,8 @@ function UserPastAppointmentDetails(props) {
       })}
     </div>
     </div>
+    <Footer/>
+    </>
   )
 }
 export default UserPastAppointmentDetails;

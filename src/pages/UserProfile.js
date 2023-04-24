@@ -5,6 +5,7 @@ import OrdersModal from "./modals/OrdersModal"
 import ChangePasswordModal from "./modals/ChangePasswordModal"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useHistory } from "react-router-dom";
+import Footer from "../Components/Footer/Footer";
 
 const UserProfile = (props)=>{
 
@@ -197,7 +198,9 @@ const UserProfile = (props)=>{
             </div>
         </div>
     </div>
-</div></div></>
+</div></div>
+<Footer/>
+</>
 
         );
 
