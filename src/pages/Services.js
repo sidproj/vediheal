@@ -15,54 +15,8 @@ import "./Services.css";
 import Footer from "../Components/Footer/Footer";
 
 function Services(props) {
-  // const [reikies,setReikies] = useState([]);
+    const history = useHistory();
 
-  // const getReikiesData = async ()=>{
-  //   const url = "http://localhost:5000/reiki";
-  //   const options = {
-  //     method: 'GET',
-  //   }
-  //   const result = await fetch(url,options);
-  //   const body = await  result.json();
-  //   setReikies(body);
-  // }
-
-  // useEffect(()=>{
-  //   getReikiesData();
-  // },[]);
-
-  // const history = useHistory();
-
-  // const getData = async (id)=>{
-  //   const data = {reiki:id};
-  //   const res = await fetch("http://localhost:5000/reiki/instructorsByReiki", {
-  //     method: "POST",
-  //     body: JSON.stringify(data),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-  //   const body = await res.json();
-  //   return body;
-  // }
-
-  // async function handleClick(id) {
-
-  //   const detail=await getData(id);
-  //   history.push({
-  //     pathname:"/instructor",
-  //     state:{detail}
-  //   });
-  // }
-
-  const history = useHistory();
-  // useEffect(()=>{
-  //   console.log("hiiya");
-  //   console.log(props);
-  //     if(!props.userJWT){
-  //         history.push("/login");
-  //     }
-  // },[]);
 
   function handleClick() {
     history.push("/services");

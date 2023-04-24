@@ -27,12 +27,18 @@ function Login(props) {
       password: document.getElementById("password").value,
     };
 
+    const privacyCheck = document.getElementById("privacyCheck").checked;
+
     if(data.email==null || data.email.length == 0){
       setLoginError("Please enter email!");
       return;
     }
     if(data.password==null || data.password.length == 0){
       setLoginError("Please enter password!");
+      return;
+    }
+    if(!privacyCheck){
+      setLoginError("Please agree with the terms and condition and privacy policy!");
       return;
     }
 
