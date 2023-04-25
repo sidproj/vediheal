@@ -84,11 +84,11 @@ function BookingDetailsModal(props) {
 
   const verifyCoupon = async () => {
     // console.log("clicked");
-    if(props.userJWT == undefined || props.userJWT == null){
-      setCouponAvail(false);
-      setCouponDis(0);
-      return;
-    }
+    // if(props.userJWT == undefined || props.userJWT == null){
+    //   setCouponAvail(false);
+    //   setCouponDis(0);
+    //   return;
+    // }
     try {
       const code = document.getElementById("coupon").value;
       const data = {
