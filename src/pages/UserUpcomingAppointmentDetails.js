@@ -69,7 +69,7 @@ function UserUpcomingAppointmentDetails(props) {
               <div className="cardText">
                 <div dangerouslySetInnerHTML={{ __html: card.reiki_id.name }}></div>
               </div>
-              <div>Date :{card.time_slot?.start_time} </div>
+              <div>Date :{card.start_time} </div>
               <div className='cardBtn'>< UserUpcomingAppointmentDetailsModal appointment={card}/></div>
               {/* <div className="cardBtn"><img classname="img" src={require("../assets/next.png")} /></div> */}
             </div>
