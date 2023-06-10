@@ -14,6 +14,11 @@ function UserUpcomingAppointmentDetails(props) {
         }
     },[]);
 
+
+    function services() {
+      history.push("/services");
+    }
+
   
   const [appointments,setAppointments] = useState([]);
 
@@ -52,7 +57,10 @@ function UserUpcomingAppointmentDetails(props) {
   }
 
   return (<>
-    <div className="serviceContainer mt-6">
+    <div className="serviceContainerEnd mt-6">
+    <button className="rounded-pill btn" onClick={() => {services()}}>
+                 Book Your Appointment
+            </button>
 
     <div className="serviceCards" style={style}>
       {_.map(appointments, (card, index) => {
@@ -74,14 +82,20 @@ function UserUpcomingAppointmentDetails(props) {
               {/* <div className="cardBtn"><img classname="img" src={require("../assets/next.png")} /></div> */}
             </div>
             
+            
           </div>
+
 
           </div>
         );
       })}
+
     </div>
+    <div className="FooterBottom">   
+        <Footer/>
+      </div>
     </div>
-      <Footer/>
+       
       </>
   )
 }

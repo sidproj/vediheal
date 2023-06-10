@@ -134,7 +134,7 @@ const TimeSlotPicker = ({ dateTimeMap,setSelectedSchedule, setSelectedDate, setS
         </Modal.Body>
         <Modal.Footer>
           <Button variant="danger" onClick={handleClose}>
-            Close
+            Select Slot
           </Button>
         </Modal.Footer>
       </Modal>

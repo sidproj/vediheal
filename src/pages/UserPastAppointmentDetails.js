@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import _ from "lodash"; 
 import UserUpcomingAppointmentDetailsModal from "./modals/UserUpcomingAppointmentDetailsModal"
 import Footer from '../Components/Footer/Footer';
+import Header from "../Components/Header/Header";
+import "./UserPastAppointmentDetails.css";
 
 function UserPastAppointmentDetails(props) {
 
@@ -47,7 +49,8 @@ function UserPastAppointmentDetails(props) {
 
   return (
     <>
-    <div className="serviceContainer mt-6">
+
+    <div className="serviceContainerEnd mt-6">
 
     <div className="serviceCards" style={style}>
       {_.map(appointments, (card, index) => {
@@ -67,17 +70,36 @@ function UserPastAppointmentDetails(props) {
               <div>Instructor : {card.instructor_id.first_name} {card.instructor_id.last_name}</div>
               <div>Date :{card.start_time} </div>
               <div className='cardBtn'><UserUpcomingAppointmentDetailsModal appointment={card} /></div>
+
+
+
               {/* <div className="cardBtn"><img classname="img" src={require("../assets/next.png")} /></div> */}
             </div>
             
-          </div>
+
 
           </div>
+
+
+          </div>
+
+
         );
       })}
+
+
+
     </div>
-    </div>
+
+
+    <div className="FooterBottom">
     <Footer/>
+   
+    </div>
+
+
+    </div>
+    
     </>
   )
 }
