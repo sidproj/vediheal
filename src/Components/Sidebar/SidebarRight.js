@@ -97,9 +97,9 @@ const SidebarRight = (props) => {
                             
                             <a onClick={() => {instructorpastappointmentdetails(); toggleSidebar();}} className="sideLinks" ><div>PAST APPOINTMENT</div></a><br />
 
-                            <a onClick={()=> {schedule();toggleSidebar();}} className="sideLinks"><div>ADD SCHEDULE</div></a><br/>
+                            {/* <a onClick={()=> {schedule();toggleSidebar();}} className="sideLinks"><div>ADD SCHEDULE</div></a><br/> */}
 
-                            <a onClick={()=> {viewSchedule();toggleSidebar();}} className="sideLinks"><div>VIEW SCHEDULE</div></a><br/>
+                            {/* <a onClick={()=> {viewSchedule();toggleSidebar();}} className="sideLinks"><div>VIEW SCHEDULE</div></a><br/> */}
 
                             <a onClick={() => {instructorProfile(); toggleSidebar();}} className="sideLinks"><div>PROFILE</div></a><br />
 
