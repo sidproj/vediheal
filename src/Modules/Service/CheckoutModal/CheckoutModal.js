@@ -263,7 +263,7 @@ const formatTime = (time) => {
           PAY NOW
         </div>
       </div>
-      <div style={{"marginTop":"3em"}}>
+      <div style={{"marginTop":"4em"}}>
       <Footer />
       </div>
       
