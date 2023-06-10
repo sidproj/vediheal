@@ -9,6 +9,7 @@ import AppointmentDateModal from "./AppointmentDateModal";
 import TimeSlotModal from "./TimeSlotModal";
 import DatePickerModal from "./DatePickerModal";
 import TimeSlotPicker from "./TimeSlotPicker";
+import DateModal from "./dateModal";
 
 const CheckoutModal = (props) => {
   const { onClose, details, reiki } = props;
@@ -17,6 +18,7 @@ const CheckoutModal = (props) => {
   const [selectedInstructor, setSelectedInstructor] = useState();
   const [selectedDate, setSelectedDate] = useState();
   const [selectedTime, setSelectedTime] = useState();
+  const [selectedEndTime, setSelectedEndTime] = useState(null);
 
   const [selectedSchedule, setSelectedSchedule] = useState([]);
   const [scheduleSelect, setScheduleSelect] = useState([]);
@@ -122,8 +124,8 @@ const CheckoutModal = (props) => {
       price: props.price,
     };
     
-    // console.log(data);
-    // return;
+    console.log(data);
+    return;
 
     const url = "https://vediheal-backend.vercel.app/appointment/set";
     // const url = "http://localhost:5000/appointment/set";
@@ -139,6 +141,24 @@ const CheckoutModal = (props) => {
     // console.log(body);
     if (body.status == "success") history.push("/");
   };
+  //format
+ const handleConfirmTime = (time) => {
+  const selectedTime = new Date(time);
+  const endTime = new Date(selectedTime.getTime() + 30 * 60000); // Adding 30 minutes (30 * 60000 milliseconds)
+
+  setSelectedTime(selectedTime);
+  setSelectedEndTime(endTime);
+};
+
+const formatTime = (time) => {
+  if (typeof time === 'string') {
+    const timeObj = new Date(`1970-01-01T${time}`);
+    return timeObj.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
+  } else if (time instanceof Date) {
+    return time.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
+  }
+  return '';
+};
 
   useEffect(() => {
     getScheduleData();
@@ -169,7 +189,20 @@ const CheckoutModal = (props) => {
           </div>
         </div>
         <div className="checkoutBodyContainer">
-          <div className="bodyCard">
+
+        <div className="bodyCard">
+            <img
+              src={require("../../../assets/time.png")}
+              height="40px"
+              alt="header"
+            />
+            <div className="time">
+              <DateModal setSelectedDate={setSelectedDate} setSelectedTime={setSelectedTime} setSelectedEndTime={setSelectedEndTime} />
+              {/*<TimeSlotPicker dateTimeMap={mapData} setSelectedSchedule={setSelectedSchedule} setSelectedDate={setSelectedDate} setSelectedTime={setSelectedTime}/>*/}
+            </div>
+          </div>
+
+          {/* <div className="bodyCard">
             <img
               src={require("../../../assets/time.png")}
               height="40px"
@@ -178,9 +211,10 @@ const CheckoutModal = (props) => {
             <div className="time">
               <TimeSlotPicker dateTimeMap={mapData} setSelectedSchedule={setSelectedSchedule} setSelectedDate={setSelectedDate} setSelectedTime={setSelectedTime}/>
             </div>
-          </div>
+          </div> */}
 
-          <div className="bodyCard">
+
+          {/* <div className="bodyCard">
             <img
               src={require("../../../assets/video.png")}
               height="40px"
@@ -191,7 +225,24 @@ const CheckoutModal = (props) => {
               <br />
               Selected time: {selectedTime}
             </div>
+          </div> */}
+
+          <div className="bodyCard">
+            <img
+              src={require("../../../assets/video.png")}
+              height="40px"
+              alt="header"
+            />
+            <div>
+              Selected Date : {selectedDate}
+              <br />
+              Start Time &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {selectedTime && formatTime(selectedTime)}
+              {/* <br />
+              End Time &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {selectedEndTime && formatTime(selectedEndTime)} */}
+            </div>
+
           </div>
+
           <br></br>
           <div>Total amount to be paid:</div>
           <div className="price smallfont">
