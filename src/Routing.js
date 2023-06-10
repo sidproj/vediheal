@@ -83,11 +83,11 @@ export default function Routing(props) {
 
           <Route path="/booking" exact render={() => <Booking {...props} />} />
 
-          <Route
+          {/* <Route
             path="/instructorSchedule"
             exact
             render={() => <InstructorSchedule {...props} />}
-          />
+          /> */}
 
           {/* done authenticating */}
           <Route

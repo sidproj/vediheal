@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react' 
+import React from 'react' 
 import { Modal, Button } from 'react-bootstrap' 
-import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit'; 
 import '../UserProfile.css' 
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./InstructorUpcomingAppointmentDetailsModal.css"
 function UserUpcomingAppointmentDetailsModal(props) { 
   const [isShow, invokeModal] = React.useState(false); 
-  const [error, setError] = useState(); 
   
   const initModal = () => { 
     invokeModal(!isShow) 
@@ -66,12 +64,12 @@ function UserUpcomingAppointmentDetailsModal(props) {
                     <td></td>
                   </tr>
                   <tr>
-                    <td><div>Start Date :{getDate(props.appointment?.time_slot?.start_time)}</div></td>
+                    <td><div>Start Date :{getDate(props.appointment?.start_time)}</div></td>
                     <td></td>
                   </tr>
                   <tr>
                     <td><div>Start Time :{
-                     getTime(props.appointment?.time_slot?.start_time)
+                     getTime(props.appointment?.start_time)
                     }</div></td>
                     <td></td>
                   </tr>

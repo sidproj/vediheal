@@ -14,6 +14,24 @@ function InstructorUpcomingAppointmentDetailsModal(props) {
   const initModal = () => { 
     return invokeModal(!isShow) 
   }
+  const getDate = (data)=>{
+    const date = new Date(data);
+    const formated= " "+date.toLocaleDateString();
+    return formated;
+  }
+
+  const getTime = (data)=>{
+    const date = new Date(data);
+    let formated=" ";
+    if((""+date.getHours()).length == 1) formated+= ("0"+date.getHours()+":");
+    else formated+=date.getHours()+":";
+    
+    if((""+date.getMinutes()).length == 1) {
+      formated += ("0"+date.getMinutes());
+    }
+    else formated+=date.getMinutes();
+    return formated;
+  }
 
   // console.log(props);
  
@@ -80,6 +98,16 @@ function InstructorUpcomingAppointmentDetailsModal(props) {
                       data.start_time!=null?(<div>Start Time :</div> ):<></>
                     }</td>
                     
+                  </tr>
+                  <tr>
+                    <td><div>Start Date :</div></td>
+                    <td>{getDate(data?.start_time)}</td>
+                  </tr>
+                  <tr>
+                    <td><div>Start Time :</div></td>
+                    <td>{
+                     getTime(data?.start_time)
+                    }</td>
                   </tr>
                   <tr>
                     <td>
