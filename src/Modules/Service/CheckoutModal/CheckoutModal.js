@@ -118,16 +118,22 @@ const CheckoutModal = (props) => {
   const handleAppointment = async () => {
     // history.push("/pay");return;
     // console.log(selectedSchedule);
+    const date = new Date(selectedDate);
+    const hour =selectedTime.split(":")[0]-0;
+    const minutes = selectedTime.split(":")[1]-0;
+    date.setHours(hour);
+    date.setMinutes(minutes);
     const data = {
       // change this later
       jwt: props.userJWT,
       reiki: props.reiki._id,
       schedule_id: selectedSchedule,
+      start_time:date,
       price: props.price,
     };
-    
+
     console.log(data);
-    return;
+    // return;
 
     const url = "https://vediheal-backend.vercel.app/appointment/set";
     // const url = "http://localhost:5000/appointment/set";
@@ -162,9 +168,9 @@ const formatTime = (time) => {
   return '';
 };
 
-  useEffect(() => {
-    getScheduleData();
-  }, []);
+  // useEffect(() => {
+  //   getScheduleData();
+  // }, []);
 
   // console.log(props);
 
