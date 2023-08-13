@@ -45,7 +45,8 @@ function Login(props) {
 
     let url;
 
-    url = "https://vediheal-backend.vercel.app/login/user";
+    // url = "https://vediheal-backend.vercel.app/login/user";
+    url = "http://localhost:5000/login/user";
 
     const options = {
       method: "POST",
