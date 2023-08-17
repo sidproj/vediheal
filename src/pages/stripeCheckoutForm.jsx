@@ -4,7 +4,6 @@ import {
     useStripe,
     useElements 
 } from "@stripe/react-stripe-js";
-import { set } from "mongoose";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import "../stripe.css";
