@@ -1,6 +1,12 @@
 import { styled } from "styled-components";
 import Header from "../components/header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import configs from "../config.json";
+import { useRecoilState } from "recoil";
+import { userAtom } from "../Recoil/user";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const LoginContainer = styled.div`
     width:100%;
@@ -50,6 +56,20 @@ const TextField = styled.input`
     }
 `
 
+const CheckBox = styled.input`
+    width:1.5em;
+    height:1.5em;
+`
+
+const Tnc = styled.div`
+    font-size:0.8em;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    column-gap:0.5em;
+    max-width:23em;
+`
+
 const Submit = styled.button`
     width:15em;
     height:2.5em;
@@ -62,9 +82,124 @@ const Submit = styled.button`
     margin-top:1em;
 `
 
+const Error = styled.div`
+    color:#ff4d4d;
+    text-align:center;
+`
 
+const Toggle = styled.div`
+    align-self:flex-start;
+    margin-left:0.9rem;
+    margin-top:-0.25rem;
+`
 
 const Register = ()=>{
+
+    const navigate = useNavigate();
+
+    const [fname,setFname] = useState("");
+    const [lname,setLname] = useState("");
+    const [email,setEmail] = useState("");
+    const [phone,setPhone] = useState("");
+    const [password,setPassword] = useState("");
+    const [cPassword,setCPassword] = useState("");
+
+    const [showPassword,setShowPassword] = useState(false);
+    const [showCPassword,setShowCPassword] = useState(false);
+
+    const [error,setError] = useState("");
+
+    const [user,setUser] = useRecoilState(userAtom);
+
+    const handleError = (data) =>{
+        for(let key in data){
+            if(data[key] != null){
+                setError({error:data[key]});
+                return;
+            }
+        }
+    }
+
+    const validateEmail = (email) => {
+        return String(email)
+          .toLowerCase()
+          .match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+    };
+
+    const strongPassword =(str)=>{
+        var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+        return re.test(str);
+    }
+
+    const isValid = ()=>{
+        if(fname.length == 0){
+            setError({error:"Please enter first name!"});
+            return false;
+        }
+        if(lname.length == 0){
+            setError({error:"Please enter last name!"});
+            return false;
+        }
+        if(email.length == 0){
+            setError({error:"Please enter email name!"});
+            return false;
+        }
+        if(phone.length !=10){
+            setError({error:"Please enter valid phone number!"});
+            return false;
+        }
+        if(password.length < 8){
+            setError({error:"Please choose password with 8 charachters including symbol, letter and number."});
+            return false;
+        }
+        if( password != cPassword){
+            setError({error:"Passwords do not match!"});
+            return false;
+        }
+        if(!document.getElementById("agreement-register").checked){
+            setError({error:"Please tick the checkbox!"});
+            return false;
+        }
+        if(!validateEmail(email)){
+            setError({error:"Please a valid email!"});
+            return false;
+        }
+        if(!strongPassword(password)){
+            setError({error:"Please choose password with 8 charachters including symbol, letter and number."});
+            return false;
+        }
+        setError(null);
+    }
+
+    const handleRegister = async()=>{
+        if(isValid() == false )return;
+
+        const url = configs.SERVER_URL+"/register/user";
+        const options =  {
+            method: "POST",
+            body: JSON.stringify({
+                first_name:fname,
+                last_name:lname,
+                email:email,
+                phone_no:phone,
+                password:password,
+                confirm_password:cPassword,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+        }
+        const response = await fetch(url,options);
+        const data = await response.json();
+        if(data.errors ) handleError(data.errors);
+        else{
+            setUser(data);
+            navigate("/");
+        }
+    }
+
     return(
         <>
             <Header/>
@@ -78,14 +213,41 @@ const Register = ()=>{
                         <Link to="/login"><Span>Log in</Span></Link>
                     </SubTitle>
                 
-                    <TextField placeholder="First Name*"/>
-                    <TextField placeholder="Last Name*"/>
-                    <TextField placeholder="Email*"/>
-                    <TextField placeholder="Phone Number*"/>
-                    <TextField placeholder="Password*"/>
-                    <TextField placeholder="Confirm Password*"/>
+                    <TextField placeholder="First Name*" value={fname} onChange={(e)=>setFname(e.target.value)}/>
 
-                    <Submit>Sign Up</Submit>                
+                    <TextField placeholder="Last Name*" value={lname} onChange={(e)=>setLname(e.target.value)}/>
+                    
+                    <TextField placeholder="Email*" value={email} onChange={(e)=>setEmail(e.target.value)}/>
+                    
+                    <TextField type="number" placeholder="Phone Number*" value={phone} onChange={(e)=>setPhone(e.target.value)}/>
+                    
+                    <TextField type={showPassword ?"text":"password"} placeholder="Password*" value={password} onChange={(e)=>setPassword(e.target.value)}/>
+                    <Toggle>
+                    {
+                        showPassword ? 
+                        <FontAwesomeIcon icon={faEyeSlash} onClick={()=>setShowPassword(false)}/> : 
+                        <FontAwesomeIcon icon={faEye} onClick={()=>setShowPassword(true)}/>
+                    }
+                    </Toggle>
+
+                    <TextField type={showCPassword ?"text":"password"} placeholder="Confirm Password*" value={cPassword} onChange={(e)=>setCPassword(e.target.value)}/>
+                    <Toggle>
+                    {
+                        showCPassword ? 
+                        <FontAwesomeIcon icon={faEyeSlash} onClick={()=>setShowCPassword(false)}/> : 
+                        <FontAwesomeIcon icon={faEye} onClick={()=>setShowCPassword(true)}/>
+                    }
+                    </Toggle>
+                    {
+                        error && <Error>{error.error}</Error>
+                    }
+
+                    <Tnc>
+                        <CheckBox type="checkbox" id="agreement-register"/>
+                        <p>I agree with VediHeal's<Span>Terms and Conditions</Span> and <Span>Privacy Policy</Span></p>
+                    </Tnc>
+
+                    <Submit onClick={handleRegister}>Sign Up</Submit>                
 
                 </LoginCard>
             </LoginContainer>

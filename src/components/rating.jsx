@@ -1,11 +1,9 @@
-import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const Rating = (props)=> {
 
   const getStars = ()=>{
-    console.log(props);
     const elements = [];
     const stars = props.stars;
     let rest = 5-stars;

@@ -1,9 +1,10 @@
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRecoilState } from "recoil";
 import { styled } from "styled-components";
+import { AppointmentModalAtom } from "../Recoil/appintmentModal";
 
 const AppointmentCard = styled.div`
-    width:21em;
     background-color:#f8cfc1;
     display:flex;
     flex-direction:row;
@@ -42,20 +43,39 @@ const Select = styled.div`
 `
 
 const Appointment = (props)=>{
+
+    const [appointmentModal,setAppointmentModal] = useRecoilState(AppointmentModalAtom);
+
+    const data = props.data;
+
+    const handleModalSet = ()=>{
+        setAppointmentModal(data);
+    }
+
+    const getDate = (str)=>{
+        const date = new Date(str);
+        return (date.getDate()+"-"+date.getMonth()+"-"+date.getFullYear());
+    }
+
+
     return (
         <AppointmentCard>
-            <Img src="https://res.cloudinary.com/dmrzngif8/image/upload/v1675284620/Vediheal/5_wjbzrb.png"/>
+            <Img src={data.reiki_id.image}/>
             <Details>
-                <DetailsTitle>Anti Depression Reiki</DetailsTitle>
+                <DetailsTitle>{data.reiki_id.name}</DetailsTitle>
                 <DetailsDescription>
-                    Date : 15/08/2023
+                    Date : {getDate(data.start_time)}
                 </DetailsDescription>
-                <DetailsDescription>
-                    Meeting Link
-                </DetailsDescription>
+                {
+                    data.meeting_link && (
+                        <DetailsDescription>
+                            <a href={data.meeting_link} target="_blank"> Meeting Link</a>
+                        </DetailsDescription>
+                    )
+                }
             </Details>
             <Select>
-                <FontAwesomeIcon color="black"  icon={faArrowRight} />
+                <FontAwesomeIcon color="black"  icon={faArrowRight} onClick={handleModalSet}/>
             </Select>
             {/* replace with icon */}
         </AppointmentCard>

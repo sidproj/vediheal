@@ -4,7 +4,11 @@ import Header from "../components/header"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faCircleChevronRight } from "@fortawesome/free-solid-svg-icons";
 import tickIcon from "../assets/images/tick.png";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
+import { useRecoilState } from "recoil";
+import { userAtom } from "../Recoil/user";
+import { useEffect, useState } from "react";
+import config from "../config.json";
 
 const BookReikiContainer = styled.div`
     text-align:center;
@@ -32,23 +36,26 @@ const ReikiDetailsContainer = styled.div`
     flex-direction:row;
     align-items:center;
     justify-content:center;
-    padding:2rem;
+    padding:1rem;
     border-radius:0.5rem;
 ` 
 
 const ReikiImg = styled.img`
-    height:5rem;
+    height:5.5rem;
+    width:6rem;
 `
 
 const ReikiBenefitContainer = styled.div`
     display:flex;
     flex-direction:column;
+    row-gap:0.5rem;
 `
 
 const ReikiName = styled.div`
     font-weight:600;
     font-size:1.2rem;
     margin-bottom:1rem;
+    text-align:left;
 `
 const Benefit = styled.div`
     font-size:0.95rem;
@@ -56,8 +63,10 @@ const Benefit = styled.div`
     flex-direction:row;
     column-gap:0.5rem;
     align-items:center;
-    justify-content:center;
+    justify-content:flex-start;
     height:1.7rem;
+    margin-left:1.5rem;
+    text-align:left;
 `
 
 const TickIcon = styled.img`
@@ -106,6 +115,9 @@ const CouponInput = styled.input`
     margin-left:0.5rem;
     margin-bottom:0.5rem;
     background-color:inherit;
+    &:focus{
+        outline: 0 none;
+    }
 `
 
 const PriceContainer = styled.div`
@@ -116,9 +128,8 @@ const PriceContainer = styled.div`
 `
 
 const PriceText = styled.div`
-    font-size:1.2rem;
+    font-size:1rem;
     font-weight:600;
-    margin-bottom:1rem;
 `
 
 const ConfirmBookingBtn = styled.div`
@@ -131,7 +142,8 @@ const ConfirmBookingBtn = styled.div`
     width:fit-content;
     padding:0.75rem 1.5rem;
     align-self:center;
-    margin-bottom:1.5rem;
+    margin-bottom:2rem;
+    margin-top:1.5rem;
 `
 
 const DetailsContainer = styled.div`
@@ -154,6 +166,12 @@ const DetailDescription = styled.div`
     font-size:1rem;
     align-self:flex-start;
     margin-left:1rem;
+    margin-right:1rem;
+`
+
+const Error = styled.div`
+    color:#ff4d4d;
+    align-self:center;
 `
 
 const DetailedService = (props) => {
@@ -163,13 +181,56 @@ const DetailedService = (props) => {
 
     const navigate = useNavigate();
 
+    const location = useLocation();
+    const {reiki} = location?.state;
+
+    const [user,setUser] = useRecoilState(userAtom);
+    const [sessionPrice,setSessionPrice] = useState(499);
+    const [couponCode,setCouponCode] = useState(null);
+    const [discountAmt,setDiscountAmt] = useState(0);
+    const [error,setError] = useState(null);
+
     const goback = ()=>{
         navigate(-1);
     }
 
-    const handleConfirmBooking = ()=>{
-        navigate("/confirmbooking");
+    const checkCoupon = async ()=>{
+        const url = config.SERVER_URL+"/coupon/check";
+        const options = {
+            method: "POST",
+            body: JSON.stringify({
+                minAmount:sessionPrice-0,
+                code:couponCode,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+        }
+
+        const response = await fetch(url,options);
+        const data = await response.json();
+        if(data.status == false){
+            setError({error:data.message});
+        }else{
+            setError({error:"Coupon Applied!"});
+            setDiscountAmt(data.coupon.discount_amt);
+        }
     }
+
+    const handleConfirmBooking = ()=>{
+        if(!user) navigate("/login");
+        else navigate("/confirmbooking",{state:{...reiki,initial:sessionPrice,discount:discountAmt,finalAmt:sessionPrice-discountAmt}});
+    }
+
+    const handleSesisonChange = (amt)=>{
+        setSessionPrice(amt);
+        setDiscountAmt(0);
+        setError(null);
+    }
+
+    useEffect(()=>{
+        if(!location.state) navigate("/services");
+    },[]);
 
     return (
         <>
@@ -182,33 +243,20 @@ const DetailedService = (props) => {
                     <div>Book Your Reiki</div>
                 </BookReikiTitle>
                 <ReikiDetailsContainer>
-                    <ReikiImg src="https://res.cloudinary.com/dmrzngif8/image/upload/v1675284620/Vediheal/5_wjbzrb.png"/>
+                    <ReikiImg src={reiki?.image}/>
                     <ReikiBenefitContainer>
-                        <ReikiName> Anti Depression Reiki</ReikiName>
-                        <Benefit>
-                            <TickIcon src={tickIcon}/>
-                            <p>Science Proven</p>
-                        </Benefit>
-                        <Benefit>
-                            <TickIcon src={tickIcon}/>
-                            <p>Science Proven</p>
-                        </Benefit>
-                        <Benefit>
-                            <TickIcon src={tickIcon}/>
-                            <p>Science Proven</p>
-                        </Benefit>
-                        <Benefit>
-                            <TickIcon src={tickIcon}/>
-                            <p>Science Proven</p>
-                        </Benefit>
-                        <Benefit>
-                            <TickIcon src={tickIcon}/>
-                            <p>Science Proven</p>
-                        </Benefit>
-                        <Benefit>
-                            <TickIcon src={tickIcon}/>
-                            <p>Science Proven</p>
-                        </Benefit>
+                        <ReikiName>{reiki?.name}</ReikiName>
+                        {
+                            reiki?.benifits?.map((benefit,index)=>{
+                                if(benefit.is_deleted == false)
+                                return (
+                                    <Benefit key={index} >
+                                        <TickIcon src={tickIcon}/>
+                                        <p>{benefit.name}</p>
+                                    </Benefit>
+                                );
+                            })
+                        }
                     </ReikiBenefitContainer>
                 </ReikiDetailsContainer>
             </BookReikiContainer>
@@ -217,28 +265,58 @@ const DetailedService = (props) => {
             <SessionContainer>
                 <SingleSession>
                     <SessionInfo>1 Reiki Session - ₹ 499</SessionInfo>
-                    <RadioInput type="radio" name="session"/>
+                    <RadioInput 
+                        type="radio" 
+                        value={499} 
+                        name="session" 
+                        checked = {sessionPrice === 499}
+                        onChange = {(e)=>{handleSesisonChange(e.target.value-0)}}
+                    />
                 </SingleSession>
                 <SingleSession>
                     <SessionInfo>2 Reiki Session - ₹ 1299</SessionInfo>
-                    <RadioInput type="radio" name="session"/>
+                    <RadioInput 
+                        type="radio" 
+                        value={1299} 
+                        name="session" 
+                        checked = {sessionPrice === 1299}
+                        onChange = {(e)=>{handleSesisonChange(e.target.value-0)}}
+                    />
                 </SingleSession>
                 <SingleSession>
-                    <SessionInfo>1 Reiki Session - ₹ 1749</SessionInfo>
-                    <RadioInput type="radio" name="session"/>
+                    <SessionInfo>3 Reiki Session - ₹ 1749</SessionInfo>
+                    <RadioInput 
+                        type="radio" 
+                        value={1749} 
+                        name="session" 
+                        checked = {sessionPrice === 1749}
+                        onChange = {(e)=>{handleSesisonChange(e.target.value-0)}}
+                    />
                 </SingleSession>
             </SessionContainer>
 
             <CouponContainer>
-                <CouponInput placeholder="Apply Coupon"/>
+                <CouponInput placeholder="Apply Coupon" value={couponCode} onChange={(e)=>setCouponCode(e.target.value)}/>
                 <div>
-                <FontAwesomeIcon icon={faCircleChevronRight}/>
+                <FontAwesomeIcon icon={faCircleChevronRight} onClick={checkCoupon}/>
                 </div>
             </CouponContainer>
 
+            {
+                error && <Error>{error.error}</Error>
+            }
+
+            <PriceContainer>
+                <PriceText>Initial Amount: </PriceText>
+                <PriceText>₹ {sessionPrice}</PriceText>
+            </PriceContainer>
+            <PriceContainer>
+                <PriceText>Discount: </PriceText>
+                <PriceText>₹ {discountAmt}</PriceText>
+            </PriceContainer>
             <PriceContainer>
                 <PriceText>Payable Amount: </PriceText>
-                <PriceText>₹ 499</PriceText>
+                <PriceText>₹ {sessionPrice - discountAmt}</PriceText>
             </PriceContainer>
 
             <ConfirmBookingBtn onClick={handleConfirmBooking}>Confirm Booking</ConfirmBookingBtn>
@@ -246,12 +324,12 @@ const DetailedService = (props) => {
             <DetailsContainer>
                 <DetailTitle>Description</DetailTitle>
                 <DetailDescription>
-                    Reiki is a scientific and research-proven technique to get rid of anxiety & depression through our body’s natural healing ability.
+                    {reiki?.description}
                 </DetailDescription>
                 
                 <DetailTitle>What to expect</DetailTitle>
                 <DetailDescription>
-                    Reiki is a scientific and research-proven technique to get rid of anxiety & depression through our body’s natural healing ability.
+                    {reiki?.expectations}
                 </DetailDescription>
             </DetailsContainer>
 

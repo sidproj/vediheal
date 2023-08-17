@@ -8,10 +8,11 @@ import { useNavigate } from "react-router"
 import { useRecoilState } from "recoil"
 import { AppointmentModalAtom } from "../Recoil/appintmentModal"
 import AppointmentModal from "../components/appointmentModal"
-import { userAtom } from "../Recoil/user"
-import { previousAppointmentsAtom } from "../Recoil/previousAppointments"
-import config from "../config.json";
-import { useEffect, useState } from "react"
+import { instructorAtom } from "../Recoil/instructor"
+import { instructorUpcomingAppointmentsAtom } from "../Recoil/instructorUpcomingAppointments"
+import { useState } from "react";
+import configs from "../config.json";
+import { instructorPreviousAppointmentsAtom } from "../Recoil/instructorPreviousAppointments"
 
 const AppointmentsContainer = styled.div`
     display:flex;
@@ -39,17 +40,18 @@ const CaptionName = styled.div`
     column-gap:1rem;
 `
 
-const PreviousAppointment = ()=>{
+const InstructorPreviousAppointment = ()=>{
 
     // fetch api call to previous appointmetns of user and  
     // save it in recoil state
     // if none display something
-
+    
     const [loading,setLoading] = useState(false);
 
-    const [user,setUser] = useRecoilState(userAtom);
-    const [appointments,setAppointments] = useRecoilState(previousAppointmentsAtom);
+    const [instructor,setInsturctor] = useRecoilState(instructorAtom);
     const [appointmentModal,setAppointmentModal] = useRecoilState(AppointmentModalAtom);
+    const [appointments,setAppointments] = useRecoilState(instructorPreviousAppointmentsAtom);
+
 
     const navigate = useNavigate();
 
@@ -59,31 +61,26 @@ const PreviousAppointment = ()=>{
 
     const getAppointments = async ()=>{
         setLoading(true);
-        const url = config.SERVER_URL+"/appointment/user/previous";
+        const url = configs.SERVER_URL+"/appointment/instructor";
         const options = {
-            method:"POST",
+            method: "POST",
             body: JSON.stringify({
-                jwt:user?.jwt,
+                jwt:instructor?.jwt,
+                is_completed:true,
             }),
             headers: {
               "Content-Type": "application/json",
             },
         }
-
-        const repsonse = await fetch(url,options);
-        const data = await repsonse.json();
-        setAppointments(data);
+        console.log(options);
+        const response = await fetch(url,options);
+        const data = await response.json();
+        if(!data.error){
+            setAppointments(data);
+            setLoading(false);
+        }
         setLoading(false);
     }
-
-    const refresh = ()=>{
-        getAppointments();
-    }
-
-    useEffect(()=>{
-        if(!user)navigate("/login");
-        if(appointments==null)getAppointments();
-    },[]);
 
     return(
         <>
@@ -93,13 +90,13 @@ const PreviousAppointment = ()=>{
             <Header/>
             <AppointmentTitle>
                 <FontAwesomeIcon icon={faArrowLeft} onClick={goback}/>
-                <CaptionName><div>Past Appointments</div><FontAwesomeIcon icon={faRefresh} onClick={refresh}/></CaptionName>
+                <CaptionName><div>Previous Appointments</div><FontAwesomeIcon icon={faRefresh} onClick={getAppointments} /></CaptionName>
             </AppointmentTitle>
             <AppointmentsContainer>
                 {
-                    !loading &&
+                    !loading && 
                     appointments?.map((appointment,index)=>{
-                        return <Appointment key={index} data={appointment}/>
+                            return <Appointment key={index} data={appointment}/>
                     })
                 }
             </AppointmentsContainer>
@@ -108,4 +105,4 @@ const PreviousAppointment = ()=>{
     )
 }
 
-export default PreviousAppointment;
+export default InstructorPreviousAppointment;

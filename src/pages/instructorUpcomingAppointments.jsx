@@ -2,16 +2,16 @@ import { styled } from "styled-components";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import Appointment from "../components/appointment";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { faArrowLeft, faRefresh } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import AppointmentModal from "../components/appointmentModal";
 import { useRecoilState } from "recoil";
 import { AppointmentModalAtom } from "../Recoil/appintmentModal";
-import { upcomingAppointmentsAtom } from "../Recoil/upcomingAppointments";
+import { instructorAtom } from "../Recoil/instructor";
 import { useEffect, useState } from "react";
-import config from "../config.json";
-import { userAtom } from "../Recoil/user";
+import configs from "../config.json";
+import { instructorUpcomingAppointmentsAtom } from "../Recoil/instructorUpcomingAppointments";
+import InstructorAppointmentModal from "../components/instructorAppointmentModal";
 
 const AppointmentsContainer = styled.div`
     display:flex;
@@ -19,15 +19,6 @@ const AppointmentsContainer = styled.div`
     padding:1em;
     justify-content:center;
     row-gap:1em;
-`
-
-const LinkButton = styled.div`
-    font-size:1.2em;
-    padding:1em;
-    border-radius:2rem;
-    background-color:#ff4d4d;
-    color:white;
-    text-align:center;
 `
 
 const AppointmentTitle = styled.div`
@@ -48,16 +39,16 @@ const CaptionName = styled.div`
     column-gap:1rem;
 `
 
-const UpcomingAppointments = ()=>{
+const InstructorUpcomingAppointments = ()=>{
 
-    // fetch api call to previous appointmetns of user and  
+    // fetch api call to previous appointmetns of instructor and  
     // save it in recoil state
     // if none display something
-
+    
     const [loading,setLoading] = useState(false);
 
-    const [user,setUser] = useRecoilState(userAtom);
-    const [appointments,setAppointments] = useRecoilState(upcomingAppointmentsAtom);
+    const [instructor,setInstructor] = useRecoilState(instructorAtom);
+    const [appointments,setAppointments] = useRecoilState(instructorUpcomingAppointmentsAtom);
     const [appointmentModal,setAppointmentModal] = useRecoilState(AppointmentModalAtom);
 
     const navigate = useNavigate();
@@ -66,19 +57,19 @@ const UpcomingAppointments = ()=>{
         navigate(-1);
     }
 
-    const getAppointments = async()=>{
+    const getAppointments = async ()=>{
         setLoading(true);
-        const url = config.SERVER_URL+"/appointment/user/upcoming";
+        const url = configs.SERVER_URL+"/appointment/instructor";
         const options = {
             method: "POST",
             body: JSON.stringify({
-                jwt:user?.jwt,
+                jwt:instructor?.jwt,
+                is_completed:false,
             }),
             headers: {
               "Content-Type": "application/json",
             },
         }
-
         const response = await fetch(url,options);
         const data = await response.json();
         if(!data.error){
@@ -87,12 +78,8 @@ const UpcomingAppointments = ()=>{
         }
     }
 
-    const refresh = ()=>{
-        getAppointments();
-    }
-
     useEffect(()=>{
-        if(!user)navigate("/login");
+        if(!instructor)navigate("/instructor/login");
         if(appointments==null)getAppointments();
     },[]);
 
@@ -100,21 +87,19 @@ const UpcomingAppointments = ()=>{
         <>
 
             {
-                appointmentModal && <AppointmentModal/>
+                appointmentModal && <InstructorAppointmentModal/>
             }
 
             <Header/>
             
             <AppointmentTitle>
                 <FontAwesomeIcon icon={faArrowLeft} onClick={goback}/>
-                <CaptionName><div>Upcoming Appointments</div><FontAwesomeIcon icon={faRefresh} onClick={refresh}/></CaptionName>
+                <CaptionName><div>Upcoming Appointments</div><FontAwesomeIcon icon={faRefresh} onClick={getAppointments}/></CaptionName>
             </AppointmentTitle>
 
             <AppointmentsContainer>
-                <Link to="/services"><LinkButton>Book Your Appointment</LinkButton></Link>
-
                 {
-                    !loading && 
+                    !loading &&
                     appointments?.map((appointment,index)=>{
                         return <Appointment key={index} data={appointment}/>
                     })
@@ -125,4 +110,4 @@ const UpcomingAppointments = ()=>{
     )
 }
 
-export default UpcomingAppointments;
+export default InstructorUpcomingAppointments;

@@ -1,9 +1,12 @@
 import { useRecoilState } from "recoil"
 import { styled } from "styled-components"
 import { sidebarAtom } from "../Recoil/sidebar"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faClose } from "@fortawesome/free-solid-svg-icons"
+import { userAtom } from "../Recoil/user"
+import { instructorAtom } from "../Recoil/instructor"
+
 
 const Overlay = styled.div`
     z-index:5;
@@ -41,7 +44,21 @@ const Item = styled.p`
 
 const SideBar = ()=>{
 
+    const navigate = useNavigate();
+
     const [sidebar,setSidebar] = useRecoilState(sidebarAtom);
+    const [user,setUser] = useRecoilState(userAtom);
+    const [insturctor,setInstructor] = useRecoilState(instructorAtom);
+
+    const logoutUser = ()=>{
+        setUser(null);
+        navigate("/");
+    }
+
+    const logoutInstructor = ()=>{
+        setInstructor(null);
+        navigate("/");
+    }
 
     return(
         <>
@@ -52,13 +69,55 @@ const SideBar = ()=>{
                         <FontAwesomeIcon color="white" icon={faClose}/>
                     </Close>
                     <Link to="/"><Item>HOME</Item></Link>
-                    <Link to="/account"><Item>PROFILE</Item></Link>
-                    <Link to="/services"><Item>SERVICES</Item></Link>
-                    <Link to="/upcomingappointment"><Item>UPCOMING APPOINTMENTS</Item></Link>
-                    <Link to="/previousappointment"><Item>PAST APPOINTMENTS</Item></Link>
-                    <Link to="/privacy-policy"><Item>PRIVACY POLICY</Item></Link>
+                    
+                    {
+                        !insturctor && <Link to="/services"><Item>SERVICES</Item></Link>
+                    }
+                    {/* user routes */}
+                    {
+                        user && 
+                        (
+                            <>
+                                <Link to="/account"><Item>PROFILE</Item></Link>
+                                <Link to="/appointment/upcoming"><Item>UPCOMING APPOINTMENTS</Item></Link>
+                                <Link to="/appointment/previous"><Item>PAST APPOINTMENTS</Item></Link>
+                            </>
+                        )
+                    }
+
+                    {/* instructor routes */}
+                    {
+                        insturctor && 
+                        (
+                            <>
+                                <Link to="/instructor/account"><Item>INSTRUCTOR PROFILE</Item></Link>
+                                <Link to="/instructor/appointment/upcoming"><Item>UPCOMING APPOINTMENTS (INSTRUCTOR)</Item></Link>
+                                <Link to="/instructor/appointment/previous"><Item>PREVIOUS APPOINTMENTS (INSTRUCTOR)</Item></Link>
+                            </>
+                        )
+                    }
+                    
+
+                    <Link to="/privacy-policy"><Item>PRIVACY POLICY AND TERMS & CONDITIONS</Item></Link>
+                    <Link to="/contact-us"><Item>CONTACT US</Item></Link>
                     <Link to="/about-us"><Item>ABOUT US</Item></Link>
-                    <Item>LOGOUT</Item>
+
+                    {/* user logout fun */}
+                    {
+                        user && <Item onClick={logoutUser}>LOGOUT</Item>
+                    }
+
+                    {/* instructor logout fun */}
+                    {
+                        insturctor && <Item onClick={logoutInstructor}>LOGOUT</Item>
+                    }
+
+                    {/* if niether user nor insturctor are logged in */}
+                    {
+                        (!user && !insturctor) && <Link to="/login"><Item>LOGIN</Item></Link>
+                    }
+                    
+
                 </Bar>
             </Overlay>
         }

@@ -3,9 +3,10 @@ import Footer from "../components/footer";
 import { styled } from "styled-components";
 import { useEffect, useState } from "react";
 import ChangePasswordModal from "../components/changePasswordModal";
+import InsturctorServiceModal from "../components/instructorServicesModal";
 import { useRecoilState } from "recoil";
+import { instructorAtom } from "../Recoil/instructor";
 import { useNavigate } from "react-router";
-import { userAtom } from "../Recoil/user";
 import configs from "../config.json";
 
 
@@ -15,7 +16,7 @@ const AccountContainer = styled.div`
     flex-direction:column;
     align-items:center;
     justify-content:center;
-    margin-top:3rem;
+    margin-top:0.5rem;
     margin-bottom:2rem;
 `
 
@@ -48,6 +49,22 @@ const TextField = styled.input`
     }
 `
 
+const TextArea = styled.textarea`
+    height:7rem;
+    width:16em;
+    font-size:1em;
+    background-color:#f6f1eb;
+    border-radius:0.5em;
+    border:solid 1px #c5ccd6;
+    padding:0.2em 1em;
+    color:#212529;
+    margin-top:0.5em;
+    font-family: 'Montserrat', sans-serif;
+    &:focus{
+        outline: 0 none;
+    }
+`
+
 const Submit = styled.button`
     width:15em;
     height:2.5em;
@@ -71,22 +88,22 @@ const Field = styled.div`
     justify-content:center;
 `
 
-const UserAccount = ()=>{
+const InstructorAccount = ()=>{
 
-    const [fname,setFname] = useState(""); 
+    const [changePassword,setChangePassword] = useState(false);
+    const [servicesModal,setServicesModal] = useState(false);
+    const [instructor,setInstructor] = useRecoilState(instructorAtom);
+
+    const [fname,setFname] = useState("");
     const [lname,setLname] = useState("");
     const [email,setEmail] = useState("");
     const [phone,setPhone] = useState("");
-
-    // change password modal
-    const [changePassword,setChangePassword] = useState(false);
-    
-    const [user,setUser] = useRecoilState(userAtom);
+    const [description,setDescription] = useState("");
 
     const navigate = useNavigate();
 
-    const handleSubmit = async()=>{
-        const url = configs.SERVER_URL+"/profile/edit/user";
+    const handleSubmit = async ()=>{
+        const url = configs.SERVER_URL+"/profile/edit/instructor";
         const options = {
             method: "POST",
             body: JSON.stringify({
@@ -94,7 +111,8 @@ const UserAccount = ()=>{
                 last_name:lname,
                 phone_no:phone,
                 email:email,
-                jwt:user.jwt,
+                jwt:instructor.jwt,
+                description:description,
             }),
             headers: {
               "Content-Type": "application/json",
@@ -102,18 +120,21 @@ const UserAccount = ()=>{
         }
         const response = await fetch(url,options);
         const data = await response.json();
-        setUser(data);
+        console.log(data);
+        if(!data.error)
+        setInstructor(data);
     }
 
     useEffect(()=>{
-        if(!user) {
-            navigate("/login");
+        if(!instructor){
+            navigate("/instructor/login");
             return;
         }
-        setFname(user.user.first_name);
-        setLname(user.user.last_name);
-        setEmail(user.user.email);
-        setPhone(user.user.phone_no);
+        setFname(instructor.instructor.first_name);
+        setLname(instructor.instructor.last_name);
+        setEmail(instructor.instructor.email);
+        setPhone(instructor.instructor.phone_no);
+        setDescription(instructor.instructor.description);
     },[]);
 
     return(
@@ -121,19 +142,22 @@ const UserAccount = ()=>{
             {
                 changePassword && 
                 <ChangePasswordModal 
-                    jwt={user.jwt} 
+                    jwt={instructor.jwt} 
                     setChangePassword={setChangePassword}
-                    route={"/profile/edit/user/password"}
+                    route={"/profile/edit/instructor/password"}
                 />
+            }
+            {
+                servicesModal && <InsturctorServiceModal setServicesModal={setServicesModal}/>
             }
             <Header/>
                 <AccountContainer>
                     <AccountCard>
-                        <Title>User Account</Title>
+                        <Title>Instructor Account</Title>
                         <Field>
                             <Label>First Name</Label>
                             <TextField 
-                                placeholder="First Name" 
+                                placeholder="First Name"
                                 value={fname}
                                 onChange={(e)=>{setFname(e.target.value)}}
                             />
@@ -161,13 +185,22 @@ const UserAccount = ()=>{
                             <Label>Phone Number</Label>
                             <TextField 
                                 placeholder="Phone Number"
-                                type="number"
                                 value={phone}
                                 onChange={(e)=>{setPhone(e.target.value)}}
                             />
                         </Field>
+
+                        <Field>
+                            <Label>Description</Label>
+                            <TextArea 
+                                placeholder="Description"
+                                value={description}
+                                onChange={(e)=>{setDescription(e.target.value)}}
+                            />
+                        </Field>
                         
                         <Submit onClick={handleSubmit}>Save</Submit>
+                        <Submit onClick={()=>setServicesModal(true)}>Edit Services</Submit>
                         <Submit onClick={()=>setChangePassword(true)}>Change Password</Submit>
 
                     </AccountCard>
@@ -177,4 +210,4 @@ const UserAccount = ()=>{
     );
 }
 
-export default UserAccount;
+export default InstructorAccount;

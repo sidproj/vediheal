@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 
 const FooterContainer = styled.div`
@@ -8,11 +9,15 @@ const FooterContainer = styled.div`
     right:0px;
     text-align:center;
     background-color:#ff4d4d;
-    padding-bottom:1rem;
+    padding-bottom:1.5rem;
     display:flex;
     flex-direction:column;
-    row-gap:0.3rem;
+    row-gap:0.5rem;
     margin-top: auto;
+`
+
+const Text = styled.span`
+    color:#000;
 `
 
 const Footer = ()=>{
@@ -20,10 +25,11 @@ const Footer = ()=>{
         <>
         <FooterContainer>
             <h3>Quick Links</h3>
-            <div>Services</div>
-            <div>About us</div>
-            <div>Privacy Policy</div>
-            <div>Terms and conditions</div>
+            <Link to="/"><Text>Home</Text></Link>
+            <Link to="/services"><Text>Services</Text></Link>
+            <Link to="/about-us"><Text>About us</Text></Link>
+            <Link to="/contact-us"><Text>Contact Us</Text></Link>
+            <Link to="/privacy-policy"><Text>Privacy Policy and Terms & conditions</Text></Link>
         </FooterContainer>
         </>
     );

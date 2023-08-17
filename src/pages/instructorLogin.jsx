@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import configs from "../config.json";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { userAtom } from "../Recoil/user";
+import { instructorAtom } from "../Recoil/instructor";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import ForgotPasswordModal from "../components/forgotPasswordModal";
@@ -92,22 +92,19 @@ const Toggle = styled.div`
     margin-top:-0.7rem;
 `
 
-const Login = ()=>{
-
-    const navigate = useNavigate();
+const InstructorLogin = ()=>{
 
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
-
     const [error,setError] = useState(null);
-
     const [showPassword,setShowPassword] = useState(false);
 
     // forgot password modal
     const [forgotPassword,setForgotPassword] = useState(false);
-    
-    const [user,setUser] = useRecoilState(userAtom);
-    
+
+    const [instructor,setInstructor] = useRecoilState(instructorAtom);
+
+    const navigate = useNavigate();
 
     const handleSubmit = async()=>{
 
@@ -123,15 +120,18 @@ const Login = ()=>{
             return;
         } 
         
-        if(!document.getElementById("agreement").checked){
+        if(!document.getElementById("agreement-insturctor").checked){
             setError({error:"Please tick the checkbox!"});
             return;
         }
 
-        const url = configs.SERVER_URL+"/login/user";
+        const url = configs.SERVER_URL+"/login/instructor";
         const options = {
             method: "POST",
-            body: JSON.stringify({email:email,password:password}),
+            body: JSON.stringify({
+                email:email,
+                password:password,
+            }),
             headers: {
               "Content-Type": "application/json",
             },
@@ -142,8 +142,8 @@ const Login = ()=>{
             setError(data);
         }
         else{
-            setUser(data);
-            navigate(-1);
+            setInstructor(data);
+            navigate("/instructor/appointment/upcoming");
         }
     }
 
@@ -152,7 +152,7 @@ const Login = ()=>{
         {
             forgotPassword &&
             <ForgotPasswordModal
-                route={"/password/userForgot"}
+                route={"/password/instructorForgot"}
                 setForgotPassword={setForgotPassword}
             />
         }
@@ -160,10 +160,10 @@ const Login = ()=>{
         <LoginContainer>
             <LoginCard>
                 
-                <Title>Log In</Title>
+                <Title>Instructor Log In</Title>
                 <SubTitle>
-                    Don't have an account?
-                    <Link to="/register"><Span>Sign Up</Span></Link>
+                    Not an
+                    <Link to="/login"><Span>Instructor?</Span></Link>
                 </SubTitle>
                 
                 <TextField placeholder="Email Address*" value={email} onChange={(e)=>setEmail(e.target.value)}/>
@@ -175,19 +175,17 @@ const Login = ()=>{
                         <FontAwesomeIcon icon={faEye} onClick={()=>setShowPassword(true)}/>
                     }
                 </Toggle>
-                
+
                 {
                     error && <Error>{error.error}</Error>
                 }
-                
+
                 <SubTitle onClick={()=>setForgotPassword(true)}>Forgot your password?</SubTitle>
                 
                 <Tnc>
-                    <CheckBox type="checkbox" id="agreement"/>
+                    <CheckBox type="checkbox" id="agreement-insturctor"/>
                     <p>I agree with VediHeal's<Span>Terms and Conditions</Span> and <Span>Privacy Policy</Span></p>
                 </Tnc>
-
-                
 
                 <Submit onClick={handleSubmit}>Login</Submit>
 
@@ -197,4 +195,4 @@ const Login = ()=>{
     );
 }
 
-export default Login;
+export default InstructorLogin;

@@ -4,7 +4,6 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 const ServiceCard = styled.div`
-    width:21em;
     background-color:#f8cfc1;
     display:flex;
     flex-direction:row;
@@ -15,7 +14,8 @@ const ServiceCard = styled.div`
 `
 
 const Img = styled.img`
-    height:8em;
+    height:8rem;
+    width: 6rem;
     object-fit:contain;
 `
 
@@ -23,6 +23,7 @@ const Details = styled.div`
     display:flex;
     flex-direction:column;
     row-gap:1em;
+    margin-left:0.5rem;
 `
 
 const DetailsTitle = styled.div`
@@ -44,15 +45,15 @@ const Select = styled.div`
 const Service = (props)=>{
     return (
         <ServiceCard>
-            <Img src="https://res.cloudinary.com/dmrzngif8/image/upload/v1675284620/Vediheal/5_wjbzrb.png"/>
+            <Img src={props.data.image}/>
             <Details>
-                <DetailsTitle>Anti Depression Reiki</DetailsTitle>
+                <DetailsTitle>{props.data.name}</DetailsTitle>
                 <DetailsDescription>
-                    Reiki is a scientific and research-proven technique to get rid of anxiety & depression through our body’s natural healing ability.
+                    {props.data.description.substring(0,120)}...
                 </DetailsDescription>
                 
             </Details>
-            <Link to="/servicedetails">
+            <Link to="/servicedetails" state={{reiki:props.data}}>
                 <Select>
                     <FontAwesomeIcon color="black"  icon={faArrowRight} />
                 </Select>

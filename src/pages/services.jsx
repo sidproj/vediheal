@@ -3,8 +3,13 @@ import Footer from "../components/footer";
 import Header from "../components/header";
 import Service from "../components/service";
 import { useNavigate } from "react-router";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faRefresh } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import config from "../config.json";
+import React, { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import { reikiesAtom } from "../Recoil/reikies";
 
 const ServicesContainer = styled.div`
     display:flex;
@@ -29,6 +34,9 @@ const CaptionName = styled.div`
     font-size:1.2rem;
     font-weight:500;
     align-self:center;
+    display:flex;
+    flex-direction:row;
+    column-gap:1rem;
 `
 
 const Services = ()=>{
@@ -39,23 +47,50 @@ const Services = ()=>{
 
     const navigate = useNavigate();
 
+    const [loading,setLoading] = useState(false);
+
+    const [reikies,setReikies] = useRecoilState(reikiesAtom);
+
+
     const goback = ()=>{
         navigate(-1);
     }
 
+    const getReiki = async ()=>{
+        try{
+            setLoading(true);
+            const url = config.SERVER_URL+"/reiki";
+            const response = await fetch(url);
+            const data = await response.json();
+            setReikies(data);
+            setLoading(false);
+        }catch(e){
+            console.log(e);
+        }
+    }
+
+    const refresh = ()=>{
+        getReiki();
+    }
+
+    useEffect(()=>{
+        if(reikies==null)getReiki();
+    },[]);
+
     return(
         <>
             <Header/>
-            <ServicesTitle>
-                <FontAwesomeIcon icon={faArrowLeft} onClick={goback}/>
-                <CaptionName>Reikies</CaptionName>
-            </ServicesTitle>
-            <ServicesContainer>
-                <Service/>
-                <Service/>
-                <Service/>
-                <Service/>
-            </ServicesContainer>
+                <ServicesTitle>
+                    <FontAwesomeIcon icon={faArrowLeft} onClick={goback}/>
+                    <CaptionName><div>Reikies</div><FontAwesomeIcon icon={faRefresh} onClick={refresh}/></CaptionName>
+                </ServicesTitle>
+                <ServicesContainer>
+                    {
+                        !loading && reikies?.map((reiki,index)=>{
+                            return <Service key={index} data={reiki}/>
+                        })
+                    }
+                </ServicesContainer>
             <Footer/>
         </>
     );
