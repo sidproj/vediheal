@@ -1,4 +1,4 @@
 {
-    "SERVER_URL":"http://localhost:5000",
+    "SERVER_URL":"https://vediheal-backend-8mjz3yzr2-vediheal1.vercel.app/",
     "STRIPE_PK":"pk_test_51NNAjOSAZExnf8Z4DwdyPJoZufB7xqrMrMyoYgsToFogi2jClVFE9fVIbanpmfLtxlQGgxM2R4ssJa2cncZJ95UA00MAK8UwHe"
 }
