@@ -1,9 +1,11 @@
 import { styled } from "styled-components";
 import Footer from "../components/footer";
 import Header from "../components/header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import configs from "../config.json";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const AccountContainer = styled.div`
     width:100%;
@@ -90,8 +92,17 @@ const Error = styled.div`
 
 const ContactUs = ()=>{
     
+     // toast
+     const notify = (msg) => {
+        toast.success(msg, {
+            position: toast.POSITION.BOTTOM_CENTER,
+        });
+    };
+
+
     const [name,setName] = useState("");
     const [email,setEmail] = useState("");
+    const [phone,setPhone] = useState("");
     const [message,setMessage] = useState("");
 
     const [error,setError] = useState(null);
@@ -112,6 +123,10 @@ const ContactUs = ()=>{
         }
         if(email.length == 0){
             setError({error:"Please enter email!"});
+            return;
+        }
+        if(phone.length != 10){
+            setError({error:"Please enter valid phone number!"});
             return;
         }
         if(message.length == 0){
@@ -136,8 +151,21 @@ const ContactUs = ()=>{
         }
         const response = await fetch(url,options);
         const data = await response.json();
+        if(data.status){
+            notify("Thank you! We will get back to you!");
+            setName("");
+            setEmail("");
+            setPhone("");
+            setMessage("");
+        }else{
+            setError({error:data.message});
+        }
         console.log(data);
     }
+
+    useEffect(()=>{
+        document.getElementById("root")?.scroll(0,0);
+    },[]);
 
     return(
         <>
@@ -154,6 +182,10 @@ const ContactUs = ()=>{
                         <TextField type="email" value={email} onChange={(e)=>{setEmail(e.target.value)}}/>
                     </Field>
                     <Field>
+                        <Label>Phone</Label>
+                        <TextField type="phone" value={phone} onChange={(e)=>{setPhone(e.target.value)}}/>
+                    </Field>
+                    <Field>
                         <Label>Message</Label>
                         <TextArea value={message} onChange={(e)=>{setMessage(e.target.value)}}/>
                     </Field>
@@ -165,6 +197,7 @@ const ContactUs = ()=>{
                     <Submit onClick={handleSubmit}>Submit</Submit>
                 </AccountCard>
             </AccountContainer>
+            <ToastContainer theme="dark" />
             <Footer/>
         </>
     )

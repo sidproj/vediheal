@@ -6,7 +6,8 @@ import { instructorAtom } from "../Recoil/instructor";
 import { useEffect, useState } from "react";
 import configs from "../config.json";
 import { servicesAtom } from "../Recoil/services";
-import { reikiesAtom } from "../Recoil/reikies";
+import Loading from "./loading";
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 
 const Overlay = styled.div`
     z-index:5;
@@ -86,6 +87,9 @@ const Submit = styled.button`
 const InsturctorServiceModal = (props)=>{
 
     const [loading,setLoading] = useState(false);
+    // for animation on service cards
+    const [animationParent] = useAutoAnimate();
+
 
     const [instructor,setInstructor] = useRecoilState(instructorAtom);
     const [services,setServices] = useRecoilState(servicesAtom);
@@ -125,7 +129,9 @@ const InsturctorServiceModal = (props)=>{
         const response = await fetch(url,options);
         const data = await response.json();
         setServices(data);
-        props.setServicesModal(false)
+        props.notify("Services Updated!");
+        setServices(null);
+        props.setServicesModal(false);
     }
 
     const handleChange = (id,value)=>{
@@ -144,14 +150,15 @@ const InsturctorServiceModal = (props)=>{
 
     return(
         <Overlay>
-            <Container>
+            <Container ref={animationParent}>
                 <TitleRow>
                     <Title>Instructor Services</Title>
-                    <FontAwesomeIcon icon={faClose} onClick={()=>props.setServicesModal(false)}/>
+                    <FontAwesomeIcon icon={faClose} onClick={()=>{setServices(null);props.setServicesModal(false)}}/>
                 </TitleRow>
                 <Hr/>
                 {
-                    !loading && 
+                    loading ?
+                    <Loading/> : 
                     (
                         services?.map((service,index)=>{
                             return (

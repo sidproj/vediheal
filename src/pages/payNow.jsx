@@ -46,7 +46,7 @@ const PayNow=(props)=>{
             <div className="PaymentApp">
                 {clientSecret && (
                 <Elements options={{clientSecret:clientSecret,appearance:appearance}} stripe={stripePromise}>
-                    <StripeCheckoutForm setDisplayGateway={props.setDisplayGateway} setMessage={props.setMessage} data={props.data}/>
+                    <StripeCheckoutForm setDisplayGateway={props.setDisplayGateway} setMessage={props.setMessage} data={props.data} notify={props.notify}/>
                 </Elements>
                 )}
             </div>

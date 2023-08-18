@@ -10,7 +10,10 @@ import DateTimeModal from "../components/dateTimeModal";
 import PayNow from "./payNow";
 import { useRecoilState } from "recoil";
 import { userAtom } from "../Recoil/user";
-import { Link } from "react-router-dom";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+
 
 const NavigateBack = styled.div`
     margin:1.5rem;
@@ -135,6 +138,13 @@ const Message = styled.div`
 
 const ConfirmBooking = ()=>{
 
+    // toast
+    const notify = (msg) => {
+        toast.success(msg, {
+            position: toast.POSITION.BOTTOM_CENTER,
+        });
+    };
+
     const navigate = useNavigate();
     const location = useLocation();
     const reiki =location.state;
@@ -148,6 +158,7 @@ const ConfirmBooking = ()=>{
 
     const [bookingData,setBookingData] = useState(null);
     const [dateTime,setDateTime]= useState(null);
+
     const ref = useRef();
     ref.dateTime = dateTime;
     
@@ -171,10 +182,14 @@ const ConfirmBooking = ()=>{
 
     const handlePayBtn = ()=>{
         setError(null);
-        if(!dateTime){
-            setError({error:"Please selected date and time!"});
-            return;
+        
+        for(let key in dateTime){
+            if(dateTime[key] == null){
+                setError({error:"Please selected date and time for all sessions!"});
+                return;
+            }
         }
+
         setDisplayGateway(true);
     }
 
@@ -187,21 +202,57 @@ const ConfirmBooking = ()=>{
             navigate("/");
             return;
         }
+        const dataTimeData={};
+        for(let i=1;i<=reiki?.sessionCount;i++){
+            dataTimeData[i] = null;
+        }
+        setDateTime(dataTimeData);
+        document.getElementById("root")?.scroll(0,0);
     },[]);
 
     useEffect(()=>{
         setBookingData({
             jwt:user.jwt,
             reiki:reiki._id,
-            start_time:ref.dateTime,
+            dateTime:ref.dateTime,
             price:reiki?.finalAmt,     
-        });
+            count:reiki?.sessionCount,
+        });        
     },[dateTime]);
+
+    const displayTimeSelector = ()=>{
+        const selectors=[];
+        for(let i=1;i<=reiki?.sessionCount;i++){
+
+            selectors.push(
+            <AppointmentForm>
+                <TimeSelector onClick={()=>setDateTimeModal(i)}>
+                    <WatchIcon src={watch}/>
+                    <div>Select Date for session {i}</div>
+                </TimeSelector>
+                <PriceDetails>
+                    <TimeDetails>Selected Date:</TimeDetails> 
+                    <TimeDetails>{getDate(dateTime[i]) || "No Selected"}</TimeDetails>
+                </PriceDetails>
+                <PriceDetails>
+                    <TimeDetails>Selected Time:</TimeDetails> 
+                    <TimeDetails>{getTime(dateTime[i]) || "No Selected"}</TimeDetails>
+                </PriceDetails>
+            </AppointmentForm>
+            );
+        }
+        return selectors;
+    }
 
     return(
         <>
             {
-                dateTimeModal && <DateTimeModal setDateTimeModal={setDateTimeModal} setDateTime={setDateTime}/>
+                dateTimeModal && 
+                <DateTimeModal
+                    setDateTimeModal={setDateTimeModal} 
+                    setDateTime={setDateTime}
+                    forSession={dateTimeModal}
+                />
             }
             <Header/>
             <NavigateBack>
@@ -215,19 +266,11 @@ const ConfirmBooking = ()=>{
                 <ReikiDuration>( 30-45 mins )</ReikiDuration>
             </ReikiBanner>
 
+            {
+                dateTime!=null ? displayTimeSelector() : <></>
+            }
+
             <AppointmentForm>
-                <TimeSelector onClick={()=>setDateTimeModal(true)}>
-                    <WatchIcon src={watch}/>
-                    <div>Select Appointment Date</div>
-                </TimeSelector>
-                <PriceDetails>
-                    <TimeDetails>Selected Date:</TimeDetails> 
-                    <TimeDetails>{getDate(dateTime) || "No Selected"}</TimeDetails>
-                </PriceDetails>
-                <PriceDetails>
-                    <TimeDetails>Selected Time:</TimeDetails> 
-                    <TimeDetails>{getTime(dateTime) || "No Selected"}</TimeDetails>
-                </PriceDetails>
                 
                 <PaymentContainer>
                     <PaymentTitle>Price Clasification: </PaymentTitle>
@@ -251,21 +294,22 @@ const ConfirmBooking = ()=>{
                 error && <Error>{error.error}</Error>
             }
             
-            { message ?<PayBtn onClick={()=>navigate("/appointment/upcoming")}>Check Appointments</PayBtn> :<PayBtn onClick={handlePayBtn}>Pay Now</PayBtn> }
-
-            {
-                message && <Message>{message}</Message>
+            {   
+                message?
+                <PayBtn onClick={()=>navigate("/appointment/upcoming")}>Visit Appointments</PayBtn>:
+                <PayBtn onClick={handlePayBtn}>Pay Now</PayBtn>
             }
-
 
             {
                 displayGateway && 
                 <PayNow
+                    notify={notify}
                     setDisplayGateway={setDisplayGateway}  
                     setMessage={setMessage}
                     data={bookingData}
                 />
             }
+            <ToastContainer theme="dark" />
             <Footer/>
         </>
     );

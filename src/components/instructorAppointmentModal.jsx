@@ -6,6 +6,7 @@ import { AppointmentModalAtom } from "../Recoil/appintmentModal";
 import configs from "../config.json";
 import { instructorAtom } from "../Recoil/instructor";
 import { instructorUpcomingAppointmentsAtom } from "../Recoil/instructorUpcomingAppointments";
+import { useState } from "react";
 
 const Overlay = styled.div`
     z-index:5;
@@ -75,11 +76,20 @@ const Data = styled.div`
     font-weight:400;
 `
 
-const InstructorAppointmentModal = ()=>{
+
+const Error = styled.div`
+    color:#ff4d4d;
+    text-align:center;
+    margin:1rem;
+`
+
+const InstructorAppointmentModal = (props)=>{
 
     const [appointmentModal,setAppointmentModal] = useRecoilState(AppointmentModalAtom);
     const [appointments,setAppointments] = useRecoilState(instructorUpcomingAppointmentsAtom);
     const [instructor,setInstructor] = useRecoilState(instructorAtom);
+
+    const [error,setError] = useState("");
 
     const getDate = (str)=>{
         const date = new Date(str);
@@ -96,6 +106,13 @@ const InstructorAppointmentModal = ()=>{
     }
 
     const handleSubmit = async()=>{
+        const curDate = new Date();
+        const date = new Date(appointmentModal.start_time);
+        if(curDate < date){
+            setError({error:"Can not complete session before time!"})
+            return;
+        }
+
         const url = configs.SERVER_URL+"/appointment/instructor/complete";
         const options = {
             method: "POST",
@@ -109,9 +126,9 @@ const InstructorAppointmentModal = ()=>{
         }
         const response = await fetch(url,options);
         const data = await response.json();
-        console.log(data);
         if(!data.error){
             setAppointments(data);
+            props.notify("Session completed!");
             setAppointmentModal(null);
         }
     }
@@ -157,6 +174,9 @@ const InstructorAppointmentModal = ()=>{
                     <Data>{appointmentModal.meeting_link || "Pending"}</Data>
                 </DetailRow>
                     
+                {
+                    error && <Error>{error.error}</Error>
+                }
                 <Hr/>
                 <Submit onClick={handleSubmit}>Mark as completed</Submit>
             </Container>

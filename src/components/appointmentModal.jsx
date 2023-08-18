@@ -116,10 +116,13 @@ const AppointmentModal = ()=>{
                     <Title>Time: </Title>
                     <Data>{ getTime(appointmentModal.start_time) } </Data>
                 </DetailRow>
-                <DetailRow>
-                    <Title>Meeting Link: </Title>
-                    <Data>{appointmentModal.meeting_link || "Pending"}</Data>
-                </DetailRow>
+                {
+                    (appointmentModal.is_completed == false ) &&
+                    <DetailRow>
+                        <Title>Meeting Link: </Title>
+                        <Data>{appointmentModal.meeting_link || "Pending"}</Data>
+                    </DetailRow>
+                }
             </Container>
         </Overlay>
     );

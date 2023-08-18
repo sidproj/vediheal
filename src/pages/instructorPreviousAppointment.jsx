@@ -9,10 +9,11 @@ import { useRecoilState } from "recoil"
 import { AppointmentModalAtom } from "../Recoil/appintmentModal"
 import AppointmentModal from "../components/appointmentModal"
 import { instructorAtom } from "../Recoil/instructor"
-import { instructorUpcomingAppointmentsAtom } from "../Recoil/instructorUpcomingAppointments"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import configs from "../config.json";
 import { instructorPreviousAppointmentsAtom } from "../Recoil/instructorPreviousAppointments"
+import Loading from "../components/loading";
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 
 const AppointmentsContainer = styled.div`
     display:flex;
@@ -47,6 +48,8 @@ const InstructorPreviousAppointment = ()=>{
     // if none display something
     
     const [loading,setLoading] = useState(false);
+    // for animation on service cards
+    const [animationParent] = useAutoAnimate();
 
     const [instructor,setInsturctor] = useRecoilState(instructorAtom);
     const [appointmentModal,setAppointmentModal] = useRecoilState(AppointmentModalAtom);
@@ -72,7 +75,6 @@ const InstructorPreviousAppointment = ()=>{
               "Content-Type": "application/json",
             },
         }
-        console.log(options);
         const response = await fetch(url,options);
         const data = await response.json();
         if(!data.error){
@@ -81,6 +83,11 @@ const InstructorPreviousAppointment = ()=>{
         }
         setLoading(false);
     }
+
+    useEffect(()=>{
+        if(!instructor)navigate("/instructor/login");
+        if(appointments == null)getAppointments();
+    },[]);
 
     return(
         <>
@@ -92,9 +99,10 @@ const InstructorPreviousAppointment = ()=>{
                 <FontAwesomeIcon icon={faArrowLeft} onClick={goback}/>
                 <CaptionName><div>Previous Appointments</div><FontAwesomeIcon icon={faRefresh} onClick={getAppointments} /></CaptionName>
             </AppointmentTitle>
-            <AppointmentsContainer>
+            <AppointmentsContainer ref={animationParent}>
                 {
-                    !loading && 
+                    loading ?
+                    <Loading/> :
                     appointments?.map((appointment,index)=>{
                             return <Appointment key={index} data={appointment}/>
                     })

@@ -12,6 +12,8 @@ import { userAtom } from "../Recoil/user"
 import { previousAppointmentsAtom } from "../Recoil/previousAppointments"
 import config from "../config.json";
 import { useEffect, useState } from "react"
+import Loading from "../components/loading"
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 
 const AppointmentsContainer = styled.div`
     display:flex;
@@ -46,6 +48,8 @@ const PreviousAppointment = ()=>{
     // if none display something
 
     const [loading,setLoading] = useState(false);
+    // for animation on service cards
+    const [animationParent] = useAutoAnimate();
 
     const [user,setUser] = useRecoilState(userAtom);
     const [appointments,setAppointments] = useRecoilState(previousAppointmentsAtom);
@@ -95,9 +99,10 @@ const PreviousAppointment = ()=>{
                 <FontAwesomeIcon icon={faArrowLeft} onClick={goback}/>
                 <CaptionName><div>Past Appointments</div><FontAwesomeIcon icon={faRefresh} onClick={refresh}/></CaptionName>
             </AppointmentTitle>
-            <AppointmentsContainer>
+            <AppointmentsContainer ref={animationParent}>
                 {
-                    !loading &&
+                    loading ?
+                    <Loading/> :
                     appointments?.map((appointment,index)=>{
                         return <Appointment key={index} data={appointment}/>
                     })

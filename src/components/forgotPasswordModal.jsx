@@ -129,6 +129,7 @@ const ForgotPasswordModal = (props)=>{
         if(data.error ){
             setError({error:data.error});
         }else{
+            props.notify("New password is sent to the email");
             props.setForgotPassword(false);
         }
     }

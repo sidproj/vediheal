@@ -5,8 +5,7 @@ import { useState } from "react";
 import configs from "../config.json";
 import { useRecoilState } from "recoil";
 import { userAtom } from "../Recoil/user";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import PasswordField from "../components/PasswordField";
 
 const LoginContainer = styled.div`
     width:100%;
@@ -87,12 +86,6 @@ const Error = styled.div`
     text-align:center;
 `
 
-const Toggle = styled.div`
-    align-self:flex-start;
-    margin-left:0.9rem;
-    margin-top:-0.25rem;
-`
-
 const Register = ()=>{
 
     const navigate = useNavigate();
@@ -103,9 +96,6 @@ const Register = ()=>{
     const [phone,setPhone] = useState("");
     const [password,setPassword] = useState("");
     const [cPassword,setCPassword] = useState("");
-
-    const [showPassword,setShowPassword] = useState(false);
-    const [showCPassword,setShowCPassword] = useState(false);
 
     const [error,setError] = useState("");
 
@@ -159,11 +149,11 @@ const Register = ()=>{
             return false;
         }
         if(!document.getElementById("agreement-register").checked){
-            setError({error:"Please tick the checkbox!"});
+            setError({error:"Please agree with terms and conditions to proceed!"});
             return false;
         }
         if(!validateEmail(email)){
-            setError({error:"Please a valid email!"});
+            setError({error:"Please enter a valid email!"});
             return false;
         }
         if(!strongPassword(password)){
@@ -221,23 +211,9 @@ const Register = ()=>{
                     
                     <TextField type="number" placeholder="Phone Number*" value={phone} onChange={(e)=>setPhone(e.target.value)}/>
                     
-                    <TextField type={showPassword ?"text":"password"} placeholder="Password*" value={password} onChange={(e)=>setPassword(e.target.value)}/>
-                    <Toggle>
-                    {
-                        showPassword ? 
-                        <FontAwesomeIcon icon={faEyeSlash} onClick={()=>setShowPassword(false)}/> : 
-                        <FontAwesomeIcon icon={faEye} onClick={()=>setShowPassword(true)}/>
-                    }
-                    </Toggle>
+                    <PasswordField placeholder="Password" value={password} setValue={setPassword}/>
 
-                    <TextField type={showCPassword ?"text":"password"} placeholder="Confirm Password*" value={cPassword} onChange={(e)=>setCPassword(e.target.value)}/>
-                    <Toggle>
-                    {
-                        showCPassword ? 
-                        <FontAwesomeIcon icon={faEyeSlash} onClick={()=>setShowCPassword(false)}/> : 
-                        <FontAwesomeIcon icon={faEye} onClick={()=>setShowCPassword(true)}/>
-                    }
-                    </Toggle>
+                    <PasswordField placeholder="Confirm Password" value={cPassword} setValue={setCPassword}/>
                     {
                         error && <Error>{error.error}</Error>
                     }

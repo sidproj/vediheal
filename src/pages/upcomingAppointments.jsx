@@ -12,6 +12,8 @@ import { upcomingAppointmentsAtom } from "../Recoil/upcomingAppointments";
 import { useEffect, useState } from "react";
 import config from "../config.json";
 import { userAtom } from "../Recoil/user";
+import Loading from "../components/loading";
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 
 const AppointmentsContainer = styled.div`
     display:flex;
@@ -28,6 +30,7 @@ const LinkButton = styled.div`
     background-color:#ff4d4d;
     color:white;
     text-align:center;
+    margin:1rem;
 `
 
 const AppointmentTitle = styled.div`
@@ -55,6 +58,8 @@ const UpcomingAppointments = ()=>{
     // if none display something
 
     const [loading,setLoading] = useState(false);
+    // for animation on service cards
+    const [animationParent] = useAutoAnimate();
 
     const [user,setUser] = useRecoilState(userAtom);
     const [appointments,setAppointments] = useRecoilState(upcomingAppointmentsAtom);
@@ -109,12 +114,13 @@ const UpcomingAppointments = ()=>{
                 <FontAwesomeIcon icon={faArrowLeft} onClick={goback}/>
                 <CaptionName><div>Upcoming Appointments</div><FontAwesomeIcon icon={faRefresh} onClick={refresh}/></CaptionName>
             </AppointmentTitle>
-
-            <AppointmentsContainer>
-                <Link to="/services"><LinkButton>Book Your Appointment</LinkButton></Link>
+            <Link to="/services"><LinkButton>Book Your Appointment</LinkButton></Link>
+            <AppointmentsContainer ref={animationParent}>
+                
 
                 {
-                    !loading && 
+                    loading ?
+                    <Loading/>: 
                     appointments?.map((appointment,index)=>{
                         return <Appointment key={index} data={appointment}/>
                     })

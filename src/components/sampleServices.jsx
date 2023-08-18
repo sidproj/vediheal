@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { reikiesAtom } from "../Recoil/reikies";
 import config from "../config.json";
+import Loading from "./loading";
+
+import { useAutoAnimate } from '@formkit/auto-animate/react'
 
 const ServicesContainer = styled.div`
     display:flex;
@@ -21,6 +24,8 @@ const SampleServices = ()=>{
     // save it in recoil state
     // if none display something
     const [loading,setLoading] = useState(false);
+    // for animation on service cards
+    const [animationParent] = useAutoAnimate();
 
     const [reikies,setReikies] = useRecoilState(reikiesAtom);
 
@@ -46,9 +51,11 @@ const SampleServices = ()=>{
 
     return(
         <>
-            <ServicesContainer>
+            <ServicesContainer ref={animationParent}>
                 {
-                    !loading && reikies?.map((reiki,index)=>{
+                    loading ?
+                    <Loading/> :
+                    reikies?.map((reiki,index)=>{
                         return <Service key={index} data={reiki}/>
                     })
                 }

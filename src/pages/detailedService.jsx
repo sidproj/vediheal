@@ -186,6 +186,7 @@ const DetailedService = (props) => {
 
     const [user,setUser] = useRecoilState(userAtom);
     const [sessionPrice,setSessionPrice] = useState(499);
+    const [sessionCount,setSessionCount] = useState(1);
     const [couponCode,setCouponCode] = useState(null);
     const [discountAmt,setDiscountAmt] = useState(0);
     const [error,setError] = useState(null);
@@ -219,17 +220,24 @@ const DetailedService = (props) => {
 
     const handleConfirmBooking = ()=>{
         if(!user) navigate("/login");
-        else navigate("/confirmbooking",{state:{...reiki,initial:sessionPrice,discount:discountAmt,finalAmt:sessionPrice-discountAmt}});
+        else navigate("/confirmbooking",{state:{...reiki,
+            initial:sessionPrice,
+            discount:discountAmt,
+            finalAmt:sessionPrice-discountAmt,  
+            sessionCount:sessionCount
+        }});
     }
 
-    const handleSesisonChange = (amt)=>{
-        setSessionPrice(amt);
+    const handleSesisonChange = (data,count)=>{
+        setSessionPrice(data);
+        setSessionCount(count);
         setDiscountAmt(0);
         setError(null);
     }
 
     useEffect(()=>{
         if(!location.state) navigate("/services");
+        document.getElementById("root")?.scroll(0,0);
     },[]);
 
     return (
@@ -270,17 +278,17 @@ const DetailedService = (props) => {
                         value={499} 
                         name="session" 
                         checked = {sessionPrice === 499}
-                        onChange = {(e)=>{handleSesisonChange(e.target.value-0)}}
+                        onChange = {(e)=>{handleSesisonChange(e.target.value-0,1)}}
                     />
                 </SingleSession>
                 <SingleSession>
                     <SessionInfo>2 Reiki Session - ₹ 1299</SessionInfo>
                     <RadioInput 
                         type="radio" 
-                        value={1299} 
+                        value={1299}
                         name="session" 
                         checked = {sessionPrice === 1299}
-                        onChange = {(e)=>{handleSesisonChange(e.target.value-0)}}
+                        onChange = {(e)=>{handleSesisonChange(e.target.value-0,2)}}
                     />
                 </SingleSession>
                 <SingleSession>
@@ -290,7 +298,7 @@ const DetailedService = (props) => {
                         value={1749} 
                         name="session" 
                         checked = {sessionPrice === 1749}
-                        onChange = {(e)=>{handleSesisonChange(e.target.value-0)}}
+                        onChange = {(e)=>{handleSesisonChange(e.target.value-0,3)}}
                     />
                 </SingleSession>
             </SessionContainer>

@@ -88,7 +88,9 @@ const Submit = styled.button`
 
 const Error = styled.div`
     color:#ff4d4d;
-    margin-bottom:1rem;
+    margin:0.5rem 2rem 1rem 2rem;
+    text-align:center;
+    
 `
 
 
@@ -104,6 +106,34 @@ const DateTimeModal = (props)=>{
 
     const handleTimeChange = (e)=>{
         setTime(e.target.value);
+    }
+
+    const dateValidation = (date)=>{
+        // check if selected date time is 24 hours after current date time
+        const curDate = Date.now();
+        const hours = (date - curDate) / (1000*60*60);
+        if(hours < 24){
+            setError({error:"Selected date should be 24 hours from now!"});
+            return false;
+        }
+        // check if time is between 10:00 am to 7:00 pm
+
+        const startTime = new Date(date);
+        startTime.setHours(10);
+        startTime.setMinutes(0);
+        startTime.setSeconds(0);
+        const endTime = new Date(date);
+        endTime.setHours(19);
+        endTime.setMinutes(0);
+        endTime.setSeconds(0);
+
+        if( !(startTime <= date && date <= endTime ) ){
+            setError({error:"Selecte time between 10 AM to 7PM"});
+            return false;
+        }
+
+
+        return true;
     }
 
     const handleSubmit = ()=>{
@@ -122,7 +152,18 @@ const DateTimeModal = (props)=>{
 
         finalDate.setHours(hour);
         finalDate.setMinutes(min);
-        props.setDateTime(finalDate);
+
+        if(!dateValidation(finalDate)) return;
+
+        const key = props.forSession;
+        
+        props.setDateTime((oldState)=>{
+            return {
+                ...oldState,
+                [key]:finalDate
+            }
+        });
+
         props.setDateTimeModal(false);
     }
 

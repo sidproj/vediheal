@@ -1,10 +1,9 @@
-import { faClose, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faClose  } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useState } from "react";
 import { styled } from "styled-components";
-import { userAtom } from "../Recoil/user";
 import configs from "../config.json";
+import PasswordField from "./PasswordField";
 
 const Overlay = styled.div`
     z-index:5;
@@ -52,21 +51,6 @@ const Hr = styled.div`
     margin-top:1rem;
 `
 
-const TextField = styled.input`
-    height:2.5rem;
-    width:16em;
-    font-size:1em;
-    background-color:#f6f1eb;
-    border-radius:0.5em;
-    border:solid 1px #c5ccd6;
-    padding:0.2em 1em;
-    color:#212529;
-    margin-top:0.5em;
-    &:focus{
-        outline: 0 none;
-    }
-`
-
 const Submit = styled.button`
     width:15em;
     height:2.5em;
@@ -78,27 +62,24 @@ const Submit = styled.button`
     margin-bottom:1rem;
 `
 
-const Toggle = styled.div`
-    align-self:flex-start;
-    margin-left:2.5rem;
-    margin-top:0.25rem;
-`
 
 const Error = styled.div`
     color:#ff4d4d;
+    margin-top:1rem;
 `
 
 const ChangePasswordModal = (props)=>{
-
-    const [showCurrentPass,setShowCurrentPass] = useState(false);
-    const [showNewPass,setShowNewPass] = useState(false);
-    const [showConfPass,setShowConfPass] = useState(false);
 
     const [oldPassword,setOldPassword] = useState("");
     const [newPassword,setNewPassword] = useState("");
     const [confPassword,setConfPassword] = useState("");
 
     const [error,setError] = useState(null);
+
+    const strongPassword =(str)=>{
+        var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+        return re.test(str);
+    }
 
     const checkError = ()=>{
         if(oldPassword.length == 0){
@@ -111,6 +92,10 @@ const ChangePasswordModal = (props)=>{
         }
         if(confPassword != newPassword){
             setError({error:"Passwords do not match"});
+            return false;
+        }
+        if(!strongPassword(newPassword)){
+            setError({error:"Please choose password with 8 charachters including symbol, letter and number."});
             return false;
         }
         return true;
@@ -136,6 +121,7 @@ const ChangePasswordModal = (props)=>{
         const response = await fetch(url,options);
         const data = await response.json();
         if(data.status == "success"){
+            props.notify("Password changed successfully!");
             props.setChangePassword(false);
         }else{
             setError({error:data.message});
@@ -150,47 +136,13 @@ const ChangePasswordModal = (props)=>{
                     <FontAwesomeIcon icon={faClose} onClick={()=>props.setChangePassword(false)}/>
                 </TitleRow>
                 <Hr/>
-                <TextField 
-                    type={showCurrentPass ?"text":"password"} 
-                    placeholder="Current Password"
-                    value={oldPassword}
-                    onChange={(e)=>{setOldPassword(e.target.value)}}
-                />
-                <Toggle>
-                    {
-                        showCurrentPass ? 
-                        <FontAwesomeIcon icon={faEyeSlash} onClick={()=>setShowCurrentPass(false)}/> : 
-                        <FontAwesomeIcon icon={faEye} onClick={()=>setShowCurrentPass(true)}/>
-                    }
-                </Toggle>
+                
+                <PasswordField placeholder="Current Password" value={oldPassword} setValue={setOldPassword} />
 
-                <TextField 
-                    type={showNewPass ?"text":"password"} 
-                    placeholder="New Password"
-                    value={newPassword}
-                    onChange={(e)=>{setNewPassword(e.target.value)}}
-                />
-                <Toggle>
-                    {
-                        showNewPass ? 
-                        <FontAwesomeIcon icon={faEyeSlash} onClick={()=>setShowNewPass(false)}/> : 
-                        <FontAwesomeIcon icon={faEye} onClick={()=>setShowNewPass(true)}/>
-                    }
-                </Toggle>
+                <PasswordField placeholder="New Password" value={newPassword} setValue={setNewPassword}/>
 
-                <TextField 
-                    type={showConfPass ?"text":"password"} 
-                    placeholder="Confirm New Password"
-                    value={confPassword}
-                    onChange={(e)=>{setConfPassword(e.target.value)}}
-                />
-                <Toggle>
-                    {
-                        showConfPass ? 
-                        <FontAwesomeIcon icon={faEyeSlash} onClick={()=>setShowConfPass(false)}/> : 
-                        <FontAwesomeIcon icon={faEye} onClick={()=>setShowConfPass(true)}/>
-                    }
-                </Toggle>
+                <PasswordField placeholder="Confirm New Password" value={confPassword} setValue={setConfPassword}/>
+
                 {
                     error && <Error>{error.error}</Error>
                 }

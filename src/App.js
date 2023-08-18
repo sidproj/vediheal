@@ -18,13 +18,17 @@ import InstructorLogin from './pages/instructorLogin';
 import InstructorUpcomingAppointments from './pages/instructorUpcomingAppointments';
 import InstructorPreviousAppointment from './pages/instructorPreviousAppointment';
 import ContactUs from './pages/contactUs';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 
 function App() {
 
 
+  // for animation on service cards
+  const [animationParent] = useAutoAnimate();
+
   return (
-    <Router>
-      <SideBar/>
+    <Router >
+      <SideBar ref={animationParent}/>
       <Routes>
         <Route exact path="/" element={<Main/>}/>
         

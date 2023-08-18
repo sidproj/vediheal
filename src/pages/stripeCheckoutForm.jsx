@@ -71,7 +71,7 @@ const StripeCheckoutForm = (props)=>{
                 setMessage("Your payment was not successful, please try again.");
             }else{
                 // fetch call to backend to make booking
-                handleAppointmentBooking();
+                handleAppointmentBooking();                
                 props.setDisplayGateway(false);
                 props.setMessage("Appointment booked successfully!");
             }
@@ -92,6 +92,7 @@ const StripeCheckoutForm = (props)=>{
         };
         const res = await fetch(url, options);
         const body = await res.json();
+        if(!body.error) props.notify("Appointment booked successfully");
     }
 
     const paymentElementOptions = {

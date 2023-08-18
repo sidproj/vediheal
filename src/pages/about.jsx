@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import { useEffect } from "react";
 
 
 const Container = styled.div`
@@ -50,6 +51,11 @@ const RedLarge = styled.span`
 `
 
 const AboutUs = () => {
+  
+    useEffect(()=>{
+      document.getElementById("root")?.scroll(0,0);
+    },[]);
+    
     return (
       <>
         <Header/>

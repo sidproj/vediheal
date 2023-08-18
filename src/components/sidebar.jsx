@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faClose } from "@fortawesome/free-solid-svg-icons"
 import { userAtom } from "../Recoil/user"
-import { instructorAtom } from "../Recoil/instructor"
+import { instructorAtom } from "../Recoil/instructor";
 
 
 const Overlay = styled.div`
@@ -59,6 +59,7 @@ const SideBar = ()=>{
         setInstructor(null);
         navigate("/");
     }
+    
 
     return(
         <>
@@ -68,11 +69,14 @@ const SideBar = ()=>{
                     <Close onClick={()=>setSidebar(false)}>
                         <FontAwesomeIcon color="white" icon={faClose}/>
                     </Close>
-                    <Link to="/"><Item>HOME</Item></Link>
                     
+                    {
+                        !insturctor &&<Link to="/"><Item>HOME</Item></Link>
+                    }
                     {
                         !insturctor && <Link to="/services"><Item>SERVICES</Item></Link>
                     }
+
                     {/* user routes */}
                     {
                         user && 
@@ -90,9 +94,9 @@ const SideBar = ()=>{
                         insturctor && 
                         (
                             <>
-                                <Link to="/instructor/account"><Item>INSTRUCTOR PROFILE</Item></Link>
-                                <Link to="/instructor/appointment/upcoming"><Item>UPCOMING APPOINTMENTS (INSTRUCTOR)</Item></Link>
-                                <Link to="/instructor/appointment/previous"><Item>PREVIOUS APPOINTMENTS (INSTRUCTOR)</Item></Link>
+                                <Link to="/instructor/account"><Item>PROFILE</Item></Link>
+                                <Link to="/instructor/appointment/upcoming"><Item>UPCOMING APPOINTMENTS</Item></Link>
+                                <Link to="/instructor/appointment/previous"><Item>PREVIOUS APPOINTMENTS</Item></Link>
                             </>
                         )
                     }

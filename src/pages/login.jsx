@@ -6,9 +6,11 @@ import configs from "../config.json";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { userAtom } from "../Recoil/user";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import ForgotPasswordModal from "../components/forgotPasswordModal";
+import PasswordField from "../components/PasswordField";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const LoginContainer = styled.div`
     width:100%;
@@ -84,15 +86,18 @@ const Submit = styled.button`
 
 const Error = styled.div`
     color:#ff4d4d;
-`
-
-const Toggle = styled.div`
-    align-self:flex-start;
-    margin-left:0.7rem;
-    margin-top:-0.7rem;
+    align-self:center;
+    text-align:center;
 `
 
 const Login = ()=>{
+
+    // toast
+    const notify = (msg) => {
+        toast.success(msg, {
+            position: toast.POSITION.BOTTOM_CENTER,
+        });
+    };
 
     const navigate = useNavigate();
 
@@ -100,8 +105,6 @@ const Login = ()=>{
     const [password,setPassword] = useState("");
 
     const [error,setError] = useState(null);
-
-    const [showPassword,setShowPassword] = useState(false);
 
     // forgot password modal
     const [forgotPassword,setForgotPassword] = useState(false);
@@ -124,7 +127,7 @@ const Login = ()=>{
         } 
         
         if(!document.getElementById("agreement").checked){
-            setError({error:"Please tick the checkbox!"});
+            setError({error:"Please agree with terms and conditions to proceed!"});
             return;
         }
 
@@ -152,6 +155,7 @@ const Login = ()=>{
         {
             forgotPassword &&
             <ForgotPasswordModal
+                notify={notify}
                 route={"/password/userForgot"}
                 setForgotPassword={setForgotPassword}
             />
@@ -167,14 +171,7 @@ const Login = ()=>{
                 </SubTitle>
                 
                 <TextField placeholder="Email Address*" value={email} onChange={(e)=>setEmail(e.target.value)}/>
-                <TextField placeholder="Password*" type={showPassword ?"text":"password"} value={password} onChange={(e)=>setPassword(e.target.value)}/>
-                <Toggle>
-                    {
-                        showPassword ? 
-                        <FontAwesomeIcon icon={faEyeSlash} onClick={()=>setShowPassword(false)}/> : 
-                        <FontAwesomeIcon icon={faEye} onClick={()=>setShowPassword(true)}/>
-                    }
-                </Toggle>
+                <PasswordField placeholder={"password"} value={password} setValue={setPassword} />
                 
                 {
                     error && <Error>{error.error}</Error>
@@ -192,6 +189,7 @@ const Login = ()=>{
                 <Submit onClick={handleSubmit}>Login</Submit>
 
             </LoginCard>
+            <ToastContainer theme="dark" />
         </LoginContainer>
         </>
     );

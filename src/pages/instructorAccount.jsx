@@ -9,6 +9,9 @@ import { instructorAtom } from "../Recoil/instructor";
 import { useNavigate } from "react-router";
 import configs from "../config.json";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+
 
 const AccountContainer = styled.div`
     width:100%;
@@ -88,7 +91,19 @@ const Field = styled.div`
     justify-content:center;
 `
 
+const Error = styled.div`
+    color:#ff4d4d;
+    text-align:center;
+`
+
 const InstructorAccount = ()=>{
+
+    // toast
+    const notify = (msg) => {
+        toast.success(msg, {
+            position: toast.POSITION.BOTTOM_CENTER,
+        });
+    };
 
     const [changePassword,setChangePassword] = useState(false);
     const [servicesModal,setServicesModal] = useState(false);
@@ -99,10 +114,42 @@ const InstructorAccount = ()=>{
     const [email,setEmail] = useState("");
     const [phone,setPhone] = useState("");
     const [description,setDescription] = useState("");
+    
+    const [error,setError] = useState("");
 
     const navigate = useNavigate();
 
+    const validateEmail = (email) => {
+        return String(email)
+          .toLowerCase()
+          .match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+    };
+
     const handleSubmit = async ()=>{
+        setError(null);
+        if(fname.length == 0){
+            setError({error:"Please enter first name!"});
+            return false;
+        }
+        if(lname.length == 0){
+            setError({error:"Please enter last name!"});
+            return false;
+        }
+        if(phone.length != 10){
+            setError({error:"Please enter valid phone number!"});
+            return false;
+        }
+        if(!validateEmail(email)){
+            setError({error:"Please enter a valid email!"});
+            return false;            
+        }
+        if(description.length == 0){
+            setError({error:"Please enter description!"});
+            return false;
+        }
+
         const url = configs.SERVER_URL+"/profile/edit/instructor";
         const options = {
             method: "POST",
@@ -120,9 +167,10 @@ const InstructorAccount = ()=>{
         }
         const response = await fetch(url,options);
         const data = await response.json();
-        console.log(data);
-        if(!data.error)
-        setInstructor(data);
+        if(!data.error){
+            notify("Profite Updated successfully!");
+            setInstructor(data);
+        }
     }
 
     useEffect(()=>{
@@ -142,13 +190,18 @@ const InstructorAccount = ()=>{
             {
                 changePassword && 
                 <ChangePasswordModal 
+                    notify={notify}
                     jwt={instructor.jwt} 
                     setChangePassword={setChangePassword}
                     route={"/profile/edit/instructor/password"}
                 />
             }
             {
-                servicesModal && <InsturctorServiceModal setServicesModal={setServicesModal}/>
+                servicesModal && 
+                <InsturctorServiceModal 
+                    notify={notify}
+                    setServicesModal={setServicesModal}
+                />
             }
             <Header/>
                 <AccountContainer>
@@ -198,6 +251,11 @@ const InstructorAccount = ()=>{
                                 onChange={(e)=>{setDescription(e.target.value)}}
                             />
                         </Field>
+
+                        {
+                            error && <Error>{error.error}</Error>
+                        }
+
                         
                         <Submit onClick={handleSubmit}>Save</Submit>
                         <Submit onClick={()=>setServicesModal(true)}>Edit Services</Submit>
@@ -205,6 +263,7 @@ const InstructorAccount = ()=>{
 
                     </AccountCard>
                 </AccountContainer>
+                <ToastContainer theme="dark" />
             <Footer/>
         </>
     );

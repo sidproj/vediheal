@@ -5,11 +5,12 @@ import Service from "../components/service";
 import { useNavigate } from "react-router";
 import { faArrowLeft, faRefresh } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 import config from "../config.json";
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { reikiesAtom } from "../Recoil/reikies";
+import Loading from "../components/loading";
 
 const ServicesContainer = styled.div`
     display:flex;
@@ -48,6 +49,8 @@ const Services = ()=>{
     const navigate = useNavigate();
 
     const [loading,setLoading] = useState(false);
+    // for animation on service cards
+    const [animationParent] = useAutoAnimate();
 
     const [reikies,setReikies] = useRecoilState(reikiesAtom);
 
@@ -69,12 +72,9 @@ const Services = ()=>{
         }
     }
 
-    const refresh = ()=>{
-        getReiki();
-    }
-
     useEffect(()=>{
         if(reikies==null)getReiki();
+        document.getElementById("root")?.scroll(0,0);
     },[]);
 
     return(
@@ -82,11 +82,11 @@ const Services = ()=>{
             <Header/>
                 <ServicesTitle>
                     <FontAwesomeIcon icon={faArrowLeft} onClick={goback}/>
-                    <CaptionName><div>Reikies</div><FontAwesomeIcon icon={faRefresh} onClick={refresh}/></CaptionName>
+                    <CaptionName>Reikies</CaptionName>
                 </ServicesTitle>
-                <ServicesContainer>
+                <ServicesContainer ref={animationParent}>
                     {
-                        !loading && reikies?.map((reiki,index)=>{
+                        loading ? <Loading/> : reikies?.map((reiki,index)=>{
                             return <Service key={index} data={reiki}/>
                         })
                     }

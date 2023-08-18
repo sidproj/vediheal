@@ -12,6 +12,12 @@ import { useEffect, useState } from "react";
 import configs from "../config.json";
 import { instructorUpcomingAppointmentsAtom } from "../Recoil/instructorUpcomingAppointments";
 import InstructorAppointmentModal from "../components/instructorAppointmentModal";
+import Loading from "../components/loading";
+import { useAutoAnimate } from '@formkit/auto-animate/react';
+
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const AppointmentsContainer = styled.div`
     display:flex;
@@ -41,11 +47,16 @@ const CaptionName = styled.div`
 
 const InstructorUpcomingAppointments = ()=>{
 
-    // fetch api call to previous appointmetns of instructor and  
-    // save it in recoil state
-    // if none display something
+    // toast
+    const notify = (msg) => {
+        toast.success(msg, {
+            position: toast.POSITION.BOTTOM_CENTER,
+        });
+    };
     
     const [loading,setLoading] = useState(false);
+    // for animation on service cards
+    const [animationParent] = useAutoAnimate();
 
     const [instructor,setInstructor] = useRecoilState(instructorAtom);
     const [appointments,setAppointments] = useRecoilState(instructorUpcomingAppointmentsAtom);
@@ -87,7 +98,7 @@ const InstructorUpcomingAppointments = ()=>{
         <>
 
             {
-                appointmentModal && <InstructorAppointmentModal/>
+                appointmentModal && <InstructorAppointmentModal notify={notify}/>
             }
 
             <Header/>
@@ -97,14 +108,16 @@ const InstructorUpcomingAppointments = ()=>{
                 <CaptionName><div>Upcoming Appointments</div><FontAwesomeIcon icon={faRefresh} onClick={getAppointments}/></CaptionName>
             </AppointmentTitle>
 
-            <AppointmentsContainer>
+            <AppointmentsContainer ref={animationParent}>
                 {
-                    !loading &&
+                    loading ?
+                    <Loading/> :
                     appointments?.map((appointment,index)=>{
                         return <Appointment key={index} data={appointment}/>
                     })
                 }
             </AppointmentsContainer>
+            <ToastContainer theme="dark"/>
             <Footer/>
         </>
     )

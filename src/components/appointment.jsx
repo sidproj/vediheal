@@ -67,7 +67,7 @@ const Appointment = (props)=>{
                     Date : {getDate(data.start_time)}
                 </DetailsDescription>
                 {
-                    data.meeting_link && (
+                    (data.is_completed==false && data.meeting_link) && (
                         <DetailsDescription>
                             <a href={data.meeting_link} target="_blank"> Meeting Link</a>
                         </DetailsDescription>

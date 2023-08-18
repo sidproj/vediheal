@@ -49,7 +49,7 @@ const Service = (props)=>{
             <Details>
                 <DetailsTitle>{props.data.name}</DetailsTitle>
                 <DetailsDescription>
-                    {props.data.description.substring(0,120)}...
+                    {props.data.description.substring(0,100)}...
                 </DetailsDescription>
                 
             </Details>
