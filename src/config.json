@@ -1,4 +1,4 @@
 {
-    "SERVER_URL":"http://192.168.1.12:5000",
+    "SERVER_URL":"https://vediheal-backend-alpha.vercel.app/",
     "STRIPE_PK":"pk_test_51NNAjOSAZExnf8Z4DwdyPJoZufB7xqrMrMyoYgsToFogi2jClVFE9fVIbanpmfLtxlQGgxM2R4ssJa2cncZJ95UA00MAK8UwHe"
 }
