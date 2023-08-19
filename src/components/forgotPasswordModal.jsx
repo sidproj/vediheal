@@ -78,11 +78,6 @@ const Submit = styled.button`
     margin-bottom:1rem;
 `
 
-const Toggle = styled.div`
-    align-self:flex-start;
-    margin-left:2.5rem;
-    margin-top:0.25rem;
-`
 
 const Error = styled.div`
     color:#ff4d4d;

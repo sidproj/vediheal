@@ -3,6 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRecoilState } from "recoil";
 import { styled } from "styled-components";
 import { AppointmentModalAtom } from "../Recoil/appintmentModal";
+import { userAtom } from "../Recoil/user";
+import { useEffect, useRef, useState } from "react";
+import configs from "../config.json";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const Overlay = styled.div`
     z-index:5;
@@ -46,6 +52,7 @@ const Hr = styled.div`
     height:0.1rem;
     background-color:#eaeaea;
     margin-bottom:1rem;
+    margin-top:0.5rem;
 `
 
 const DetailRow = styled.div`
@@ -61,10 +68,70 @@ const Data = styled.div`
     font-size:0.75rem;
     font-weight:400;
 `
+const Submit = styled.button`
+    width:15em;
+    height:2.5em;
+    background-color:#ff4d4d;
+    color:white;
+    font-size:1em;
+    border:none;
+    border-radius:0.5em;
+    margin-bottom:0.5rem;
+    margin-top:0.5rem;
+`
+
+const TextField = styled.input`
+    height:2.5rem;
+    width:16em;
+    font-size:1em;
+    background-color:#f6f1eb;
+    border-radius:0.5em;
+    border:solid 1px #c5ccd6;
+    padding:0.2em 1em;
+    color:#212529;
+    margin-top:0.5em;
+    &:focus{
+        outline: 0 none;
+    }
+`
+const TextArea = styled.textarea`
+    height:7rem;
+    width:16em;
+    font-size:1em;
+    background-color:#f6f1eb;
+    border-radius:0.5em;
+    border:solid 1px #c5ccd6;
+    padding:0.2em 1em;
+    color:#212529;
+    margin-top:0.5em;
+    font-family: 'Montserrat', sans-serif;
+    &:focus{
+        outline: 0 none;
+    }
+`
+const Error = styled.div`
+    color:#ff4d4d;
+    margin:1rem;
+    text-align:center;
+`
 
 const AppointmentModal = ()=>{
 
+    // toast
+    const notify = (msg) => {
+        toast.success(msg, {
+            position: toast.POSITION.BOTTOM_CENTER,
+        });
+    };
+
     const [appointmentModal,setAppointmentModal] = useRecoilState(AppointmentModalAtom);
+    const ref = useRef();
+    ref.appointmentModal = appointmentModal;
+    const [user,setUser] = useRecoilState(userAtom);
+
+    const [star,setStar] = useState(null);
+    const [feedback,setFeedback] = useState("");
+    const [error,setError] = useState(null);
 
     const getDate = (str)=>{
         const date = new Date(str);
@@ -80,7 +147,80 @@ const AppointmentModal = ()=>{
         return (hour+" : "+min);
     }
 
+    const handleFeedback = async()=>{
+        if( !(1<=star && star<=5)){
+            setError({error:"Please enter valid rating(1-5)!"});
+            return;
+        }
+        if(feedback.length < 5){
+            setError({error:"Feedback should have at least 5 charachters!"})
+            return;
+        }
+        const url = configs.SERVER_URL+"/review";
+        const options = {
+            method: "POST",
+            body: JSON.stringify({
+                appointment_id:appointmentModal._id,
+                rating:star,
+                feedback:feedback,
+                jwt:user.jwt,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+        }
+        const response = await fetch(url,options);
+        const data = await response.json();
+        if(data.status == "success"){
+            notify("Feedback submited successfully!");
+            setAppointmentModal((oldState)=>{
+                return{
+                    ...oldState,
+                    feedback:data.feedback,
+                }
+            });
+        }
+        console.log(data);
+        console.log(appointmentModal);
+    }
+
+    const showFeedbackForm = ()=>{
+        return(
+            <>
+                <Hr/>
+                <Title>Session Feedback</Title>
+                <TextField
+                    placeholder="Rating (out of 5)"
+                    type="number"
+                    value={star}
+                    onChange={(e)=>setStar(e.target.value)}
+                />
+                <TextArea 
+                    placeholder="feedback"
+                    value={feedback} 
+                    onChange={(e)=>setFeedback(e.target.value)}
+                />
+                {
+                    error && <Error>{error.error}</Error>
+                }
+                {
+                    (ref.appointmentModal.feedback==null) && <Submit onClick={handleFeedback}>Submit Feedback</Submit>
+                }
+                
+            </>
+        );
+    }
+    
+    useEffect(()=>{
+        if(ref.appointmentModal?.feedback!=null){
+            setStar(appointmentModal.feedback.stars);
+            setFeedback(appointmentModal.feedback.data);
+        }
+    },[]);
+
+
     return (
+        <>
         <Overlay>
             <Container>
                 <TitleRow>
@@ -123,8 +263,14 @@ const AppointmentModal = ()=>{
                         <Data>{appointmentModal.meeting_link || "Pending"}</Data>
                     </DetailRow>
                 }
+                {
+                    (user && appointmentModal.is_completed) && 
+                    showFeedbackForm()
+                }
             </Container>
+            <ToastContainer theme="dark" />
         </Overlay>
+        </>
     );
 }
 
