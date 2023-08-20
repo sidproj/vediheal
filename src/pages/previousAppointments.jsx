@@ -80,10 +80,6 @@ const PreviousAppointment = ()=>{
         setLoading(false);
     }
 
-    const refresh = ()=>{
-        getAppointments();
-    }
-
     useEffect(()=>{
         if(!user)navigate("/login");
         if(appointments==null)getAppointments();
@@ -92,12 +88,12 @@ const PreviousAppointment = ()=>{
     return(
         <>
             {
-                appointmentModal && <AppointmentModal/>
+                appointmentModal && <AppointmentModal getAppointments={getAppointments}/>
             }
             <Header/>
             <AppointmentTitle>
                 <FontAwesomeIcon icon={faArrowLeft} onClick={goback}/>
-                <CaptionName><div>Past Appointments</div><FontAwesomeIcon icon={faRefresh} onClick={refresh}/></CaptionName>
+                <CaptionName><div>Past Appointments</div><FontAwesomeIcon icon={faRefresh} onClick={getAppointments}/></CaptionName>
             </AppointmentTitle>
             <AppointmentsContainer ref={animationParent}>
                 {

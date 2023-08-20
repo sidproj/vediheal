@@ -206,6 +206,7 @@ const AppointmentModal = (props)=>{
                     feedback:data.feedback,
                 }
             });
+            props.getAppointments();
         }
     }
 
