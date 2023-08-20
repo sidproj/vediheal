@@ -92,10 +92,6 @@ const UpcomingAppointments = ()=>{
         }
     }
 
-    const refresh = ()=>{
-        getAppointments();
-    }
-
     useEffect(()=>{
         if(!user)navigate("/login");
         if(appointments==null)getAppointments();
@@ -105,14 +101,14 @@ const UpcomingAppointments = ()=>{
         <>
 
             {
-                appointmentModal && <AppointmentModal/>
+                appointmentModal && <AppointmentModal getAppointments={getAppointments}/>
             }
 
             <Header/>
             
             <AppointmentTitle>
                 <FontAwesomeIcon icon={faArrowLeft} onClick={goback}/>
-                <CaptionName><div>Upcoming Appointments</div><FontAwesomeIcon icon={faRefresh} onClick={refresh}/></CaptionName>
+                <CaptionName><div>Upcoming Appointments</div><FontAwesomeIcon icon={faRefresh} onClick={getAppointments}/></CaptionName>
             </AppointmentTitle>
             <Link to="/services"><LinkButton>Book Your Appointment</LinkButton></Link>
             <AppointmentsContainer ref={animationParent}>

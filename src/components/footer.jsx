@@ -9,7 +9,6 @@ const FooterContainer = styled.div`
     right:0px;
     text-align:center;
     background-color:#ff4d4d;
-    padding-bottom:1.5rem;
     display:flex;
     flex-direction:column;
     row-gap:0.5rem;
@@ -18,6 +17,16 @@ const FooterContainer = styled.div`
 
 const Text = styled.span`
     color:#000;
+`
+
+const BlackRibbon = styled.div`
+    width:100%;
+    padding:0.75rem 1rem;
+    display:flex;
+    flex-direction:column;
+    background-color:#000;
+    color:#fff;
+    font-size:0.9rem;
 `
 
 const Footer = ()=>{
@@ -30,6 +39,7 @@ const Footer = ()=>{
             <Link to="/about-us"><Text>About us</Text></Link>
             <Link to="/contact-us"><Text>Contact Us</Text></Link>
             <Link to="/privacy-policy"><Text>Privacy Policy and Terms & conditions</Text></Link>
+            <BlackRibbon>&copy; 2023 Vediheal India. All rights reserved.</BlackRibbon>
         </FooterContainer>
         </>
     );

@@ -143,6 +143,7 @@ const ContactUs = ()=>{
             body: JSON.stringify({
                 email:email,
                 name:name,
+                phone,phone,
                 message:message,
             }),
             headers: {
@@ -175,19 +176,19 @@ const ContactUs = ()=>{
                     <Title>Contact Us</Title>
                     <Field>
                         <Label>Name</Label>
-                        <TextField value={name} onChange={(e)=>{setName(e.target.value)}}/>
+                        <TextField value={name} placeholder="Name" onChange={(e)=>{setName(e.target.value)}}/>
                     </Field>
                     <Field>
                         <Label>Email</Label>
-                        <TextField type="email" value={email} onChange={(e)=>{setEmail(e.target.value)}}/>
+                        <TextField type="email" placeholder="Email" value={email} onChange={(e)=>{setEmail(e.target.value)}}/>
                     </Field>
                     <Field>
                         <Label>Phone</Label>
-                        <TextField type="phone" value={phone} onChange={(e)=>{setPhone(e.target.value)}}/>
+                        <TextField type="phone" placeholder="Phone" value={phone} onChange={(e)=>{setPhone(e.target.value)}}/>
                     </Field>
                     <Field>
                         <Label>Message</Label>
-                        <TextArea value={message} onChange={(e)=>{setMessage(e.target.value)}}/>
+                        <TextArea value={message} placeholder="Message" onChange={(e)=>{setMessage(e.target.value)}}/>
                     </Field>
 
                     {

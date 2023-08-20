@@ -1,7 +1,7 @@
 import { styled } from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ServiceCard = styled.div`
     background-color:#f8cfc1;
@@ -43,8 +43,11 @@ const Select = styled.div`
 `
 
 const Service = (props)=>{
+
+    const navigate = useNavigate();
+
     return (
-        <ServiceCard>
+        <ServiceCard onClick={()=>navigate("/servicedetails",{state:{reiki:props.data}})}>
             <Img src={props.data.image}/>
             <Details>
                 <DetailsTitle>{props.data.name}</DetailsTitle>

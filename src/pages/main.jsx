@@ -79,7 +79,7 @@ const Main = ()=>{
             problems with ancient vedic solutions.
             </SubText>
 
-            <ButtonRed onClick={()=>setCollapse(!collapse)}>Know More</ButtonRed>
+            <Link><ButtonRed onClick={()=>setCollapse(!collapse)}>Know More</ButtonRed></Link>
 
             <Collapse isOpened={collapse}>
                 <CollapseBenefits/>

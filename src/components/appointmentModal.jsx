@@ -115,7 +115,7 @@ const Error = styled.div`
     text-align:center;
 `
 
-const AppointmentModal = ()=>{
+const AppointmentModal = (props)=>{
 
     // toast
     const notify = (msg) => {
@@ -145,6 +145,33 @@ const AppointmentModal = ()=>{
         if( hour.length == 1) hour = "0"+hour;
         if(min.length == 1) min = "0"+min;
         return (hour+" : "+min);
+    }
+
+    const handleCancellation = async ()=>{
+        const url = configs.SERVER_URL+"/appointment/cancel";
+        const options = {
+            method: "POST",
+            body: JSON.stringify({
+                appointment_id:appointmentModal._id,
+                jwt:user.jwt,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+        }
+        const response = await fetch(url,options);
+        const data = await response.json();
+        if(data.status == "success"){
+            notify("Appointment cancelled.");
+            setAppointmentModal((oldState)=>{
+                return{
+                    ...oldState,
+                    status:data.appointment.status,
+                }
+            });
+            props.getAppointments();
+            setAppointmentModal(null);
+        }
     }
 
     const handleFeedback = async()=>{
@@ -180,8 +207,6 @@ const AppointmentModal = ()=>{
                 }
             });
         }
-        console.log(data);
-        console.log(appointmentModal);
     }
 
     const showFeedbackForm = ()=>{
@@ -258,14 +283,24 @@ const AppointmentModal = ()=>{
                 </DetailRow>
                 {
                     (appointmentModal.is_completed == false ) &&
-                    <DetailRow>
-                        <Title>Meeting Link: </Title>
-                        <Data>{appointmentModal.meeting_link || "Pending"}</Data>
-                    </DetailRow>
+                    <>
+                        <DetailRow>
+                            <Title>Meeting Link: </Title>
+                            <Data>{appointmentModal.meeting_link || "Pending"}</Data>
+                        </DetailRow>
+                        <DetailRow>
+                            <Title>Appointment Status: </Title>
+                            <Data>{ appointmentModal.status || "PLACED" } </Data>
+                        </DetailRow>
+                    </>
                 }
                 {
                     (user && appointmentModal.is_completed) && 
                     showFeedbackForm()
+                }
+                {
+                    (user && !appointmentModal.is_completed && (appointmentModal.status == "PLACED" || !appointmentModal.status)) &&
+                    <Submit onClick={handleCancellation}>Cancel Appointment</Submit>
                 }
             </Container>
             <ToastContainer theme="dark" />
