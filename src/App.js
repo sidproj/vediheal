@@ -18,10 +18,9 @@ import InstructorLogin from './pages/instructorLogin';
 import InstructorUpcomingAppointments from './pages/instructorUpcomingAppointments';
 import InstructorPreviousAppointment from './pages/instructorPreviousAppointment';
 import ContactUs from './pages/contactUs';
+import BadRequest from './pages/badReq';
 
 function App() {
-
-
 
   return (
     <Router >
@@ -53,6 +52,10 @@ function App() {
         <Route exact path="/about-us" element={<AboutUs/>}/>
         <Route exact path="/contact-us" element={<ContactUs/>}/>
         <Route exact path="/privacy-policy" element={<PrivacyPolicy/>}/>
+
+        {/* error path */}
+        <Route exact path="*" element={<BadRequest/>}/>
+        
       </Routes>
     </Router>
   );

@@ -50,6 +50,12 @@ const CaptionName = styled.div`
     flex-direction:row;
     column-gap:1rem;
 `
+const Caption1 = styled.h1`
+  color:#ff4d4d;
+  font-size:1.75rem;
+  font-weight:600;
+  text-align:center;
+`
 
 const UpcomingAppointments = ()=>{
 
@@ -110,6 +116,7 @@ const UpcomingAppointments = ()=>{
                 <FontAwesomeIcon icon={faArrowLeft} onClick={goback}/>
                 <CaptionName><div>Upcoming Appointments</div><FontAwesomeIcon icon={faRefresh} onClick={getAppointments}/></CaptionName>
             </AppointmentTitle>
+            <Caption1>Upcoming Appointments</Caption1>
             <Link to="/services"><LinkButton>Book Your Appointment</LinkButton></Link>
             <AppointmentsContainer ref={animationParent}>
                 

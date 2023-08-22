@@ -25,9 +25,11 @@ const BookReikiTitle = styled.div`
     display:flex;
     flex-direction:row;
     align-items:center;
-    justify-content:space-between;
+    column-gap:1rem;
     width:100%;
     margin: 0 2rem;
+    font-weight:500;
+    /* color:white; */
 `
 
 const ReikiDetailsContainer = styled.div`
@@ -134,9 +136,9 @@ const PriceText = styled.div`
 
 const ConfirmBookingBtn = styled.div`
     background-color:#ff4d4d;
-    color:black;
+    color:white;
     font-size:1.2em;
-    font-weight:300;
+    font-weight:500;
     border:none;
     border-radius:1.75em;
     width:fit-content;
@@ -144,6 +146,7 @@ const ConfirmBookingBtn = styled.div`
     align-self:center;
     margin-bottom:2rem;
     margin-top:1.5rem;
+
 `
 
 const DetailsContainer = styled.div`
@@ -173,6 +176,8 @@ const Error = styled.div`
     color:#ff4d4d;
     align-self:center;
 `
+
+
 
 const DetailedService = (props) => {
 

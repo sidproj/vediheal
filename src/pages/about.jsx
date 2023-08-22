@@ -2,12 +2,15 @@ import { styled } from "styled-components";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import { useEffect } from "react";
+import { useNavigate } from "react-router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 
 const Container = styled.div`
   display:flex;
   flex-direction:column;
-  margin:2rem 2rem;
+  margin:2rem 2rem 0rem 2rem;
   align-items:center;
 `
 
@@ -40,17 +43,30 @@ const Section1 = styled.div`
   padding-top:0rem;
 `
 
-const Red = styled.span`
-  color:#ff4d4d;
-`
-
 const RedLarge = styled.span`
   color:#ff4d4d;
   font-weight:500;
   font-size:1.1rem;
 `
 
+const BookReikiTitle = styled.div`
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    column-gap:1rem;
+    width:100%;
+    margin: 0rem 2rem 1rem 2rem;
+    font-weight:500;
+    font-size:1.1rem;
+`
+
 const AboutUs = () => {
+
+  const navigate = useNavigate();
+
+  const goback = ()=>{
+    navigate(-1);
+  }
   
     useEffect(()=>{
       document.getElementById("root")?.scroll(0,0);
@@ -60,6 +76,10 @@ const AboutUs = () => {
       <>
         <Header/>
         <Container>
+          <BookReikiTitle>
+            <FontAwesomeIcon icon={faArrowLeft} onClick={goback}/>
+            <div>About Us</div>
+          </BookReikiTitle>
           <Caption1>About Us</Caption1>
         </Container>
         <Banner><Caption2>VediHeal</Caption2></Banner>

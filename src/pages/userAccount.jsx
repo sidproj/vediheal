@@ -79,6 +79,13 @@ const Error = styled.div`
     text-align:center;
 `
 
+const Caption1 = styled.h1`
+  color:#ff4d4d;
+  font-size:1.75rem;
+  font-weight:600;
+  text-align:center;
+`
+
 const UserAccount = ()=>{
 
     // toast
@@ -176,7 +183,7 @@ const UserAccount = ()=>{
             <Header/>
                 <AccountContainer>
                     <AccountCard>
-                        <Title>User Account</Title>
+                        <Title><Caption1>User Account</Caption1></Title>
                         <Field>
                             <Label>First Name</Label>
                             <TextField 

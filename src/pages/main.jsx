@@ -2,13 +2,15 @@ import Header from '../components/header';
 import Footer from '../components/footer';
 import BannerCarousel from '../components/bannerCarousel';
 import { styled } from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Collapse } from 'react-collapse';
 import CollapseBenefits from '../components/collapseBenefits';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SampleServices from '../components/sampleServices';
 import FeedbackCarousel from '../components/feedbackCarousel';
 import Socials from '../components/socials';
+import { useRecoilState } from 'recoil';
+import { instructorAtom } from '../Recoil/instructor';
 
 const MainTitle = styled.div`
     text-align:center;
@@ -64,6 +66,14 @@ const Main = ()=>{
 
     const [collapse,setCollapse] = useState(false);
 
+    const [instructor,setInstructor] = useRecoilState(instructorAtom);
+
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+        if(instructor) navigate("/instructor/appointment/upcoming");
+    },[]);
+
     return(
        <>
         <Header/>
@@ -79,7 +89,8 @@ const Main = ()=>{
             problems with ancient vedic solutions.
             </SubText>
 
-            <Link><ButtonRed onClick={()=>setCollapse(!collapse)}>Know More</ButtonRed></Link>
+            {/* <Link><ButtonRed onClick={()=>setCollapse(!collapse)}>Know More</ButtonRed></Link> */}
+            <BoldTitle onClick={()=>setCollapse(!collapse)}>Know <RedSnap>more</RedSnap></BoldTitle>
 
             <Collapse isOpened={collapse}>
                 <CollapseBenefits/>

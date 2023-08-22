@@ -6,6 +6,9 @@ import configs from "../config.json";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router";
 
 const AccountContainer = styled.div`
     width:100%;
@@ -13,7 +16,7 @@ const AccountContainer = styled.div`
     flex-direction:column;
     align-items:center;
     justify-content:center;
-    margin-top:3rem;
+    margin-top:1rem;
     margin-bottom:2rem;
 `
 const Title = styled.div`
@@ -87,6 +90,24 @@ const TextArea = styled.textarea`
 
 const Error = styled.div`
     color:#ff4d4d;
+`
+
+
+const BookReikiTitle = styled.div`
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    column-gap:1rem;
+    width:100%;
+    margin: 1rem 2rem 0rem 2rem;
+    font-weight:500;
+    font-size:1.1rem;
+`
+const Caption1 = styled.h1`
+  color:#ff4d4d;
+  font-size:1.75rem;
+  font-weight:600;
+  text-align:center;
 `
 
 
@@ -168,12 +189,23 @@ const ContactUs = ()=>{
         document.getElementById("root")?.scroll(0,0);
     },[]);
 
+    const navigate = useNavigate();
+
+    const goback = ()=>{
+        navigate(-1);
+    }
+
     return(
         <>
             <Header/>
+            <BookReikiTitle>
+                <FontAwesomeIcon icon={faArrowLeft} onClick={goback}/>
+                <div>Contact Us</div>
+            </BookReikiTitle>
             <AccountContainer>
                 <AccountCard>
-                    <Title>Contact Us</Title>
+                    <Title><Caption1>Contact Us</Caption1></Title>
+                    {/* <Title>Contact Us</Title> */}
                     <Field>
                         <Label>Name</Label>
                         <TextField value={name} placeholder="Name" onChange={(e)=>{setName(e.target.value)}}/>

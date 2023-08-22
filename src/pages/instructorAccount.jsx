@@ -238,6 +238,7 @@ const InstructorAccount = ()=>{
                             <Label>Phone Number</Label>
                             <TextField 
                                 placeholder="Phone Number"
+                                type="number"
                                 value={phone}
                                 onChange={(e)=>{setPhone(e.target.value)}}
                             />

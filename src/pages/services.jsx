@@ -21,12 +21,11 @@ const ServicesContainer = styled.div`
     row-gap: 1em;
 `
 
-
 const ServicesTitle = styled.div`
     display:flex;
     flex-direction:row;
     align-items:center;
-    justify-content:space-between;
+    column-gap:1rem;
     margin:1.5rem;
     margin-bottom:0rem;
 `
@@ -38,6 +37,13 @@ const CaptionName = styled.div`
     display:flex;
     flex-direction:row;
     column-gap:1rem;
+`
+
+const Caption1 = styled.h1`
+  color:#ff4d4d;
+  font-size:1.75rem;
+  font-weight:600;
+  text-align:center;
 `
 
 const Services = ()=>{
@@ -82,8 +88,9 @@ const Services = ()=>{
             <Header/>
                 <ServicesTitle>
                     <FontAwesomeIcon icon={faArrowLeft} onClick={goback}/>
-                    <CaptionName>Reikies</CaptionName>
+                    {/* <CaptionName>Reikies</CaptionName> */}
                 </ServicesTitle>
+                <Caption1>Reikies</Caption1>
                 <ServicesContainer ref={animationParent}>
                     {
                         loading ? <Loading/> : reikies?.map((reiki,index)=>{

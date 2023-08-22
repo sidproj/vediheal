@@ -2,6 +2,9 @@ import { styled } from "styled-components";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import { useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router";
 
 const Container = styled.div`
   display:flex;
@@ -48,7 +51,25 @@ const RedLarge = styled.span`
   font-size:1.1rem;
 `
 
+
+const BookReikiTitle = styled.div`
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    column-gap:1rem;
+    width:100%;
+    margin: 0rem 2rem 1rem 2rem;
+    font-weight:500;
+    font-size:1.1rem;
+`
+
 const PrivacyPolicy = () => {
+
+  const navigate = useNavigate();
+
+  const goback = ()=>{
+    navigate(-1);
+  }
 
   useEffect(()=>{
     document.getElementById("root")?.scroll(0,0);
@@ -58,6 +79,10 @@ const PrivacyPolicy = () => {
     <>
       <Header/>
       <Container>
+        <BookReikiTitle>
+          <FontAwesomeIcon icon={faArrowLeft} onClick={goback}/>
+          <div>Privacy Policy</div>
+        </BookReikiTitle>
         <Caption1>Privacy Policy and Terms & Conditions</Caption1>
         
       </Container>

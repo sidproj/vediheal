@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faClose } from "@fortawesome/free-solid-svg-icons"
 import { userAtom } from "../Recoil/user"
 import { instructorAtom } from "../Recoil/instructor";
+import Footer from "./footer"
 
 
 const Overlay = styled.div`
@@ -21,10 +22,7 @@ const Overlay = styled.div`
 `
 
 const Bar = styled.div`
-    height:100%;
-    width:60%;
-    position:relative;
-    background-color:#ff4d4d;
+    
     padding-left:1rem;
     display:flex;
     flex-direction:column;
@@ -33,13 +31,47 @@ const Bar = styled.div`
 const Close = styled.div`
     position:relative;
     align-self:flex-end;
-    margin:1.5em;
 `
 
 const Item = styled.p`
     color:#fff;
     font-weight:700;
     font-size:0.97em;
+`
+
+
+const Caption2 = styled.div`
+  color:#fff;
+  font-weight:600;
+  font-size:1.3rem;
+`
+
+const Barheading = styled.div`
+    display:flex;
+    flex-direction:row;
+    margin:2rem 1rem 1rem 0rem;
+    align-items:center;
+    justify-content:space-between;
+`
+
+const BlackRibbon = styled.div`
+    padding:0.75rem 1rem;
+    display:flex;
+    flex-direction:column;
+    background-color:#000;
+    color:#fff;
+    font-size:0.9rem;
+`
+
+const BarContainer = styled.div`
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:space-between;
+    height:100%;
+    width:60%;
+    position:relative;
+    background-color:#ff4d4d;
 `
 
 const SideBar = ()=>{
@@ -65,10 +97,15 @@ const SideBar = ()=>{
         <>
         { sidebar && 
             <Overlay onClick={()=>setSidebar(false)}>
+                <BarContainer>
                 <Bar >
-                    <Close onClick={()=>setSidebar(false)}>
-                        <FontAwesomeIcon color="white" icon={faClose}/>
-                    </Close>
+                    <Barheading>
+                        <Caption2>VediHeal</Caption2>
+                        <Close onClick={()=>setSidebar(false)}>
+                            <FontAwesomeIcon color="white" icon={faClose}/>
+                        </Close>
+                    </Barheading>
+                    
                     
                     {
                         !insturctor &&<Link to="/"><Item>HOME</Item></Link>
@@ -121,8 +158,9 @@ const SideBar = ()=>{
                         (!user && !insturctor) && <Link to="/login"><Item>LOGIN</Item></Link>
                     }
                     
-
                 </Bar>
+                <BlackRibbon>&copy; 2023 Vediheal India. All rights reserved.</BlackRibbon>
+                </BarContainer>
             </Overlay>
         }
         </>

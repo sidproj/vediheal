@@ -41,6 +41,13 @@ const CaptionName = styled.div`
     column-gap:1rem;
 `
 
+const Caption1 = styled.h1`
+  color:#ff4d4d;
+  font-size:1.75rem;
+  font-weight:600;
+  text-align:center;
+`
+
 const PreviousAppointment = ()=>{
 
     // fetch api call to previous appointmetns of user and  
@@ -95,6 +102,7 @@ const PreviousAppointment = ()=>{
                 <FontAwesomeIcon icon={faArrowLeft} onClick={goback}/>
                 <CaptionName><div>Past Appointments</div><FontAwesomeIcon icon={faRefresh} onClick={getAppointments}/></CaptionName>
             </AppointmentTitle>
+            <Caption1>Past Appointments</Caption1>
             <AppointmentsContainer ref={animationParent}>
                 {
                     loading ?

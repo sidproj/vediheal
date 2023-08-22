@@ -6,7 +6,7 @@ import banner from "../assets/images/banner.png";
 class BannerCarousel extends Component{
     render(){
         return(
-            <Carousel>
+            <Carousel showThumbs={false}>
                 <div>
                     <img src={banner}/>
                 </div>
