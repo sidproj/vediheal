@@ -64,7 +64,7 @@ const BoldTitle = styled.div`
 
 const Main = ()=>{
 
-    const [collapse,setCollapse] = useState(false);
+    const [collapse,setCollapse] = useState(true);
 
     const [instructor,setInstructor] = useRecoilState(instructorAtom);
 
@@ -90,7 +90,7 @@ const Main = ()=>{
             </SubText>
 
             {/* <Link><ButtonRed onClick={()=>setCollapse(!collapse)}>Know More</ButtonRed></Link> */}
-            <BoldTitle onClick={()=>setCollapse(!collapse)}>Know <RedSnap>more</RedSnap></BoldTitle>
+            <BoldTitle>Know <RedSnap>more</RedSnap></BoldTitle>
 
             <Collapse isOpened={collapse}>
                 <CollapseBenefits/>
@@ -99,9 +99,9 @@ const Main = ()=>{
             <BoldTitle>Our <RedSnap>Services</RedSnap></BoldTitle>
 
             
-            <Link to="/services">
+            {/* <Link to="/services">
                 <ButtonRed onClick={()=>setCollapse(!collapse)}>View All</ButtonRed>
-            </Link>
+            </Link> */}
 
             <SampleServices/>
                         
