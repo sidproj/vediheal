@@ -52,7 +52,11 @@ const Service = (props)=>{
             <Details>
                 <DetailsTitle>{props.data.name}</DetailsTitle>
                 <DetailsDescription>
-                    {props.data.description.substring(0,100)}...
+                    {
+                        props.data.description.length >110 ?
+                        props.data.description.substring(0,110)+"...":
+                        props.data.description
+                    }
                 </DetailsDescription>
                 
             </Details>
