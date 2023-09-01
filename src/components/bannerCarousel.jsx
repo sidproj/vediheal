@@ -2,9 +2,9 @@ import { Component } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; 
 // import banner from "../assets/images/banner.png";
-import banner1 from "../assets/images/banner1.png";
-import banner2 from "../assets/images/banner2.png";
-import banner3 from "../assets/images/banner3.png";
+import banner1 from "../assets/images/banner1-min.png";
+import banner2 from "../assets/images/banner2-min.png";
+import banner3 from "../assets/images/banner3-min.png";
 import { styled } from "styled-components";
 
 const Img = styled.img`
